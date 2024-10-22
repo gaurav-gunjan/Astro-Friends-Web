@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/images/logo/logo.png"
-import { SearchSvg } from "../../assets/svg";
 import AstroMallCard from "../../components/cards/astroMallCard";
-import MyCarousel from '../../components/crousel/itemSlider'
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as EcommerceAction from "../../redux/actions/ecommerceActions.js"
 import { api_urls } from "../../utils/api-urls/index.js";
-import { DeepSearchSpace, IndianRupee } from "../../utils/common-function/index.js";
+import { DeepSearchSpace } from "../../utils/common-function/index.js";
 import TopHeaderSection from "../../components/common/TopHeaderSection.jsx";
 
 const AstroMall = () => {
