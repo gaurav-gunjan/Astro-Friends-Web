@@ -1,0 +1,31 @@
+.carousel-item {
+    padding: 20px; /* Adjust padding as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .carousel-image {
+    border-radius: 50%;
+    border: 4px solid yellow;
+  }
+  
+  .custom-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 52px;
+    height: 52px;
+  }
+  
+  .custom-arrow:hover {
+    background-color: #ff7f50;
+  }
+  
+  .custom-dot-list-style {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
