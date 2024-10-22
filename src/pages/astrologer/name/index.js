@@ -169,7 +169,7 @@ const SingleAstrologer = () => {
                 type: connectionType,
                 onComplete: () => {
                     handleCloseChatIntakeFormModal();
-                    navigate('/chat-with-astrologer');
+                    navigate('/astrologer');
                 }
             }
             console.log("Payload ::: ", payload);

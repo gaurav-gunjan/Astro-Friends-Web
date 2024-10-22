@@ -120,22 +120,20 @@ const Header = () => {
                         <Link to={'/'} ><img className='h-16 max-md:h-10' src={'https://astrofriends.in/public/storage/images/AdminLogo1712034903.png'} /></Link>
 
                         <nav className='flex items-center gap-5 max-lg:hidden'>
-                            <div className='cursor-pointer bg-primary flex items-center gap-1.5 px-3.5 py-2 rounded-full'>
+                            <Link to={'/astrologer'} className='cursor-pointer bg-primary flex items-center gap-1.5 px-3.5 py-2 rounded-full'>
                                 <CallSvg /> <div className='text-white '>Talk To Astrologer</div>
-                            </div>
+                            </Link>
 
-                            <div className='cursor-pointer bg-primary flex items-center gap-1.5 px-3.5 py-2 rounded-full'>
+                            <Link to={'/astrologer'} className='cursor-pointer bg-primary flex items-center gap-1.5 px-3.5 py-2 rounded-full'>
                                 <ChatSvg /> <div className='text-white'>Chat With Astrologer</div>
-                            </div>
+                            </Link>
 
                             <div className='cursor-pointer flex items-center gap-1.5'>
                                 <ProfileSvg />
                                 <div>Sign In</div>
                             </div>
 
-                            <div>
-                                <HamburgerSvg />
-                            </div>
+                            {/* <div><HamburgerSvg /></div> */}
                         </nav>
 
                         <>
