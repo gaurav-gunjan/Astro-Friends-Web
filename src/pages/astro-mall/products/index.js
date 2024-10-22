@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../assets/images/logo/logo.png";
-import AstroMallCard from "../../../components/cards/astroMallCard";
+import AstroMallCard from "../../../components/cards/AstroMallCard";
 import { SearchSvg } from "../../../assets/svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as EcommerceAction from "../../../redux/actions/ecommerceActions.js";
