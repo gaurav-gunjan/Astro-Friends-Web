@@ -75,7 +75,7 @@ const ChatWithAstrologer = () => {
                             <div>Available balance: {IndianRupee(userCustomerDataById?.wallet_balance)}</div>
                         </div>
                         <div className='flex gap-4 flex-wrap'>
-                            <div onClick={() => navigate('/price-list')} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1 cursor-pointer'>Recharge</div>
+                            <div onClick={() => navigate('/recharge')} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1 cursor-pointer'>Recharge</div>
                             {/* <div onClick={openFilterModal} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1  cursor-pointer'>Filter</div>
                             <div onClick={openSortByModal} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1 cursor-pointer'>Sort by</div> */}
                             <div className='border border-primary rounded-md flex items-center max-sm:w-[90vw]'>

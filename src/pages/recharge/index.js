@@ -26,7 +26,7 @@ const Recharge = () => {
 
     return (
         <>
-            <TopHeaderSection title={'Price List'} />
+            <TopHeaderSection title={'Recharge'} />
 
             <section className='px-[100px] py-[50px] max-md:px-[20px]'>
                 <article>
@@ -37,7 +37,7 @@ const Recharge = () => {
 
                     <main className="flex flex-wrap gap-4 mt-6 items-center justify-between">
                         {planData && planData.sort((a, b) => a.amount - b.amount)?.map((value, index) => (
-                            <div key={index} onClick={() => navigate(`/payment-details`, { state: { stateData: value } })} className="flex-15% max-md:bases-50% max-sm:flex-50%">
+                            <div key={index} onClick={() => navigate(`/recharge/payment-details`, { state: { stateData: value } })} className="flex-15% max-md:bases-50% max-sm:flex-50%">
                                 <div className="bg-white border border-gray shadow-lg rounded-xl shadow-gray-300 w-44 items-center  hover:border-yellow-300 hover:shadow-yellow-50">
                                     <div>
                                         <div className="text-center mx-8 h-5  max-md:mx-3 max-xl:mx-3">
