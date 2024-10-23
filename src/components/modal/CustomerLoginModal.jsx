@@ -6,7 +6,7 @@ import OtpInput from 'react-otp-input';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { CrossSvg } from '../../assets/svg';
-import Logo from '../../assets/images/logo/astro-remedy.png';
+import Logo from '../../assets/images/logo/logo.png';
 import LoginImage from '../../assets/images/logo/logo.png';
 import * as AuthActions from '../../redux/actions/authAction';
 
