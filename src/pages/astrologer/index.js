@@ -6,7 +6,7 @@ import { IndianRupee } from '../../utils/common-function';
 import CheckBoxActive from '../../components/button/CheckBoxActive';
 import CheckBoxInactive from '../../components/button/CheckBoxInactive';
 import { countryData, genderData, languageData, offerData, skillData } from '../../utils/dbs';
-import { SearchSvg } from '../../assets/svg';
+import { CallSvg, ChatSvg, SearchSvg } from '../../assets/svg';
 import { api_urls } from '../../utils/api-urls';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import CustomPagination from '../../components/features/CustomPagination';
@@ -46,8 +46,6 @@ const ChatWithAstrologer = () => {
                         </div>
                         <div className='flex gap-4 flex-wrap'>
                             <div onClick={() => navigate('/recharge')} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1 cursor-pointer'>Recharge</div>
-                            {/* <div onClick={openFilterModal} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1  cursor-pointer'>Filter</div>
-                            <div onClick={openSortByModal} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1 cursor-pointer'>Sort by</div> */}
                             <div className='border border-primary rounded-md flex items-center max-sm:w-[90vw]'>
                                 <input type='search' value={search} onChange={(e) => handleSearch(e.target.value)} placeholder='Search...' className='outline-none px-3 py-2 rounded-md max-md:w-[100%]' />
                                 <div className='bg-primary border-primary rounded-e-md h-[100%] flex items-center justify-center p-2 px-3'><SearchSvg w='16' /></div>
@@ -55,29 +53,30 @@ const ChatWithAstrologer = () => {
                         </div>
                     </main>
 
-                    <main className='flex flex-wrap gap-8 justify-around'>
+                    <main className='flex flex-wrap justify-between max-md:justify-center gap-[30px] gap-y-[40px]'>
                         {astrologerData?.astrologer?.map((value, index) => (
-                            <main key={index} onClick={() => navigate(`/astrologer/${value?.astrologerName?.split(' ')[0]?.toLowerCase()}`, { state: { stateData: value } })} className='flex gap-5 p-5 rounded-lg bg-white shadow-md hover:shadow-lg transition cursor-pointer max-sm:basis-[80%] max-lg:basis-[40%]' style={{ boxShadow: "0 0 10px #bdb5b5" }}>
-                                <div className='flex flex-col gap-2'>
-                                    <div><img src={api_urls + value?.profileImage} className='h-[65px] w-[65px] rounded-[50%]' /></div>
-                                    <div className='flex gap-0 text-gray-600'><ReactStars count={5} edit={false} value={Number(value?.rating)} size={20} color2={'#ffd700'} /></div>
-                                    <div className='text-[12px] text-grey'>{value?.follower_count} follower</div>
+                            <div key={index} onClick={() => navigate(`/astrologer/${value?.astrologerName?.split(' ')[0]?.toLowerCase()}`, { state: { stateData: value } })} className='w-[390px] max-md:w-[90vw] flex gap-[20px] rounded-xl p-2 cursor-pointer' style={{ boxShadow: "0 0 10px #bdb5b5" }}>
+                                <div className='w-[130px] relative'>
+                                    <div className='absolute right-2 top-1'><ReactStars count={5} edit={false} value={Number(value?.rating)} size={20} color2={'#ffd700'} /></div>
+                                    <img className='rounded-xl h-[110px] w-full' src={api_urls + value?.profileImage} />
+                                    <div className='h-[90px] flex flex-col justify-center gap-[5px] rounded-xl text-[13px] text-white'>
+                                        <div className='flex items-center gap-2'><div className='bg-primary p-2 rounded-full'><ChatSvg h='12' w='12' /></div> <div className='line-clamp-1 text-black'>{IndianRupee(value?.chat_price)} per min</div></div>
+                                        <div className='flex items-center gap-2'><div className='bg-primary p-2 rounded-full'><CallSvg h='12' w='12' /></div> <div className='line-clamp-1 text-black'>{IndianRupee(value?.call_price)} per min</div></div>
+                                    </div>
                                 </div>
-
-                                <div className='flex flex-col gap-1 text-[15px] text-grey'>
-                                    <div className='text-base text-black'>{value?.astrologerName}</div>
+                                <div className='flex-1 flex flex-col justify-center gap-[15px] rounded-xl p-[15px] relative'>
+                                    <div className='absolute top-1 right-2 text-xs text-white'>{value?.call_status == "online" ? <div className='bg-green-600 px-2 py-0.5 rounded-lg'>Online</div> : <div className='bg-red-600 px-2 py-0.5 rounded-lg'>Offline</div>}</div>
+                                    <div className='line-clamp-1'>{value?.astrologerName}</div>
+                                    <div className='bg-primary rounded-lg px-[10px] py-[5px] text-primary_text_dark line-clamp-1 text-white'>Vastu - Vedic - Prasana</div>
                                     {/* <div>{value?.skill?.length > 0 ? value?.skill?.map(value => value?.skill)?.join(' , ') : 'N/A'}</div> */}
-                                    <div>{value?.language.length > 0 ? value?.language.join(' , ') : "Hindi"}</div>
-                                    <div>Exp: {value?.experience} Years</div>
-                                    <div className='text-primary font-semibold'>{IndianRupee(value?.chat_price)}</div>
+                                    <div>Experience : {value?.experience} Years</div>
+                                    <hr />
+                                    <div className='line-clamp-1'>{value?.language.length > 0 ? value?.language.join(' , ') : "Hindi"}</div>
                                 </div>
-
-                                {value?.chat_status == "online" ? <div className='text-green-500'>Online</div> : <div className='text-red-500'>Offline</div>}
-                                {/* {value?.chat_status == "online" ? <VerifySvg color='green' /> : <VerifySvg color='red' />} */}
-                            </main>
+                            </div>
                         ))}
-
                     </main>
+
                     {astrologerData?.astrologer?.length <= 0 && (
                         <div className="flex justify-center items-center h-32 border-2 border-dashed border-gray-300 bg-gray-100 text-primary text-lg rounded-lg shadow-lg p-4">
                             <p className="text-gray-500">No Record Found</p>

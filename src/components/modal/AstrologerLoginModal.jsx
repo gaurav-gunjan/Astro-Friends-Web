@@ -43,7 +43,7 @@ const AstrologerLoginModal = ({ isOpen, handleCloseModal }) => {
                     <article className="rounded-lg overflow-hidden max-w-4xl w-full">
                         <main className='flex'>
                             <div className='basis-[45%] hidden md:block'>
-                                <img src={LoginImage} className="h-full w-full object-cover" />
+                                <img src={LoginImage} className="h-full w-full object-contain" />
                             </div>
                             <div className='basis-full md:basis-[55%] flex flex-col justify-center p-8'>
                                 <div className='flex justify-center mb-8'>

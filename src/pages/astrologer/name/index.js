@@ -7,20 +7,20 @@ import ReactStars from 'react-stars';
 import { toast } from 'react-toastify';
 import Profile from '../../../assets/images/logo/profile.jpg';
 import RadioButton from '../../../components/button/RadioButton';
-import { CrossSvg, StarSvg, VerifySvg } from '../../../assets/svg';
+import { CallSvg, ChatSvg, CrossSvg, RightArrowHeadSvg, RightArrowSvg, StarSvg, VerifySvg } from '../../../assets/svg';
 import { api_urls } from '../../../utils/api-urls';
 import { DateDifference, IndianRupee, ParseDateTime, YYYYMMDD } from '../../../utils/common-function';
 import * as ChatActions from '../../../redux/actions/chatAction';
 import * as AstrologerActions from '../../../redux/actions/astrologerAction';
 import Swal from 'sweetalert2';
 import DownloadApp from '../../../components/cards/DownloadApp';
+import OnlinePing from '../../../components/cards/OnlinePing';
+import OfflinePing from '../../../components/cards/OfflinePing';
 import { Color } from '../../../assets/colors';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
 import { Autocomplete } from '@react-google-maps/api';
 
 Modal.setAppElement('#root');
-
-const customStyles = { content: { top: '50%', left: '50%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', padding: 0, borderRadius: "5px", minWidth: "400px", maxWidth: "900px", maxHeight: "500px" }, };
 
 const SingleAstrologer = () => {
     const { pathname } = useLocation();
@@ -36,6 +36,7 @@ const SingleAstrologer = () => {
     const reversedAstrologerReviewData = [...astrologerReviewDataById].reverse();
     const { linkedProfileData } = useSelector(state => state?.chatReducer);
     const { userCustomerDataById } = useSelector(state => state?.userReducer);
+    const [isReadMore, setIsReadMore] = useState(false);
 
     //! Call Modal 
     const [callModal, setCallModal] = useState(false);
@@ -194,84 +195,74 @@ const SingleAstrologer = () => {
         <>
             <TopHeaderSection title={astrologerDataById?.astrologerName} />
 
-            <section className='px-[100px] py-7 max-sm:px-[20px]'>
-                <article className='flex flex-col gap-5'>
-                    <main className='border rounded-lg p-6 flex flex-col gap-y-14'>
-                        <main className='flex flex-wrap gap-x-7 gap-y-5'>
-                            <div className='flex flex-col gap-y-4'>
-                                <div><img src={api_urls + astrologerDataById?.profileImage} className='h-52 w-52 rounded-[50%]' /></div>
-                                {/* <div className='flex justify-center'><div className='bg-primary text-white font-semibold py-1 px-5 rounded-md'>Follow</div></div> */}
+            <section className='bg-primary_bg_dark px-[100px] max-lg:px-[20px] pt-[50px] pb-[100px] text-black'>
+                <article className='flex flex-col gap-[50px] text-[15px]'>
+
+                    <main className='flex max-md:flex-col gap-[20px] rounded-xl'>
+                        <div className=''>
+                            <img className='rounded-xl h-[250px] max-md:h-[300px] max-md:w-full w-[250px] border-2 border-primary_text_dark' src={api_urls + astrologerDataById?.profileImage} />
+                        </div>
+
+                        <div className='flex flex-col justify-center gap-[15px] rounded-xl p-[15px]'>
+                            <div className='flex items-center gap-3'>
+                                <div className='line-clamp-1'>{astrologerDataById?.astrologerName}</div>
+                                <div><ReactStars count={5} edit={false} value={Number(astrologerDataById?.rating)} size={20} color2={'#ffd700'} /></div>
                             </div>
+                            <div className='bg-primary text-white rounded-lg px-[10px] py-[5px] line-clamp-1'>{astrologerDataById?.skill?.length > 0 && astrologerDataById?.skill?.map(value => value?.skill)?.join(' , ')}</div>
+                            <div>Experience : {astrologerDataById?.experience} Years</div>
+                            <hr />
+                            <div className='line-clamp-1'>{astrologerDataById?.language?.length > 0 ? astrologerDataById?.language?.join(' , ') : "Hindi"}</div>
+                        </div>
 
-                            <div className='flex flex-col gap-y-3 text-grey text-lg'>
-                                <div className='text-2xl font-semibold text-black flex items-center gap-3'>{astrologerDataById?.astrologerName}</div>
-                                {/* {astrologerDataById?.chat_status == "online" ? <VerifySvg color='green' /> : <VerifySvg color='red' />} */}
-
-                                <div>{astrologerDataById?.skill?.length > 0 && astrologerDataById?.skill?.map(value => value?.skill)?.join(' , ')}</div>
-                                <div>{astrologerDataById?.language?.length > 0 ? astrologerDataById?.language?.join(' , ') : "Hindi"}</div>
-                                <div>Exp: {astrologerDataById?.experience} Years</div>
-                                <div className='text-grey font-semibold'>{IndianRupee(astrologerDataById?.chat_price)}/min</div>
-                                {/* <div className='flex  gap-x-10'>
-                                    <div className='text-grey font-semibold'>22K <span className='font-normal'>mins</span></div>
-                                    <div className='text-grey font-semibold'>9K <span className='font-normal'>mins</span></div>
-                                </div> */}
-
-                                <div className='flex flex-wrap gap-x-3 gap-y-3 mt-4 text-[15px]'>
-                                    <button onClick={async () => {
-                                        if (Number(userCustomerDataById?.wallet_balance) < Number(astrologerDataById?.chat_price) * 5) {
-                                            console.log(Number(userCustomerDataById?.wallet_balance));
-                                            console.log(Number(astrologerDataById?.chat_price) * 5);
-                                            const result = await Swal.fire({
-                                                icon: "warning", title: "Warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000,
-                                                confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey
-                                            });
-                                            console.log('result', result)
-                                            if (result.isConfirmed) {
-                                                navigate('/price-list')
-                                            }
-                                        } else {
-                                            handleOpenChatIntakeFormModal('Chat')
-                                        }
-                                    }} disabled={astrologerDataById?.chat_status != "online"} className={`flex justify-center items-center gap-2 border border-primary text-primary px-24 py-2 rounded-[50px] ${astrologerDataById?.chat_status != "online" && 'cursor-not-allowed'}`}>
-                                        <span>Start Chat</span> <span>{astrologerDataById?.chat_status == "online" ? <VerifySvg color='green' /> : <VerifySvg color='red' />}</span>
-                                    </button>
-
-                                    <button onClick={async () => {
-                                        if (Number(userCustomerDataById?.wallet_balance) < Number(astrologerDataById?.call_price) * 5) {
-                                            console.log(Number(userCustomerDataById?.wallet_balance));
-                                            console.log(Number(astrologerDataById?.call_price) * 5);
-                                            const result = await Swal.fire({
-                                                icon: "warning", title: "Warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000,
-                                                confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey
-                                            });
-                                            console.log('result', result)
-                                            if (result.isConfirmed) {
-                                                navigate('/price-list')
-                                            }
-                                        } else {
-                                            handleOpenChatIntakeFormModal('Call')
-                                        }
-                                    }} disabled={astrologerDataById?.call_status != "online"} className={`flex justify-center items-center gap-2 border border-primary text-primary px-24 py-2 rounded-[50px] ${astrologerDataById?.call_status != "online" && 'cursor-not-allowed'}`}>
-                                        <span>Start Call</span> <span>{astrologerDataById?.call_status == "online" ? <VerifySvg color='green' /> : <VerifySvg color='red' />}</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </main>
-
-                        <div>
-                            <div className='text-center font-semibold text-xl mb-3'>About me</div>
-                            <div className='text-justify text-grey'>{astrologerDataById?.long_bio}</div>
+                        <div className='flex-1 flex flex-col justify-end items-end max-md:items-start gap-[20px] rounded-xl text-[13px]'>
+                            <button onClick={async () => {
+                                if (Number(userCustomerDataById?.wallet_balance) < Number(astrologerDataById?.chat_price) * 5) {
+                                    console.log(Number(userCustomerDataById?.wallet_balance));
+                                    console.log(Number(astrologerDataById?.chat_price) * 5);
+                                    const result = await Swal.fire({
+                                        icon: "warning", title: "Warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000,
+                                        confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey
+                                    });
+                                    console.log('result', result)
+                                    if (result.isConfirmed) {
+                                        navigate('/price-list')
+                                    }
+                                } else {
+                                    handleOpenChatIntakeFormModal('Chat')
+                                }
+                            }} disabled={astrologerDataById?.chat_status != "online"} className={`flex items-center gap-2 bg-primary text-white px-[25px] py-[7px] rounded-xl w-[220px] ${astrologerDataById?.chat_status != "online" && 'cursor-not-allowed'}`}><div className='bg-primary_card_bg_dark p-2 rounded-full'><ChatSvg h='12' w='12' /></div> <div className='line-clamp-1 mr-2'>{IndianRupee(astrologerDataById?.chat_price)} per min</div> <div>{astrologerDataById?.chat_status == "online" ? <OnlinePing /> : <OfflinePing />}</div></button>
+                            <button onClick={async () => {
+                                if (Number(userCustomerDataById?.wallet_balance) < Number(astrologerDataById?.call_price) * 5) {
+                                    console.log(Number(userCustomerDataById?.wallet_balance));
+                                    console.log(Number(astrologerDataById?.call_price) * 5);
+                                    const result = await Swal.fire({
+                                        icon: "warning", title: "Warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000,
+                                        confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey
+                                    });
+                                    console.log('result', result)
+                                    if (result.isConfirmed) {
+                                        navigate('/price-list')
+                                    }
+                                } else {
+                                    handleOpenChatIntakeFormModal('Call')
+                                }
+                            }} disabled={astrologerDataById?.call_status != "online"} className={`flex items-center gap-2 bg-primary text-white px-[25px] py-[7px] rounded-xl w-[220px] ${astrologerDataById?.call_status != "online" && 'cursor-not-allowed'}`}><div className='bg-primary_card_bg_dark p-2 rounded-full'><CallSvg h='12' w='12' /></div> <div className='line-clamp-1 mr-2'>{IndianRupee(astrologerDataById?.call_price)} per min</div> <div>{astrologerDataById?.call_status == "online" ? <OnlinePing /> : <OfflinePing />}</div></button>
                         </div>
                     </main>
 
+                    <main className='flex flex-col gap-[15px]'>
+                        <div className='text-center font-semibold text-xl flex gap-3 items-center justify-center'>About me {isReadMore ? <div onClick={() => setIsReadMore(false)} className='-rotate-90 cursor-pointer'><RightArrowHeadSvg /></div> : <div onClick={() => setIsReadMore(true)} className='rotate-90 cursor-pointer'><RightArrowHeadSvg /></div>}</div>
+                        <div className={`text-justify text-grey tracking-wide ${isReadMore ? '' : 'line-clamp-2'} transition-all duration-500`}>{astrologerDataById?.long_bio}</div>
+                    </main>
+
                     <main className='flex flex-wrap gap-5 items-start'>
-                        <div className='border rounded-lg basis-[100%] max-sm:basis-[100%] p-5'>
+                        {/* <div className='border rounded-lg basis-[100%] max-sm:basis-[100%] p-5'>
                             <div className='font-semibold'>Ratings & Reviews</div>
                             <div className='flex flex-col items-center justify-center gap-2'>
                                 <div className='text-5xl'>{astrologerDataById?.rating?.toFixed(2)}</div>
                                 <ReactStars count={5} edit={false} value={astrologerDataById?.rating} size={24} color2={'#ffd700'} />
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className='flex-grow basis-[100%] max-sm:basis-[100%] flex flex-col gap-5'>
                             <div className='border rounded-lg p-5 flex flex-col gap-4'>
@@ -294,7 +285,7 @@ const SingleAstrologer = () => {
                         </div>
                     </main>
                 </article>
-            </section >
+            </section>
 
             <Modal isOpen={chatIntakeFormModal} className="modal-content" overlayClassName="modal-overlay" closeTimeoutMS={200} >
                 <div className='text-center bg-primary text-white py-2 px-5 font-semibold flex justify-between'>
