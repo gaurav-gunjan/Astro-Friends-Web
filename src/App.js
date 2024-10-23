@@ -124,9 +124,9 @@ const App = () => {
             <Route path='/' element={<LandingPage />} />
 
             {/* Chat */}
-            {localStorage.getItem('user_type') == 'customer' && <Route path='/astrologer' element={<Astrologer />} />}
-            {localStorage.getItem('user_type') == 'customer' && <Route path='/astrologer' element={<Astrologer />} />}
-            {localStorage.getItem('user_type') == 'customer' && <Route path='/astrologer/:name' element={<SingleAstrologer />} />}
+            {/* {localStorage.getItem('user_type') == 'customer' && <Route path='/astrologer' element={<Astrologer />} />} */}
+            <Route path='/astrologer' element={<Astrologer />} />
+            <Route path='/astrologer/:name' element={<SingleAstrologer />} />
             <Route path='/chat/customer-accept-reject' element={<CustomerAcceptReject />} />
             <Route path='/chat/astrologer-accept-reject' element={<AstrologerAcceptReject />} />
             <Route path='/chat' element={<Chat />} />
@@ -152,7 +152,7 @@ const App = () => {
 
             {/* Pages */}
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-and-conditions" element={<TermsOfUse />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
 
           </Routes>
         </Suspense>

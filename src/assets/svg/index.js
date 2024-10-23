@@ -4,7 +4,7 @@ export const ViewSvg = ({ h = '20', w = '20' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill="currentColor" fillRule="evenodd" d="M20.77 12c0-.359-.194-.594-.582-1.066C18.768 9.21 15.636 6 12 6c-3.636 0-6.768 3.21-8.188 4.934c-.388.472-.582.707-.582 1.066c0 .359.194.594.582 1.066C5.232 14.79 8.364 18 12 18c3.636 0 6.768-3.21 8.188-4.934c.388-.472.582-.707.582-1.066M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clipRule="evenodd" /></svg>
         </>
     )
-}
+};
 
 export const EditSvg = ({ h = '20', w = '20' }) => {
     return (
@@ -12,7 +12,7 @@ export const EditSvg = ({ h = '20', w = '20' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill="currentColor" d="M15.891 3.048a3.578 3.578 0 1 1 5.061 5.06l-.892.893L15 3.94zM13.94 5.001L3.94 15a3.1 3.1 0 0 0-.825 1.476L2.02 21.078a.75.75 0 0 0 .904.903l4.601-1.096a3.1 3.1 0 0 0 1.477-.825L19 10.061z" /></svg>
         </>
     )
-}
+};
 
 export const DeleteSvg = ({ h = '20', w = '20' }) => {
     return (
@@ -20,7 +20,7 @@ export const DeleteSvg = ({ h = '20', w = '20' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1" /></svg>
         </>
     )
-}
+};
 
 export const StarSvg = ({ h = '13', w = '13' }) => {
     return (
@@ -28,7 +28,7 @@ export const StarSvg = ({ h = '13', w = '13' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill="currentColor" fillRule="evenodd" d="M12.908 1.581a1 1 0 0 0-1.816 0l-2.87 6.22l-6.801.807a1 1 0 0 0-.562 1.727l5.03 4.65l-1.335 6.72a1 1 0 0 0 1.469 1.067L12 19.426l5.977 3.346a1 1 0 0 0 1.47-1.068l-1.335-6.718l5.029-4.651a1 1 0 0 0-.562-1.727L15.777 7.8z" clipRule="evenodd" /></svg>
         </>
     )
-}
+};
 
 export const VerifySvg = ({ h = '20', w = '20', color = '#000' }) => {
     return (
@@ -36,7 +36,7 @@ export const VerifySvg = ({ h = '20', w = '20', color = '#000' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill={color} d="m23 12l-2.44-2.78l.34-3.68l-3.61-.82l-1.89-3.18L12 3L8.6 1.54L6.71 4.72l-3.61.81l.34 3.68L1 12l2.44 2.78l-.34 3.69l3.61.82l1.89 3.18L12 21l3.4 1.46l1.89-3.18l3.61-.82l-.34-3.68zm-13 5l-4-4l1.41-1.41L10 14.17l6.59-6.59L18 9z" /></svg>
         </>
     )
-}
+};
 
 export const SearchSvg = ({ h = '20', w = '20', color = '#000' }) => {
     return (
@@ -44,7 +44,7 @@ export const SearchSvg = ({ h = '20', w = '20', color = '#000' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39M11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7" /></svg>
         </>
     )
-}
+};
 
 
 export const RupeeSvg = ({ h = '20', w = '20', color = '#000' }) => {
@@ -53,15 +53,20 @@ export const RupeeSvg = ({ h = '20', w = '20', color = '#000' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 15 15"><path fill="currentColor" d="M2.5 8.5V8a.5.5 0 0 0-.325.88zM2 1h11V0H2zm.5 8h3V8h-3zm3-9h-3v1h3zM2.175 8.88l7 6l.65-.76l-7-6zM10 4.5A4.5 4.5 0 0 0 5.5 0v1A3.5 3.5 0 0 1 9 4.5zM5.5 9A4.5 4.5 0 0 0 10 4.5H9A3.5 3.5 0 0 1 5.5 8zM2 5h11V4H2z" /></svg>
         </>
     )
-}
+};
 
 export const CrossSvg = ({ h = '20', w = '20', strokeWidth = '4' }) => {
     return (
         <>
-            <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth={strokeWidth} d="M20 20L4 4m16 0L4 20" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24">
+                <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                    <path d="M5.47 5.47a.75.75 0 0 1 1.06 0l12 12a.75.75 0 1 1-1.06 1.06l-12-12a.75.75 0 0 1 0-1.06" />
+                    <path d="M18.53 5.47a.75.75 0 0 1 0 1.06l-12 12a.75.75 0 0 1-1.06-1.06l12-12a.75.75 0 0 1 1.06 0" />
+                </g>
+            </svg>
         </>
     )
-}
+};
 
 export const PercentSvg = ({ h = '20', w = '20', color = '#000' }) => {
     return (
@@ -69,7 +74,7 @@ export const PercentSvg = ({ h = '20', w = '20', color = '#000' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill="currentColor" d="M7.5 11q-1.45 0-2.475-1.025T4 7.5t1.025-2.475T7.5 4t2.475 1.025T11 7.5T9.975 9.975T7.5 11m0-2q.625 0 1.063-.437T9 7.5t-.437-1.062T7.5 6t-1.062.438T6 7.5t.438 1.063T7.5 9m9 11q-1.45 0-2.475-1.025T13 16.5t1.025-2.475T16.5 13t2.475 1.025T20 16.5t-1.025 2.475T16.5 20m0-2q.625 0 1.063-.437T18 16.5t-.437-1.062T16.5 15t-1.062.438T15 16.5t.438 1.063T16.5 18M5.4 20L4 18.6L18.6 4L20 5.4z" /></svg>
         </>
     )
-}
+};
 
 export const RightArrowSvg = ({ h = '20', w = '20', color = '#000' }) => {
     return (
@@ -77,7 +82,7 @@ export const RightArrowSvg = ({ h = '20', w = '20', color = '#000' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 12 24"><defs><path id="weuiArrowOutlined0" fill="currentColor" d="m7.588 12.43l-1.061 1.06L.748 7.713a.996.996 0 0 1 0-1.413L6.527.52l1.06 1.06l-5.424 5.425z" /></defs><use fillRule="evenodd" href="#weuiArrowOutlined0" transform="rotate(-180 5.02 9.505)" /></svg>
         </>
     )
-}
+};
 
 export const DownArrowHeadSvg = ({ h = '20', w = '20', color = '#000' }) => {
     return (
@@ -85,7 +90,7 @@ export const DownArrowHeadSvg = ({ h = '20', w = '20', color = '#000' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 256 256"><path fill={color} d="m216.49 104.49l-80 80a12 12 0 0 1-17 0l-80-80a12 12 0 0 1 17-17L128 159l71.51-71.52a12 12 0 0 1 17 17Z" /></svg>
         </>
     )
-}
+};
 
 export const HamburgerSvg = ({ h = '24', w = '24', color = '#000' }) => {
     return (
@@ -93,7 +98,7 @@ export const HamburgerSvg = ({ h = '24', w = '24', color = '#000' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill="currentColor" fillRule="evenodd" d="M20.75 7a.75.75 0 0 1-.75.75H4a.75.75 0 0 1 0-1.5h16a.75.75 0 0 1 .75.75m0 5a.75.75 0 0 1-.75.75H4a.75.75 0 0 1 0-1.5h16a.75.75 0 0 1 .75.75m0 5a.75.75 0 0 1-.75.75H4a.75.75 0 0 1 0-1.5h16a.75.75 0 0 1 .75.75" clipRule="evenodd" /></svg>
         </>
     )
-}
+};
 
 export const DownloadSvg = ({ h = '20', w = '20', color = '#667284' }) => {
     return (
@@ -101,7 +106,7 @@ export const DownloadSvg = ({ h = '20', w = '20', color = '#667284' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><g fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path strokeDasharray="14" strokeDashoffset="14" d="M6 19h12"><animate fill="freeze" attributeName="strokeDashoffset" begin="0.5s" dur="0.4s" values="14;0" /></path><path strokeDasharray="18" strokeDashoffset="18" d="M12 4 h2 v6 h2.5 L12 14.5M12 4 h-2 v6 h-2.5 L12 14.5"><animate fill="freeze" attributeName="strokeDashoffset" dur="0.4s" values="18;0" /><animate attributeName="d" calcMode="linear" dur="1.5s" keyTimes="0;0.7;1" repeatCount="indefinite" values="M12 4 h2 v6 h2.5 L12 14.5M12 4 h-2 v6 h-2.5 L12 14.5;M12 4 h2 v3 h2.5 L12 11.5M12 4 h-2 v3 h-2.5 L12 11.5;M12 4 h2 v6 h2.5 L12 14.5M12 4 h-2 v6 h-2.5 L12 14.5" /></path></g></svg>
         </>
     )
-}
+};
 
 
 export const LeftArrowSvg = ({ h = '20', w = '20' }) => {
@@ -110,7 +115,7 @@ export const LeftArrowSvg = ({ h = '20', w = '20' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="m5 12l6-6m-6 6l6 6m-6-6h14" /></svg>
         </>
     )
-}
+};
 
 export const PersonSvg = ({ w = '22', h = '22' }) => {
     return (
@@ -118,7 +123,7 @@ export const PersonSvg = ({ w = '22', h = '22' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" width={w} height={h} viewBox="0 0 24 24"><path fill="currentColor" d="M17.755 14a2.25 2.25 0 0 1 2.248 2.25v.575c0 .894-.32 1.759-.9 2.438c-1.57 1.833-3.957 2.738-7.103 2.738s-5.532-.905-7.098-2.74a3.75 3.75 0 0 1-.898-2.434v-.578A2.25 2.25 0 0 1 6.253 14zm0 1.5H6.252a.75.75 0 0 0-.75.75v.577c0 .535.192 1.053.54 1.46c1.253 1.469 3.22 2.214 5.957 2.214c2.739 0 4.706-.745 5.963-2.213a2.25 2.25 0 0 0 .54-1.463v-.576a.75.75 0 0 0-.748-.749M12 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10m0 1.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7" /></svg>
         </>
     )
-}
+};
 
 export const NotificationSvg = ({ w = 24, h = 24 }) => {
     return (
@@ -142,7 +147,7 @@ export const CartSvg = ({ w = '20', h = '20' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" width={w} height={h} viewBox="0 0 24 24"><path fill="currentColor" d="M17 18a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2M1 2h3.27l.94 2H20a1 1 0 0 1 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1l-.9 1.63l-.03.12a.25.25 0 0 0 .25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1zm6 16a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2m9-7l2.78-5H6.14l2.36 5z" /></svg>
         </>
     )
-}
+};
 
 export const BagSvg = ({ w = '20', h = '20' }) => {
     return (
@@ -150,7 +155,7 @@ export const BagSvg = ({ w = '20', h = '20' }) => {
             <svg xmlns="http://www.w3.org/2000/svg" width={w} height={h} viewBox="0 0 16 16"><path fill="currentColor" fillRule="evenodd" d="M5.174 3h5.652a1.5 1.5 0 0 1 1.49 1.328l.808 7A1.5 1.5 0 0 1 11.634 13H4.366a1.5 1.5 0 0 1-1.49-1.672l.808-7A1.5 1.5 0 0 1 5.174 3m-2.98 1.156A3 3 0 0 1 5.174 1.5h5.652a3 3 0 0 1 2.98 2.656l.808 7a3 3 0 0 1-2.98 3.344H4.366a3 3 0 0 1-2.98-3.344zM5 5.25a.75.75 0 0 1 1.5 0v.25a1.5 1.5 0 1 0 3 0v-.25a.75.75 0 0 1 1.5 0v.25a3 3 0 0 1-6 0z" clipRule="evenodd" /></svg>
         </>
     )
-}
+};
 
 export const RightArrowHeadSvg = ({ w = 24, h = 24 }) => {
     return (

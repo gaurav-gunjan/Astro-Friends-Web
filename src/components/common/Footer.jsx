@@ -1,10 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import AppStore from '../../assets/images/footer/app-store.png';
 import PlayStore from '../../assets/images/footer/google-play.png';
 import { FacebookSvg, InstagramSvg, LinkedinSvg, PintrestSvg, TwitterSvg, YoutubeSvg } from '../../assets/svg';
+import { generateTokenByRequestPermission } from '../../config/firebase-config';
+import AstrologerLoginModal from '../modal/AstrologerLoginModal';
+import { useSelector } from 'react-redux';
 
 const Footer = ({ scrollToSection }) => {
+    const { userCustomerDataById, userAstrologerDataById } = useSelector(state => state?.userReducer);
+    // Todo : Astrolger Login Start
+    const [loginAstrologerModal, setLoginAstrologerModal] = useState(false);
+
+    const handleOpenLoginAstrologerModal = async () => {
+        console.log('Astrologer login button clicked');
+
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notifications.");
+        } else if (Notification.permission === "granted") {
+            generateTokenByRequestPermission();
+            setLoginAstrologerModal(true)
+
+        } else if (Notification.permission === "denied") {
+            alert("You have blocked notifications. Please enable them in your browser settings.");
+
+        } else if (Notification.permission === "default") {
+            console.log('Requesting Notification Permission');
+            const permission = await Notification.requestPermission();
+        }
+    };
+
+    const handleCloseLoginAstrologerModal = () => setLoginAstrologerModal(false);
+
     return (
         <>
             <footer className='bg-primary text-white text-[13px] font-[400] px-[100px] max-lg:px-[20px] py-[50px] max-lg:py-[20px]'>
@@ -41,25 +68,25 @@ const Footer = ({ scrollToSection }) => {
                             <Link to='/astrologer'>Yearly Horoscope</Link>
                         </main>
 
-                        <main className='flex flex-col gap-1'>
+                        {!userCustomerDataById && !userAstrologerDataById && <main className='flex flex-col gap-1'>
                             <div className='text-[17px] font-[500] mb-2'>Astrologer Section</div>
-                            <Link to='/astrologer'>Astrologer Login</Link>
-                            <Link to='/astrologer'>Astrologer Registration</Link>
-                        </main>
+                            <div onClick={handleOpenLoginAstrologerModal} className='cursor-pointer'>Astrologer Login</div>
+                            <div className='cursor-pointer'>Astrologer Registration</div>
+                        </main>}
                     </main>
 
                     <main className='max-lg:basis-[45%] flex flex-col gap-5'>
                         <main className='flex flex-col gap-1'>
                             <div className='text-[17px] font-[500] mb-2'>Useful Links</div>
-                            <Link to='/astrologer'>About Us</Link>
-                            <Link to='/astrologer'>Contact Us</Link>
-                            <Link to='/astrologer'>Blog</Link>
+                            <div onClick={() => scrollToSection('about-us-section')} className='cursor-pointer'>About Us</div>
+                            <Link to='/contact-us'>Contact Us</Link>
+                            <Link to='/blog'>Blog</Link>
                         </main>
 
                         <main className='flex flex-col gap-1'>
                             <div className='text-[17px] font-[500] mb-2'>Policy</div>
-                            <Link to='/astrologer'>Privacy Policy</Link>
-                            <Link to='/astrologer'>Terms Of Use</Link>
+                            <Link to='/privacy-policy'>Privacy Policy</Link>
+                            <Link to='/terms-of-use'>Terms Of Use</Link>
                         </main>
                     </main>
 
@@ -78,6 +105,9 @@ const Footer = ({ scrollToSection }) => {
                     </main>
                 </article>
             </footer>
+
+            {/* Astrologer Modal */}
+            <AstrologerLoginModal isOpen={loginAstrologerModal} handleCloseModal={handleCloseLoginAstrologerModal} />
         </>
     )
 }
