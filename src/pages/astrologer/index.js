@@ -1,18 +1,16 @@
+import ReactStars from 'react-stars';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import useModal from '../../components/hooks/useModal';
-import { DeepSearchSpace, IndianRupee } from '../../utils/common-function';
-import RadioButton from '../../components/button/RadioButton';
+import { IndianRupee } from '../../utils/common-function';
 import CheckBoxActive from '../../components/button/CheckBoxActive';
 import CheckBoxInactive from '../../components/button/CheckBoxInactive';
-import { CrossSvg, SearchSvg, StarSvg, VerifySvg } from '../../assets/svg';
-import { sortByData, countryData, genderData, languageData, offerData, skillData } from '../../utils/dbs';
+import { countryData, genderData, languageData, offerData, skillData } from '../../utils/dbs';
+import { SearchSvg } from '../../assets/svg';
 import { api_urls } from '../../utils/api-urls';
-import * as AstrologerActions from '../../redux/actions/astrologerAction';
-import ReactStars from 'react-stars';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import CustomPagination from '../../components/features/CustomPagination';
+import * as AstrologerActions from '../../redux/actions/astrologerAction';
 
 const ChatWithAstrologer = () => {
     const { pathname } = useLocation();
@@ -23,40 +21,12 @@ const ChatWithAstrologer = () => {
     const { userCustomerDataById } = useSelector(state => state?.userReducer);
     const { astrologerData } = useSelector(state => state?.astrologerReducer);
 
-    const [openSortByModal, closeSortByModal, SortByModal] = useModal();
-    const [openFilterModal, closeFilterModal, FilterModal] = useModal();
-
-    const [selectedValue, setSelectedValue] = useState("");
-    const handleChange = (data) => {
-        setSelectedValue(data?.name + data?.type);
-        console.log(data)
-    };
-
-    const [activeTab, setActiveTab] = useState(0);
-    const filterHead = [{ id: 0, name: 'Skill' }, { id: 1, name: 'Language' }, { id: 2, name: 'Gender' }, { id: 3, name: 'Country' }, { id: 4, name: 'Offer' },]
-
-    const [selectedLanguage, setSelectedLanguage] = useState([])
-    const handleSelectedLanguage = (language) => {
-        setSelectedLanguage((prevSelected) =>
-            prevSelected.includes(language)
-                ? prevSelected.filter((item) => item !== language)
-                : [...prevSelected, language]
-        );
-    };
-
     let [searchParams, setSearchParams] = useSearchParams();
     const query = new URLSearchParams(searchParams);
     const page = query.get('page') || 1;
     const search = searchParams.get('search') || '';
-    // console.log({ page, search });
 
-    const handleSearch = async (text) => {
-        setSearchParams(`page=1&search=${text.toLowerCase().split(' ').join('')}`);
-    };
-
-    // const [searchText, setSearchText] = useState('');
-    // const handleSearch = (event) => setSearchText(event.target.value);
-    // const filteredData = DeepSearchSpace(astrologerData?.astrologer, searchText);
+    const handleSearch = async (text) => setSearchParams(`page=1&search=${text.toLowerCase().split(' ').join('')}`);
 
     useEffect(() => {
         //! Dispatching API For Getting Astrologer 
@@ -118,7 +88,7 @@ const ChatWithAstrologer = () => {
                 </article>
             </section>
 
-            <SortByModal width={`w-[300px]`}>
+            {/* <SortByModal width={`w-[300px]`}>
                 <div className='flex justify-between items-center py-3 px-5 border-b-[2px]'>
                     <div className='text-lg font-semibold'>SORT BY</div>
                     <div onClick={closeSortByModal} className='cursor-pointer' ><CrossSvg strokeWidth='3' /></div>
@@ -162,7 +132,7 @@ const ChatWithAstrologer = () => {
                         <div className='px-20 py-2 bg-yellow-400 rounded-lg cursor-pointer' style={{ boxShadow: "0 0 5px #bdb5b5" }}>Apply</div>
                     </div>
                 </div>
-            </FilterModal>
+            </FilterModal> */}
         </>
     )
 }
