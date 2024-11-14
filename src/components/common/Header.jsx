@@ -196,11 +196,11 @@ const Header = () => {
                         <div className='flex flex-col'>
                             {userCustomerDataById && <>
                                 <div className='flex items-center gap-1  border-b py-4'>
-                                    <div className='border-b-2 border-white'><SupportSvg /></div> <NavLink onClick={() => setShownav(!shownav)} to="/chat-with-astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Chat with Astrologer</NavLink>
+                                    <div className='border-b-2 border-white'><SupportSvg /></div> <NavLink onClick={() => setShownav(!shownav)} to="/astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Chat with Astrologer</NavLink>
                                 </div>
 
                                 <div className='flex items-center gap-1  border-b py-4'>
-                                    <div className='border-b-2 border-white'><SupportSvg /></div><div className='cursor-pointer' onClick={() => handleOpenDownloadAppModal()}><div>Talk to Astrologer</div></div>
+                                    <div className='border-b-2 border-white'><SupportSvg /></div><NavLink onClick={() => setShownav(!shownav)} to="/astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Talk to Astrologer</NavLink>
                                 </div>
 
                                 <div className='flex items-center gap-1  border-b py-4'>
@@ -216,17 +216,17 @@ const Header = () => {
                                 <div className='border-b-2 border-white'><SupportSvg /></div><NavLink onClick={() => setShownav(!shownav)} to="/blog" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Blog</NavLink>
                             </div>
 
-                            <div className='flex items-center gap-1  border-b py-4'>
+                            {/* <div className='flex items-center gap-1  border-b py-4'>
                                 <div className='border-b-2 border-white'><SupportSvg /></div><div className='cursor-pointer' onClick={() => handleOpenDownloadAppModal()}><div>Book a Pooja</div></div>
-                            </div>
+                            </div> */}
 
                             <div className='flex items-center gap-1  border-b py-4'>
-                                <div className='border-b-2 border-white'><SupportSvg /></div>  <NavLink onClick={() => setShownav(!shownav)} to="/free-kundli" className='cursor-pointer'>Free Kundli</NavLink>
+                                <div className='border-b-2 border-white'><SupportSvg /></div><NavLink onClick={() => setShownav(!shownav)} to="/free-kundli" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Free Kundli</NavLink>
                             </div>
 
-                            <div className='flex items-center gap-1  border-b py-4'>
+                            {/* <div className='flex items-center gap-1  border-b py-4'>
                                 <div className='border-b-2 border-white'><SupportSvg /></div><div className='cursor-pointer' onClick={() => handleOpenDownloadAppModal()}><div>Kundli Matching</div></div>
-                            </div>
+                            </div> */}
 
                             {userAstrologerDataById || userCustomerDataById ?
                                 <>

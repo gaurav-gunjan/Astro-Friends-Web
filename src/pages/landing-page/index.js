@@ -11,6 +11,7 @@ import '../../assets/css/swiper.css';
 import ProductSwipper from '../../components/swiper/ProductSwipper.jsx';
 import BlogSwiper from '../../components/swiper/BlogSwiper.jsx';
 import AstrologyVideoSwiper from '../../components/swiper/AstrologyVideoSwiper.jsx';
+import { FreeAstrologyServiceData } from '../../utils/static-data/index.js';
 
 const LandingPage = () => {
     const navigate = useNavigate();
@@ -72,14 +73,14 @@ const LandingPage = () => {
                     </div>
 
                     <main className='flex flex-wrap gap-x-[20px] gap-y-[40px] justify-evenly max-lg:justify-center text-[13px] font-semibold'>
-                        {Array(6).fill('')?.map((value, index) => (
-                            <div key={index} className='flex flex-col items-center gap-2 group/item'>
+                        {FreeAstrologyServiceData?.map((value, index) => (
+                            <div onClick={() => navigate('/astrologer')} key={index} className='flex flex-col items-center gap-2 group/item'>
                                 <div className='relative border border-orange-700 p-2 rounded-full'>
                                     <div className='z-10 absolute inset-0 border-t-[2px] border-dashed border-primary rounded-full group-hover/item:rotate-180 transition-all duration-500 ease-out'></div>
-                                    <img className='h-[50px] w-[50px] object-contain' src='https://astrofriends.in/public/storage/images/TodayPanchang1707194841.png' />
+                                    <img className='h-[50px] w-[50px] object-contain' src={value?.image} />
                                 </div>
 
-                                <div className='text-orange-700'>Today's Panchang</div>
+                                <div className='text-orange-700'>{value?.title}</div>
                             </div>
                         ))}
                     </main>

@@ -10,3 +10,12 @@ export const LandingTopSwiperData = [
     { image: BannerThree },
     { image: BannerFour },
 ];
+
+export const FreeAstrologyServiceData = [
+    { title: `Today's Panchang`, image: 'https://astrofriends.in/public/storage/images/TodayPanchang1707194841.png' },
+    { title: 'Free Janam Kundli', image: 'https://astrofriends.in/public/storage/images/FreeKundali1707194841.png' },
+    { title: 'Kundli Matching', image: 'https://astrofriends.in/public/storage/images/KundaliMatching1707194841.png' },
+    { title: 'Products', image: 'https://astrofriends.in/public/storage/images/Astromall1711688425.png' },
+    { title: 'Free Daily Horoscope', image: 'https://astrofriends.in/public/storage/images/DailyHoroscope1711688425.png' },
+    { title: 'Astrology Blog', image: 'https://astrofriends.in/public/storage/images/Blog1707194841.png' },
+];

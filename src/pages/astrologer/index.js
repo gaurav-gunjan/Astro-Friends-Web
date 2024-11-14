@@ -42,7 +42,7 @@ const ChatWithAstrologer = () => {
                     <main className='flex gap-4 flex-wrap items-center justify-between'>
                         <div className='bg-primary text-white px-8 py-2 font-semibold rounded-md flex items-center justify-center'>Chat with Astrologer</div>
                         <div>
-                            <div>Available balance: {IndianRupee(userCustomerDataById?.wallet_balance)}</div>
+                            {userCustomerDataById && <div>Available balance: {IndianRupee(userCustomerDataById?.wallet_balance)}</div>}
                         </div>
                         <div className='flex gap-4 flex-wrap'>
                             <div onClick={() => navigate('/recharge')} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1 cursor-pointer'>Recharge</div>
@@ -67,7 +67,7 @@ const ChatWithAstrologer = () => {
                                 <div className='flex-1 flex flex-col justify-center gap-[15px] rounded-xl p-[15px] relative'>
                                     <div className='absolute right-2 top-0'><ReactStars count={5} edit={false} value={Number(value?.rating)} size={20} color2={'#ffd700'} /></div>
                                     <div className='line-clamp-1'>{value?.astrologerName}</div>
-                                    <div className='bg-primary rounded-lg px-[10px] py-[5px] text-primary_text_dark line-clamp-1 text-white'>Vastu - Vedic - Prasana</div>
+                                    <div className='bg-primary text-white rounded-lg px-[10px] py-[5px] line-clamp-1'>{value?.skill?.length > 0 && value?.skill?.map(item => item?.skill)?.join(' , ')}</div>
                                     {/* <div>{value?.skill?.length > 0 ? value?.skill?.map(value => value?.skill)?.join(' , ') : 'N/A'}</div> */}
                                     <div>Experience : {value?.experience} Years</div>
                                     <hr />
