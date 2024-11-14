@@ -133,8 +133,9 @@ const App = () => {
             <Route path='/chat/intake-details/:profileId' element={<IntakeDetails />} />
 
             {/* Free Kundli */}
-            {localStorage.getItem('user_type') == 'customer' && <Route path='/free-kundli' element={<FreeKundli />} />}
-            {localStorage.getItem('user_type') == 'customer' && <Route path='/free-kundli/:kundliId' element={<KundliId />} />}
+            <Route path='/free-kundli' element={<FreeKundli />} />
+            <Route path='/free-kundli/:kundliId' element={<KundliId />} />
+            {/* localStorage.getItem('user_type') == 'customer' &&  */}
 
             {/* Astro Mall */}
             <Route path='/astro-mall' element={<AstroMall />} />

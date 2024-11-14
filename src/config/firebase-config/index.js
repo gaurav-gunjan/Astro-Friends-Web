@@ -5,13 +5,13 @@ import * as ChatActions from '../../redux/actions/chatAction';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDMirwB_ms0XHhiOU1XaVZ5SLgd-ylxB7M",
-  authDomain: "astroremedy-90cb0.firebaseapp.com",
-  databaseURL: "https://astroremedy-90cb0-default-rtdb.firebaseio.com",
-  projectId: "astroremedy-90cb0",
-  storageBucket: "astroremedy-90cb0.appspot.com",
-  messagingSenderId: "395034377495",
-  appId: "1:395034377495:web:c2311de2d8982ea31dcb52",
+  apiKey: "AIzaSyCQfNwyaJLTcz5kFU-RRSnzg61X48J8FB0",
+  authDomain: "astrofriends-64b40.firebaseapp.com",
+  databaseURL: "https://astrofriends-64b40-default-rtdb.firebaseio.com",
+  projectId: "astrofriends-64b40",
+  storageBucket: "astrofriends-64b40.appspot.com",
+  messagingSenderId: "385098140264",
+  appId: "1:385098140264:web:f5a3fb220c4fa5304609dd",
 };
 
 //! Initialize Firebase
@@ -26,7 +26,7 @@ const generateTokenByRequestPermission = async () => {
     const permission = await Notification.requestPermission()
 
     if (permission === 'granted') {
-      const fcm_token = await getToken(messaging, { vapidKey: "BPzYOOxSV5DzLMOgqAVATuSETsXmvce1GIOJo1mvuP9JmcGg-8U1yWSMB5ECOjWpEFEXl1VBPdqINUIGJHHFKH0" });
+      const fcm_token = await getToken(messaging, { vapidKey: "BEoX5kK5ssSuT4eaUXRx_CuugpMtCltEall_DDTZFQZECf12hUKSHdkTcRHxVLIEtvXirmU3C_RWtc0hYB9QsPI" });
       console.log('FCM Token', fcm_token);
       localStorage.setItem('fcm_token', fcm_token);
       return fcm_token;

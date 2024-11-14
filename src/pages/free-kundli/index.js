@@ -152,8 +152,13 @@ const FreeKundli = () => {
                                 </Autocomplete>
                             </div>
 
-
-                            <div onClick={handleSubmit} className='basis-full bg-primary text-center text-white rounded-lg p-2 text-sm cursor-pointer'>Generate Kundli</div>
+                            <div onClick={(e) => {
+                                if (userCustomerDataById) {
+                                    handleSubmit(e);
+                                } else {
+                                    alert('Please login')
+                                }
+                            }} className='basis-full bg-primary text-center text-white rounded-lg p-2 text-sm cursor-pointer'>Generate Kundli</div>
                         </form>
                     </>
                     : <div className="flex flex-col gap-2">

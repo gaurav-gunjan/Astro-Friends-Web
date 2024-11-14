@@ -16,7 +16,7 @@ function* astrologerLogin(action) {
         console.log("Astrologer Login Saga Response ::: ", data);
 
         if (data?.success && data?.status == 1) {
-            Swal.fire({ icon: "success", title: "Login Successfully", showConfirmButton: false, timer: 2000 });
+            Swal.fire({ icon: "success", text: "Login Successfully", showConfirmButton: false, timer: 2000 });
             // localStorage.setItem(access_token, data?.accessToken);
             localStorage.setItem('current_user_id', data?.astrologer?._id)
             localStorage.setItem('user_type', 'astrologer')
@@ -25,11 +25,11 @@ function* astrologerLogin(action) {
 
             yield call(payload?.onComplete);
         } else {
-            Swal.fire({ icon: "error", title: 'Failed To Login', text: data?.message, showConfirmButton: false, timer: 2000, });
+            Swal.fire({ icon: "error", text: 'Failed To Login', text: data?.message, showConfirmButton: false, timer: 2000, });
         }
 
     } catch (error) {
-        Swal.fire({ icon: "error", title: 'Failed To Login', text: error?.response?.data ? error?.response?.data : 'Wrong OTP please try again ', showConfirmButton: false, timer: 2000, });
+        Swal.fire({ icon: "error", text: 'Failed To Login', text: error?.response?.data ? error?.response?.data : 'Wrong OTP please try again ', showConfirmButton: false, timer: 2000, });
         console.log("Astrologer Login Saga Error ::: ", error)
     }
 }
@@ -43,12 +43,12 @@ function* customerLogin(action) {
         console.log("Customer Login Saga Response ::: ", data);
 
         if (data?.success) {
-            Swal.fire({ icon: "success", title: "Otp Sent Successfully", showConfirmButton: false, timer: 2000 });
+            Swal.fire({ icon: "success", text: "Otp Sent Successfully", showConfirmButton: false, timer: 2000 });
             yield call(payload?.onComplete);
         }
 
     } catch (error) {
-        Swal.fire({ icon: "error", title: error?.response?.data?.message, showConfirmButton: false, timer: 2000, });
+        Swal.fire({ icon: "error", text: error?.response?.data?.message, showConfirmButton: false, timer: 2000, });
         console.log("Customer Login Saga Error ::: ", error?.response?.data)
     }
 }
@@ -62,7 +62,7 @@ function* customerLoginOtp(action) {
         console.log("Customer Login Saga Response ::: ", data);
 
         if (data?.success) {
-            Swal.fire({ icon: "success", title: "Login Successfully", showConfirmButton: false, timer: 2000 });
+            Swal.fire({ icon: "success", text: "Login Successfully", showConfirmButton: false, timer: 2000 });
             localStorage.setItem('current_user_id', data?.customer?._id)
             localStorage.setItem('user_type', 'customer')
             localStorage.setItem('current_user_data', JSON.stringify(data?.customer))
@@ -71,7 +71,7 @@ function* customerLoginOtp(action) {
         }
 
     } catch (error) {
-        Swal.fire({ icon: "error", title: 'Invalid OTP', text: 'Please try again', showConfirmButton: false, timer: 2000, });
+        Swal.fire({ icon: "error", text: 'Invalid OTP', text: 'Please try again', showConfirmButton: false, timer: 2000, });
         console.log("Customer Login Saga Error ::: ", error)
     }
 }
@@ -99,7 +99,7 @@ function* userLogout(action) {
         }
 
     } catch (error) {
-        Swal.fire({ icon: "error", title: 'Failed To Logout', text: error?.response?.data ? error?.response?.data : 'Failed To Login', showConfirmButton: false, timer: 2000, });
+        Swal.fire({ icon: "error", text: 'Failed To Logout', text: error?.response?.data ? error?.response?.data : 'Failed To Login', showConfirmButton: false, timer: 2000, });
         console.log("Customer Login Saga Error ::: ", error)
     }
 }

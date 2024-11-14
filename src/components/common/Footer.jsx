@@ -56,7 +56,7 @@ const Footer = ({ scrollToSection }) => {
                         <main className='flex flex-col gap-1'>
                             <div className='text-[17px] font-[500] mb-2'>Astrology</div>
                             <Link to='/astrologer'>Kundali Matching</Link>
-                            <Link to='/astrologer'>Free Janam Kundali</Link>
+                            <Link to='/free-kundli'>Free Janam Kundali</Link>
                         </main>
                     </main>
 
@@ -71,7 +71,7 @@ const Footer = ({ scrollToSection }) => {
                         {!userCustomerDataById && !userAstrologerDataById && <main className='flex flex-col gap-1'>
                             <div className='text-[17px] font-[500] mb-2'>Astrologer Section</div>
                             <div onClick={handleOpenLoginAstrologerModal} className='cursor-pointer'>Astrologer Login</div>
-                            <div className='cursor-pointer'>Astrologer Registration</div>
+                            {/* <div className='cursor-pointer'>Astrologer Registration</div> */}
                         </main>}
                     </main>
 

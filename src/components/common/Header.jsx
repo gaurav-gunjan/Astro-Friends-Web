@@ -159,7 +159,7 @@ const Header = () => {
                                         <main className='flex flex-col gap-2'>
                                             <div className='text-[17px] font-[500] mb-2 uppercase border-b'>Astrology</div>
                                             <Link to='/astrologer' onClick={() => setHamburger(!hamburger)}>Kundali Matching</Link>
-                                            <Link to='/astrologer' onClick={() => setHamburger(!hamburger)}>Free Janam Kundali</Link>
+                                            <Link to='/free-kundli' onClick={() => setHamburger(!hamburger)}>Free Janam Kundali</Link>
                                         </main>
 
                                         <main className='flex flex-col gap-2'>
