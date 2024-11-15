@@ -74,7 +74,7 @@ const LandingPage = () => {
 
                     <main className='flex flex-wrap gap-x-[20px] gap-y-[40px] justify-evenly max-lg:justify-center text-[13px] font-semibold'>
                         {FreeAstrologyServiceData?.map((value, index) => (
-                            <div onClick={() => navigate('/astrologer')} key={index} className='flex flex-col items-center gap-2 group/item'>
+                            <div onClick={() => navigate(value?.path)} key={index} className='flex flex-col items-center gap-2 group/item cursor-pointer'>
                                 <div className='relative border border-orange-700 p-2 rounded-full'>
                                     <div className='z-10 absolute inset-0 border-t-[2px] border-dashed border-primary rounded-full group-hover/item:rotate-180 transition-all duration-500 ease-out'></div>
                                     <img className='h-[50px] w-[50px] object-contain' src={value?.image} />
