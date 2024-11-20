@@ -55,17 +55,17 @@ const Footer = ({ scrollToSection }) => {
 
                         <main className='flex flex-col gap-1'>
                             <div className='text-[17px] font-[500] mb-2'>Astrology</div>
-                            <Link to='/astrologer'>Kundali Matching</Link>
-                            <Link to='/free-kundli'>Free Janam Kundali</Link>
+                            <Link to='/kundli-matching'>Kundali Matching</Link>
+                            <Link to='/free-kundli'>Free Janam Kundli</Link>
                         </main>
                     </main>
 
                     <main className='max-lg:basis-[45%] flex flex-col gap-5'>
                         <main className='flex flex-col gap-1'>
                             <div className='text-[17px] font-[500] mb-2'>Horoscope</div>
-                            <Link to='/astrologer'>Daily Horoscope</Link>
-                            <Link to='/astrologer'>Weekly Horoscope</Link>
-                            <Link to='/astrologer'>Yearly Horoscope</Link>
+                            <Link to='/horoscope'>Daily Horoscope</Link>
+                            <Link to='/horoscope'>Weekly Horoscope</Link>
+                            <Link to='/horoscope'>Yearly Horoscope</Link>
                         </main>
 
                         {!userCustomerDataById && !userAstrologerDataById && <main className='flex flex-col gap-1'>

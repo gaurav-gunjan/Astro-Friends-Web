@@ -33,6 +33,9 @@ const IntakeDetails = lazy(() => import('./pages/chat/intake-details'));
 const FreeKundli = lazy(() => import('./pages/free-kundli'));
 const KundliId = lazy(() => import('./pages/free-kundli/kundliId'));
 
+const KundliMatching = lazy(() => import('./pages/kundli-matching'));
+const Horoscope = lazy(() => import('./pages/horoscope'));
+
 const AstroMall = lazy(() => import('./pages/astro-mall'));
 const Products = lazy(() => import('./pages/astro-mall/products'));
 const ProductDetails = lazy(() => import('./pages/astro-mall/products/product-details'));
@@ -78,14 +81,11 @@ const App = () => {
   useEffect(() => {
     const user_type = localStorage.getItem('user_type');
     const current_user_id = localStorage.getItem('current_user_id');
-    // console.log('user_type ::: ', user_type);
-    // console.log('Check Type ::: ', user_type == 'astrologer');
 
     if (user_type == 'astrologer') {
       const messagesRef = ref(database, `CurrentCall/${current_user_id}`);
       onValue(messagesRef, (snapshot) => {
         const data = snapshot.val();
-        // console.log("Current Call Profile ID :::", data);
 
         if (data) {
           dispatch(ChatActions.callIntakeDetailData({ visible: true, profileId: data?.formId }))
@@ -137,6 +137,12 @@ const App = () => {
             <Route path='/free-kundli/:kundliId' element={<KundliId />} />
             {/* localStorage.getItem('user_type') == 'customer' &&  */}
 
+            {/* Kundli Matching */}
+            <Route path='/kundli-matching' element={<KundliMatching />} />
+
+            {/* Horoscope */}
+            <Route path='/horoscope' element={<Horoscope />} />
+
             {/* Astro Mall */}
             <Route path='/astro-mall' element={<AstroMall />} />
             <Route path='/astro-mall/products' element={<Products />} />
@@ -158,7 +164,7 @@ const App = () => {
           </Routes>
         </Suspense>
         {location?.pathname !== '/chat' && <Footer scrollToSection={scrollToSection} />}
-        <SubFooter />
+        {location?.pathname !== '/chat' && <SubFooter />}
 
         <ChatInvoiceModal />
         <CallInvoiceModal />

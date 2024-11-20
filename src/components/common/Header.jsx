@@ -158,15 +158,15 @@ const Header = () => {
                                     <main className='basis-[20%]  flex flex-col gap-8'>
                                         <main className='flex flex-col gap-2'>
                                             <div className='text-[17px] font-[500] mb-2 uppercase border-b'>Astrology</div>
-                                            <Link to='/astrologer' onClick={() => setHamburger(!hamburger)}>Kundali Matching</Link>
-                                            <Link to='/free-kundli' onClick={() => setHamburger(!hamburger)}>Free Janam Kundali</Link>
+                                            <Link to='/kundli-matching' onClick={() => setHamburger(!hamburger)}>Kundli Matching</Link>
+                                            <Link to='/free-kundli' onClick={() => setHamburger(!hamburger)}>Free Janam Kundli</Link>
                                         </main>
 
                                         <main className='flex flex-col gap-2'>
                                             <div className='text-[17px] font-[500] mb-2 uppercase border-b'>Horoscope</div>
-                                            <Link to='/astrologer' onClick={() => setHamburger(!hamburger)}>Daily Horoscope</Link>
-                                            <Link to='/astrologer' onClick={() => setHamburger(!hamburger)}>Weekly Horoscope</Link>
-                                            <Link to='/astrologer' onClick={() => setHamburger(!hamburger)}>Yearly Horoscope</Link>
+                                            <Link to='/horoscope' onClick={() => setHamburger(!hamburger)}>Daily Horoscope</Link>
+                                            <Link to='/horoscope' onClick={() => setHamburger(!hamburger)}>Weekly Horoscope</Link>
+                                            <Link to='/horoscope' onClick={() => setHamburger(!hamburger)}>Yearly Horoscope</Link>
                                         </main>
                                     </main>
 
