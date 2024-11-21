@@ -11,7 +11,7 @@ function* getDailyHoroscope(action) {
 
         if (payload?.day == 'Today') {
             yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-            yield delay(5000);
+            yield delay(500);
             const data = yield AstrologyAPIRequest(get_daily_horoscope(payload?.zodiacSign));
             console.log('Get Daily Horoscope Saga Response - Today ::: ', data);
 
@@ -21,7 +21,7 @@ function* getDailyHoroscope(action) {
 
         } else if (payload?.day == 'Tomorrow') {
             yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-            yield delay(5000);
+            yield delay(500);
             const data = yield AstrologyAPIRequest(get_daily_tomorrow_horoscope(payload?.zodiacSign));
             console.log('Get Daily Horoscope Saga Response - Tomorrow ::: ', data);
 
@@ -31,7 +31,7 @@ function* getDailyHoroscope(action) {
 
         } else {
             yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-            yield delay(5000);
+            yield delay(500);
             const data = yield AstrologyAPIRequest(get_daily_yesterday_horoscope(payload?.zodiacSign));
             console.log('Get Daily Horoscope Saga Response - Yesterday ::: ', data);
 
@@ -52,6 +52,7 @@ function* getMonthlyHoroscope(action) {
         console.log("Get Monthly Horoscope Payload ::: ", payload);
 
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
+        yield delay(500);
         const data = yield AstrologyAPIRequest(get_monthly_horoscope(payload));
         console.log('Get Monthly Horoscope Saga Response ::: ', data);
 

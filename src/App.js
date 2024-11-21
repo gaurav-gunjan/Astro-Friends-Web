@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-loading-skeleton/dist/skeleton.css';
 import { LoadScript } from '@react-google-maps/api';
 import { google_api_keys } from './utils/constants';
 import { database, generateTokenByRequestPermission, onMessageListener, onValue, ref } from './config/firebase-config';
@@ -122,9 +123,8 @@ const App = () => {
   return (
     <>
       <LoadScript googleMapsApiKey={google_api_keys} libraries={['places']} loadingElement={<Loading />}>
-        <Header />
-        <Suspense >
-          {/* fallback={<Loading />} */}
+        <Suspense fallback={<Loading />}>
+          <Header />
           <Routes>
             <Route path='*' element={<NotFound />} />
             <Route path='/' element={<LandingPage />} />
