@@ -42,6 +42,14 @@ export const kundliRequest = async (url, payload) => {
     return response?.data;
 };
 
+export const AstrologyAPIRequest = async (url, payload) => {
+    const credentials = `${630051}:${'861bba6a92587a326a9b11ab9dfb9b7ca3492fab'}`;
+    const token = btoa(credentials);
+
+    const response = await axios.post(url, payload, { headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token } })
+    return response?.data;
+};
+
 export const razorpayPayment = async ({ amount = 0, name = '', email = '', contact = '' }) => {
 
     const { data } = await postAPI('api/customers/create_razorpay_order', { amount });

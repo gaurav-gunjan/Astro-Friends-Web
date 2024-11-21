@@ -92,7 +92,7 @@ function* kundliGetPanchang(action) {
         const data = yield kundliRequest('https://json.astrologyapi.com/v1/basic_panchang', payload);
 
         // console.log('kundliGetPanchang Saga Response ::: ', data);
-        yield put({ type: actionTypes.KUNDLI_SET_PANCHANG, payload: data });
+        yield put({ type: actionTypes.KUNDLI_SET_PANCHANG, payload: data?.prediction });
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
 
     } catch (error) {

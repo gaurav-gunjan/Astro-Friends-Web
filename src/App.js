@@ -34,7 +34,10 @@ const FreeKundli = lazy(() => import('./pages/free-kundli'));
 const KundliId = lazy(() => import('./pages/free-kundli/kundliId'));
 
 const KundliMatching = lazy(() => import('./pages/kundli-matching'));
-const Horoscope = lazy(() => import('./pages/horoscope'));
+
+const DailyHoroscope = lazy(() => import('./pages/horoscope/daily-horoscope'));
+const MonthlyHoroscope = lazy(() => import('./pages/horoscope/montly-horoscope'));
+const YearlyHoroscope = lazy(() => import('./pages/horoscope/yearly-horoscope'));
 
 const AstroMall = lazy(() => import('./pages/astro-mall'));
 const Products = lazy(() => import('./pages/astro-mall/products'));
@@ -133,15 +136,17 @@ const App = () => {
             <Route path='/chat/intake-details/:profileId' element={<IntakeDetails />} />
 
             {/* Free Kundli */}
+            {/* localStorage.getItem('user_type') == 'customer' &&  */}
             <Route path='/free-kundli' element={<FreeKundli />} />
             <Route path='/free-kundli/:kundliId' element={<KundliId />} />
-            {/* localStorage.getItem('user_type') == 'customer' &&  */}
 
             {/* Kundli Matching */}
             <Route path='/kundli-matching' element={<KundliMatching />} />
 
             {/* Horoscope */}
-            <Route path='/horoscope' element={<Horoscope />} />
+            <Route path='/horoscope/daily' element={<DailyHoroscope />} />
+            <Route path='/horoscope/monthly' element={<MonthlyHoroscope />} />
+            <Route path='/horoscope/yearly' element={<YearlyHoroscope />} />
 
             {/* Astro Mall */}
             <Route path='/astro-mall' element={<AstroMall />} />

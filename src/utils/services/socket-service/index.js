@@ -18,7 +18,7 @@ class SocketService {
             });
 
             this.socket.on('connect', data => {
-                console.log('Socket Connected Event :', data);
+                // console.log('Socket Connected Event :', data);
                 //? this.emit('reconnect');
             });
 
