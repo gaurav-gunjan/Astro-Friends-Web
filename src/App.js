@@ -36,7 +36,9 @@ const KundliId = lazy(() => import('./pages/free-kundli/kundliId'));
 const KundliMatching = lazy(() => import('./pages/kundli-matching'));
 
 const DailyHoroscope = lazy(() => import('./pages/horoscope/daily-horoscope'));
+const DailyHoroscopeDetails = lazy(() => import('./pages/horoscope/daily-horoscope/horoscope-details'));
 const MonthlyHoroscope = lazy(() => import('./pages/horoscope/montly-horoscope'));
+const MonthlyHoroscopeDetails = lazy(() => import('./pages/horoscope/montly-horoscope/horoscope-details'));
 const YearlyHoroscope = lazy(() => import('./pages/horoscope/yearly-horoscope'));
 
 const AstroMall = lazy(() => import('./pages/astro-mall'));
@@ -121,7 +123,8 @@ const App = () => {
     <>
       <LoadScript googleMapsApiKey={google_api_keys} libraries={['places']} loadingElement={<Loading />}>
         <Header />
-        <Suspense fallback={<Loading />}>
+        <Suspense >
+          {/* fallback={<Loading />} */}
           <Routes>
             <Route path='*' element={<NotFound />} />
             <Route path='/' element={<LandingPage />} />
@@ -145,7 +148,9 @@ const App = () => {
 
             {/* Horoscope */}
             <Route path='/horoscope/daily' element={<DailyHoroscope />} />
+            <Route path='/horoscope/daily/:zodiacSign' element={<DailyHoroscopeDetails />} />
             <Route path='/horoscope/monthly' element={<MonthlyHoroscope />} />
+            <Route path='/horoscope/monthly/:zodiacSign' element={<MonthlyHoroscopeDetails />} />
             <Route path='/horoscope/yearly' element={<YearlyHoroscope />} />
 
             {/* Astro Mall */}
