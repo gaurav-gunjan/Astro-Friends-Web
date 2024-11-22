@@ -1,24 +1,12 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ZodiacImageWithName } from '../../../utils/static-data';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
-
-const rashiName = [
-    { title: 'Pisces', image: 'https://astroway.diploy.in/public/storage/images/sign_131721123972.png' },
-    { title: 'Aquarius', image: 'https://astroway.diploy.in/public/storage/images/sign_121721123984.png' },
-    { title: 'Capricorn', image: 'https://astroway.diploy.in/public/storage/images/sign_111709054311.png' },
-    { title: 'Sagittarius', image: 'https://astroway.diploy.in/public/storage/images/sign_101709054525.png' },
-    { title: 'Scorpio', image: 'https://astroway.diploy.in/public/storage/images/sign_91709054532.png' },
-    { title: 'Libra', image: 'https://astroway.diploy.in/public/storage/images/sign_81709054538.png' },
-    { title: 'Virgo', image: 'https://astroway.diploy.in/public/storage/images/sign_71709054546.png' },
-    { title: 'Leo', image: 'https://astroway.diploy.in/public/storage/images/sign_61709054553.png' },
-    { title: 'Cancer', image: 'https://astroway.diploy.in/public/storage/images/sign_51709054580.png' },
-    { title: 'Gemini', image: 'https://astroway.diploy.in/public/storage/images/sign_41709054632.png' },
-    { title: 'Taurus', image: 'https://astroway.diploy.in/public/storage/images/sign_31709054640.png' },
-    { title: 'Aries', image: 'https://astroway.diploy.in/public/storage/images/sign_11709054648.png' },
-];
 
 const YearlyHoroscope = () => {
     const navigate = useNavigate();
+    const { pathname } = useLocation();
+    useEffect(() => { window.scrollTo(0, 0) }, [pathname]);
 
     return (
         <>
@@ -33,7 +21,7 @@ const YearlyHoroscope = () => {
                     <div className='text-center'>Confused about how your day would turn out to be? Find out if today is the day to make big decisions. Read your Daily Horoscope forecast and get insights regarding different aspects of your life to plan your day better.</div>
 
                     <main className='py-[50px] flex flex-wrap justify-between items-center gap-5'>
-                        {rashiName?.map((value, index) => (
+                        {ZodiacImageWithName?.map((value, index) => (
                             <div key={index} className='xl:basis-[15%] max-lg:basis-[20%] max-md:basis-[30%] flex flex-col gap-3 items-center justify-center border px-5 py-4 rounded-lg shadow-xl'>
                                 <img src={value?.image} className='w-28 h-28' />
                                 <div className='font-semibold text-primary'>{value?.title}</div>

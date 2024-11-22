@@ -1,26 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ZodiacImageWithName } from '../../../utils/static-data';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
-
-const rashiName = [
-    { title: 'Pisces', zodiacSign: 'pisces', image: 'https://astroway.diploy.in/public/storage/images/sign_131721123972.png' },
-    { title: 'Aquarius', zodiacSign: 'aquarius', image: 'https://astroway.diploy.in/public/storage/images/sign_121721123984.png' },
-    { title: 'Capricorn', zodiacSign: 'capricorn', image: 'https://astroway.diploy.in/public/storage/images/sign_111709054311.png' },
-    { title: 'Sagittarius', zodiacSign: 'sagittarius', image: 'https://astroway.diploy.in/public/storage/images/sign_101709054525.png' },
-    { title: 'Scorpio', zodiacSign: 'scorpio', image: 'https://astroway.diploy.in/public/storage/images/sign_91709054532.png' },
-    { title: 'Libra', zodiacSign: 'libra', image: 'https://astroway.diploy.in/public/storage/images/sign_81709054538.png' },
-    { title: 'Virgo', zodiacSign: 'virgo', image: 'https://astroway.diploy.in/public/storage/images/sign_71709054546.png' },
-    { title: 'Leo', zodiacSign: 'leo', image: 'https://astroway.diploy.in/public/storage/images/sign_61709054553.png' },
-    { title: 'Cancer', zodiacSign: 'cancer', image: 'https://astroway.diploy.in/public/storage/images/sign_51709054580.png' },
-    { title: 'Gemini', zodiacSign: 'gemini', image: 'https://astroway.diploy.in/public/storage/images/sign_41709054632.png' },
-    { title: 'Taurus', zodiacSign: 'taurus', image: 'https://astroway.diploy.in/public/storage/images/sign_31709054640.png' },
-    { title: 'Aries', zodiacSign: 'aries', image: 'https://astroway.diploy.in/public/storage/images/sign_11709054648.png' },
-];
 
 const dateHead = ['Yesterday', 'Today', 'Tomorrow'];
 
 const DailyHoroscope = () => {
     const navigate = useNavigate();
+    const { pathname } = useLocation();
+    useEffect(() => { window.scrollTo(0, 0) }, [pathname]);
+
     const [activeDateHead, setActiveDateHead] = useState('Today');
 
     return (
@@ -36,7 +25,7 @@ const DailyHoroscope = () => {
                     </main>
 
                     <main className='pb-[50px] flex flex-wrap justify-between items-center gap-5'>
-                        {rashiName?.map((value, index) => (
+                        {ZodiacImageWithName?.map((value, index) => (
                             <div onClick={() => navigate(value?.zodiacSign, { state: { zodiacImage: value?.image, day: activeDateHead } })} key={index} className='xl:basis-[15%] max-lg:basis-[20%] max-md:basis-[30%] flex flex-col gap-3 items-center justify-center border px-5 py-4 rounded-lg shadow-xl cursor-pointer'>
                                 <img src={value?.image} className='w-28 h-28' />
                                 <div className='font-semibold text-primary'>{value?.title}</div>
