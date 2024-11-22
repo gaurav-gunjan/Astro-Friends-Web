@@ -69,11 +69,14 @@ function* getMonthlyHoroscope(action) {
 
 
 //! Kundli Matching
-function* getKundliMatchingBirthDetails() {
+function* getKundliMatchingBirthDetails(action) {
     try {
+        const { payload } = action;
+        // console.log("Get Kundli Matching Birth Details Payload ::: ", payload);
+
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         yield delay(500);
-        const data = yield AstrologyAPIRequest(get_kundli_matching_birth_details);
+        const data = yield AstrologyAPIRequest(get_kundli_matching_birth_details, payload);
         console.log('Get Kundli Matching Birth Details Saga Response ::: ', data);
 
         if (data) yield put({ type: actionTypes.SET_KUNDLI_MATCHING_BIRTH_DETAILS, payload: data });
@@ -86,11 +89,14 @@ function* getKundliMatchingBirthDetails() {
     }
 };
 
-function* getKundliMatchingAstroDetails() {
+function* getKundliMatchingAstroDetails(action) {
     try {
+        const { payload } = action;
+        // console.log("Get Kundli Matching Astro Details Payload ::: ", payload);
+
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         yield delay(500);
-        const data = yield AstrologyAPIRequest(get_kundli_matching_astro_details);
+        const data = yield AstrologyAPIRequest(get_kundli_matching_astro_details, payload);
         console.log('Get Kundli Matching Astro Details Saga Response ::: ', data);
 
         if (data) yield put({ type: actionTypes.SET_KUNDLI_MATCHING_ASTRO_DETAILS, payload: data });
@@ -103,11 +109,14 @@ function* getKundliMatchingAstroDetails() {
     }
 };
 
-function* getKundliMatchingAshtakootPointsDetails() {
+function* getKundliMatchingAshtakootPointsDetails(action) {
     try {
+        const { payload } = action;
+        // console.log("Get Kundli Matching Ashtakoot Points Details Payload ::: ", payload);
+
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         yield delay(500);
-        const data = yield AstrologyAPIRequest(get_kundli_matching_ashtakoot_points_details);
+        const data = yield AstrologyAPIRequest(get_kundli_matching_ashtakoot_points_details, payload);
         console.log('Get Kundli Matching Ashtakoot Points Details Saga Response ::: ', data);
 
         if (data) yield put({ type: actionTypes.SET_KUNDLI_MATCHING_ASHTAKOOT_POINTS_DETAILS, payload: data });
@@ -120,11 +129,14 @@ function* getKundliMatchingAshtakootPointsDetails() {
     }
 };
 
-function* getKundliMatchingDashakootPointsDetails() {
+function* getKundliMatchingDashakootPointsDetails(action) {
     try {
+        const { payload } = action;
+        // console.log("Get Kundli Matching Dashakoot Points Details Payload ::: ", payload);
+
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         yield delay(500);
-        const data = yield AstrologyAPIRequest(get_kundli_matching_dashakoot_points_details);
+        const data = yield AstrologyAPIRequest(get_kundli_matching_dashakoot_points_details, payload);
         console.log('Get Kundli Matching Dashakoot Points Details Saga Response ::: ', data);
 
         if (data) yield put({ type: actionTypes.SET_KUNDLI_MATCHING_DASHAKOOT_POINTS_DETAILS, payload: data });
@@ -137,11 +149,14 @@ function* getKundliMatchingDashakootPointsDetails() {
     }
 };
 
-function* getKundliMatchingManglikReportDetails() {
+function* getKundliMatchingManglikReportDetails(action) {
     try {
+        const { payload } = action;
+        // console.log("Get Kundli Matching Manglik Report Details Payload ::: ", payload);
+
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         yield delay(500);
-        const data = yield AstrologyAPIRequest(get_kundli_matching_manglik_report_details);
+        const data = yield AstrologyAPIRequest(get_kundli_matching_manglik_report_details, payload);
         console.log('Get Kundli Matching Manglik Report Details Saga Response ::: ', data);
 
         if (data) yield put({ type: actionTypes.SET_KUNDLI_MATCHING_MANGLIK_REPORT_DETAILS, payload: data });

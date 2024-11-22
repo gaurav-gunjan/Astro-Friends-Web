@@ -35,6 +35,7 @@ const FreeKundli = lazy(() => import('./pages/free-kundli'));
 const KundliId = lazy(() => import('./pages/free-kundli/kundliId'));
 
 const KundliMatching = lazy(() => import('./pages/kundli-matching'));
+const KundliMatchingReports = lazy(() => import('./pages/kundli-matching/reports'));
 
 const DailyHoroscope = lazy(() => import('./pages/horoscope/daily-horoscope'));
 const DailyHoroscopeDetails = lazy(() => import('./pages/horoscope/daily-horoscope/horoscope-details'));
@@ -145,6 +146,7 @@ const App = () => {
 
             {/* Kundli Matching */}
             <Route path='/kundli-matching' element={<KundliMatching />} />
+            <Route path='/kundli-matching/reports' element={<KundliMatchingReports />} />
 
             {/* Horoscope */}
             <Route path='/horoscope/daily' element={<DailyHoroscope />} />

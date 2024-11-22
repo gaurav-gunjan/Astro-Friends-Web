@@ -4,7 +4,7 @@ import TopHeaderSection from '../../components/common/TopHeaderSection';
 
 const KundliMatching = () => {
     //! Male 
-    const [maleInputField, setMaleInputField] = useState({ name: '', birth_date: '', birth_time: '', place_of_birth: '', type: '' });
+    const [maleInputField, setMaleInputField] = useState({ name: '', birth_date_time: '', place_of_birth: '' });
     const handleMaleInputField = (event) => setMaleInputField({ ...maleInputField, [event?.target?.name]: event?.target?.value });
 
     const autocompleteRefMale = useRef(null);
@@ -17,7 +17,7 @@ const KundliMatching = () => {
     };
 
     //! Female 
-    const [femaleInputField, setFemaleInputField] = useState({ name: '', birth_date: '', birth_time: '', place_of_birth: '', type: '' });
+    const [femaleInputField, setFemaleInputField] = useState({ name: '', birth_date_time: '', place_of_birth: '' });
     const handleFemaleInputField = (event) => setFemaleInputField({ ...femaleInputField, [event?.target?.name]: event?.target?.value });
 
     const autocompleteRefFemale = useRef(null);
@@ -57,7 +57,7 @@ const KundliMatching = () => {
 
             <section className='px-[100px] max-lg:px-[20px] pt-[50px]'>
                 <article className='flex flex-col border rounded-lg shadow-xl '>
-                    <div className='text-center bg-primary text-white py-2 px-5 font-semibold rounded-t-lg'>Chat Intake Form</div>
+                    <div className='text-center bg-primary text-white py-2 px-5 font-semibold rounded-t-lg'>Enter Details</div>
                     <main className='flex gap-4 p-5'>
                         <form className='flex-1 px-5 my-8 flex flex-col gap-6'>
                             <div className='flex flex-col gap-1'>
@@ -66,12 +66,8 @@ const KundliMatching = () => {
                             </div>
 
                             <div className='flex flex-col gap-1'>
-                                <label className='text-grey text-sm'> Birth Date</label>
-                                <input name='birth_date' value={maleInputField?.birth_date} onChange={handleMaleInputField} type='date' className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm' />
-                            </div>
-                            <div className='flex flex-col gap-1'>
-                                <label className='text-grey text-sm'>Birth Time</label>
-                                <input name='birth_time' value={maleInputField?.birth_time} onChange={handleMaleInputField} type='time' className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm' />
+                                <label className='text-grey text-sm'> Birth Date & Time</label>
+                                <input name='birth_date_time' value={maleInputField?.birth_date_time} onChange={handleMaleInputField} type='datetime-local' className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm' />
                             </div>
 
                             <div className='flex flex-col gap-1'>
@@ -90,15 +86,6 @@ const KundliMatching = () => {
                                     />
                                 </Autocomplete>
                             </div>
-
-                            <div className='flex flex-col gap-1'>
-                                <label className='text-grey text-sm'>Type</label>
-                                <select name="type" value={maleInputField?.type} onChange={handleMaleInputField} id="type_of_concern" className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm'>
-                                    <option value="">Select Type</option>
-                                    <option value="North">North</option>
-                                    <option value="South">South</option>
-                                </select>
-                            </div>
                         </form>
 
                         <form className='flex-1 px-5 my-8 flex flex-col gap-6'>
@@ -108,12 +95,8 @@ const KundliMatching = () => {
                             </div>
 
                             <div className='flex flex-col gap-1'>
-                                <label className='text-grey text-sm'> Birth Date</label>
-                                <input name='birth_date' value={femaleInputField?.birth_date} onChange={handleFemaleInputField} type='date' className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm' />
-                            </div>
-                            <div className='flex flex-col gap-1'>
-                                <label className='text-grey text-sm'>Birth Time</label>
-                                <input name='birth_time' value={femaleInputField?.birth_time} onChange={handleFemaleInputField} type='time' className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm' />
+                                <label className='text-grey text-sm'> Birth Date & Time</label>
+                                <input name='birth_date_time' value={femaleInputField?.birth_date_time} onChange={handleFemaleInputField} type='datetime-local' className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm' />
                             </div>
 
                             <div className='flex flex-col gap-1'>
@@ -131,15 +114,6 @@ const KundliMatching = () => {
                                         placeholder='Enter place of birth'
                                     />
                                 </Autocomplete>
-                            </div>
-
-                            <div className='flex flex-col gap-1'>
-                                <label className='text-grey text-sm'>Type</label>
-                                <select name="type" value={femaleInputField?.type} onChange={handleFemaleInputField} id="type_of_concern" className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm'>
-                                    <option value="">Select Type</option>
-                                    <option value="North">North</option>
-                                    <option value="South">South</option>
-                                </select>
                             </div>
                         </form>
                     </main>
