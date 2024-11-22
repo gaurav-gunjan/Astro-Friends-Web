@@ -48,3 +48,10 @@ export const get_daily_horoscope = (zodiacName) => `https://json.astrologyapi.co
 export const get_daily_tomorrow_horoscope = (zodiacName) => `https://json.astrologyapi.com/v1/sun_sign_prediction/daily/next/${zodiacName}`;
 export const get_daily_yesterday_horoscope = (zodiacName) => `https://json.astrologyapi.com/v1/sun_sign_prediction/daily/previous/${zodiacName}`;
 export const get_monthly_horoscope = (zodiacName) => `https://json.astrologyapi.com/v1/horoscope_prediction/monthly/${zodiacName}`;
+
+//* Kundli Matching
+export const get_kundli_matching_birth_details = 'https://json.astrologyapi.com/v1/match_birth_details';
+export const get_kundli_matching_astro_details = 'https://json.astrologyapi.com/v1/match_astro_details';
+export const get_kundli_matching_dashakoot_points_details = 'https://json.astrologyapi.com/v1/match_dashakoot_points';
+export const get_kundli_matching_ashtakoot_points_details = 'https://json.astrologyapi.com/v1/match_ashtakoot_points';
+export const get_kundli_matching_manglik_report_details = 'https://json.astrologyapi.com/v1/match_manglik_report';

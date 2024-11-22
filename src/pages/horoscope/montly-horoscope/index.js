@@ -44,7 +44,7 @@ const MonthlyHoroscope = () => {
                     <main className='flex-1 flex items-center justify-center flex-col gap-5 max-lg:gap-2 text-center px-10 max-lg:px-4 py-4'>
                         <div className='text-3xl max-lg:text-xl'>WILL YOU BE RICH AND SUCCESSFUL IN FUTURE?</div>
                         <div>Know what’s written in your stars!</div>
-                        <div className='cursor-pointer bg-red-900 flex items-center gap-1.5 px-4 py-2 rounded-full hover:bg-white hover:text-black hover:shadow-xl border-2 border-red-900 transition-all duration-300 ease-in'>Ask An Astrologer Now</div>
+                        <div onClick={() => navigate('/astrologer')} className='cursor-pointer bg-red-900 flex items-center gap-1.5 px-4 py-2 rounded-full hover:bg-white hover:text-black hover:shadow-xl border-2 border-red-900 transition-all duration-300 ease-in'>Ask An Astrologer Now</div>
                     </main>
                     <img src='https://astroway.diploy.in/public/frontend/astrowaycdn/astroway/web/content/images/ads/success-future.png' className='pr-10 py-4 h-72 max-lg:h-60 max-md:h-52' />
                 </article>

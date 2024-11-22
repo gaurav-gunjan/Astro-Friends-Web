@@ -1,9 +1,10 @@
 import * as actionTypes from "../action-types";
 import { put, call, takeLeading, delay } from 'redux-saga/effects';
 import { AstrologyAPIRequest } from '../../utils/api-function';
-import { get_daily_horoscope, get_daily_tomorrow_horoscope, get_daily_yesterday_horoscope, get_monthly_horoscope } from '../../utils/api-routes';
 import { toaster } from '../../utils/services/toast-service';
+import { get_daily_horoscope, get_daily_tomorrow_horoscope, get_daily_yesterday_horoscope, get_kundli_matching_ashtakoot_points_details, get_kundli_matching_astro_details, get_kundli_matching_birth_details, get_kundli_matching_dashakoot_points_details, get_kundli_matching_manglik_report_details, get_monthly_horoscope, } from '../../utils/api-routes';
 
+//! Horoscope 
 function* getDailyHoroscope(action) {
     try {
         const { payload } = action;
@@ -66,7 +67,102 @@ function* getMonthlyHoroscope(action) {
     }
 };
 
+
+//! Kundli Matching
+function* getKundliMatchingBirthDetails() {
+    try {
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
+        yield delay(500);
+        const data = yield AstrologyAPIRequest(get_kundli_matching_birth_details);
+        console.log('Get Kundli Matching Birth Details Saga Response ::: ', data);
+
+        if (data) yield put({ type: actionTypes.SET_KUNDLI_MATCHING_BIRTH_DETAILS, payload: data });
+        else toaster?.warning({ text: data?.error || data?.msg || data?.error_msg });
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+
+    } catch (error) {
+        console.log("Get Kundli Matching Birth Details Saga Error ::: ", error);
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+    }
+};
+
+function* getKundliMatchingAstroDetails() {
+    try {
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
+        yield delay(500);
+        const data = yield AstrologyAPIRequest(get_kundli_matching_astro_details);
+        console.log('Get Kundli Matching Astro Details Saga Response ::: ', data);
+
+        if (data) yield put({ type: actionTypes.SET_KUNDLI_MATCHING_ASTRO_DETAILS, payload: data });
+        else toaster?.warning({ text: data?.error || data?.msg || data?.error_msg });
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+
+    } catch (error) {
+        console.log("Get Kundli Matching Astro Details Saga Error ::: ", error);
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+    }
+};
+
+function* getKundliMatchingAshtakootPointsDetails() {
+    try {
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
+        yield delay(500);
+        const data = yield AstrologyAPIRequest(get_kundli_matching_ashtakoot_points_details);
+        console.log('Get Kundli Matching Ashtakoot Points Details Saga Response ::: ', data);
+
+        if (data) yield put({ type: actionTypes.SET_KUNDLI_MATCHING_ASHTAKOOT_POINTS_DETAILS, payload: data });
+        else toaster?.warning({ text: data?.error || data?.msg || data?.error_msg });
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+
+    } catch (error) {
+        console.log("Get Kundli Matching Ashtakoot Points Details Saga Error ::: ", error);
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+    }
+};
+
+function* getKundliMatchingDashakootPointsDetails() {
+    try {
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
+        yield delay(500);
+        const data = yield AstrologyAPIRequest(get_kundli_matching_dashakoot_points_details);
+        console.log('Get Kundli Matching Dashakoot Points Details Saga Response ::: ', data);
+
+        if (data) yield put({ type: actionTypes.SET_KUNDLI_MATCHING_DASHAKOOT_POINTS_DETAILS, payload: data });
+        else toaster?.warning({ text: data?.error || data?.msg || data?.error_msg });
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+
+    } catch (error) {
+        console.log("Get Kundli Matching Dashakoot Points Details Saga Error ::: ", error);
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+    }
+};
+
+function* getKundliMatchingManglikReportDetails() {
+    try {
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
+        yield delay(500);
+        const data = yield AstrologyAPIRequest(get_kundli_matching_manglik_report_details);
+        console.log('Get Kundli Matching Manglik Report Details Saga Response ::: ', data);
+
+        if (data) yield put({ type: actionTypes.SET_KUNDLI_MATCHING_MANGLIK_REPORT_DETAILS, payload: data });
+        else toaster?.warning({ text: data?.error || data?.msg || data?.error_msg });
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+
+    } catch (error) {
+        console.log("Get Kundli Matching Manglik Report Details Saga Error ::: ", error);
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+    }
+};
+
 export default function* astrologyApiSaga() {
+    //! Horoscope 
     yield takeLeading(actionTypes?.GET_DAILY_HOROSCOPE, getDailyHoroscope);
     yield takeLeading(actionTypes?.GET_MONTHLY_HOROSCOPE, getMonthlyHoroscope);
+
+    //! Kundli Matching
+    yield takeLeading(actionTypes.GET_KUNDLI_MATCHING_BIRTH_DETAILS, getKundliMatchingBirthDetails);
+    yield takeLeading(actionTypes.GET_KUNDLI_MATCHING_ASTRO_DETAILS, getKundliMatchingAstroDetails);
+    yield takeLeading(actionTypes.GET_KUNDLI_MATCHING_ASHTAKOOT_POINTS_DETAILS, getKundliMatchingAshtakootPointsDetails);
+    yield takeLeading(actionTypes.GET_KUNDLI_MATCHING_DASHAKOOT_POINTS_DETAILS, getKundliMatchingDashakootPointsDetails);
+    yield takeLeading(actionTypes.GET_KUNDLI_MATCHING_MANGLIK_REPORT_DETAILS, getKundliMatchingManglikReportDetails);
 };
