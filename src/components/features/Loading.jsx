@@ -5,7 +5,15 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 const Loading = () => {
     return (
         <>
-            <section className='px-[100px] max-lg:px-[20px] pt-4'>
+            <div className="flex items-center justify-center min-h-screen max-md:min-h-[300px]">
+                <div className="relative flex space-x-2">
+                    <div className="w-8 h-8 bg-primary rounded-full animate-snake"></div>
+                    <div className="w-8 h-8 bg-primary rounded-full animate-snake animation-delay-200"></div>
+                    <div className="w-8 h-8 bg-primary rounded-full animate-snake animation-delay-400"></div>
+                </div>
+            </div>
+
+            {/* <section className='px-[100px] max-lg:px-[20px] pt-4'>
                 <SkeletonTheme color="#e0e0e0" highlightColor="#f5f5f5">
                     <main className='flex justify-between items-center'>
                         <div className='h-20 w-20 max-lg:h-10 max-lg:w-10'><Skeleton height={'100%'} /></div>
@@ -42,17 +50,9 @@ const Loading = () => {
                         ))}
                     </main>
                 </SkeletonTheme>
-            </section>
+            </section> */}
         </>
     );
 }
 
 export default Loading;
-
-{/* <div className="flex items-center justify-center min-h-screen max-md:min-h-[300px]">
-    <div className="relative flex space-x-2">
-        <div className="w-8 h-8 bg-primary rounded-full animate-snake"></div>
-        <div className="w-8 h-8 bg-primary rounded-full animate-snake animation-delay-200"></div>
-        <div className="w-8 h-8 bg-primary rounded-full animate-snake animation-delay-400"></div>
-    </div>
-</div> */}
