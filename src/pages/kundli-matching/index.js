@@ -1,18 +1,30 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Autocomplete } from '@react-google-maps/api';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
+import * as ProfileActions from '../../redux/actions/profileAction';
+import { toaster } from '../../utils/services/toast-service';
 
 const KundliMatching = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { userCustomerDataById } = useSelector(state => state?.userReducer);
+
     //! Male 
     const [maleInputField, setMaleInputField] = useState({ name: '', birth_date_time: '', place_of_birth: '' });
     const handleMaleInputField = (event) => setMaleInputField({ ...maleInputField, [event?.target?.name]: event?.target?.value });
 
     const autocompleteRefMale = useRef(null);
     const handleMalePlaceSelect = () => {
-        const place = autocompleteRefMale.current.getPlace();
-        if (place) {
-            const location = place.geometry.location;
-            setMaleInputField({ ...maleInputField, place_of_birth: place.formatted_address, latitude: location.lat(), longitude: location.lng(), });
+        const place = autocompleteRefMale?.current?.getPlace();
+        try {
+            if (place) {
+                const location = place.geometry.location;
+                setMaleInputField({ ...maleInputField, place_of_birth: place?.formatted_address, latitude: location?.lat(), longitude: location?.lng(), });
+            }
+        } catch (error) {
+            toaster?.info({ text: 'Select Place' })
         }
     };
 
@@ -23,15 +35,90 @@ const KundliMatching = () => {
     const autocompleteRefFemale = useRef(null);
     const handleFemalePlaceSelect = () => {
         const place = autocompleteRefFemale.current.getPlace();
-        if (place) {
-            const location = place.geometry.location;
-            setFemaleInputField({ ...femaleInputField, place_of_birth: place.formatted_address, latitude: location.lat(), longitude: location.lng(), });
+        try {
+            if (place) {
+                const location = place.geometry.location;
+                setFemaleInputField({ ...femaleInputField, place_of_birth: place.formatted_address, latitude: location.lat(), longitude: location.lng(), });
+            }
+        } catch (error) {
+            toaster?.info({ text: 'Select Place' })
         }
+    };
+
+    //! Error 
+    const [inputFieldError, setInputFieldError] = useState({ email: '', password: '' });
+    const handleInputFieldError = (name, value) => setInputFieldError({ ...inputFieldError, [name]: value });
+
+    //* Handle Validation
+    const handleValidation = () => {
+        let isValid = true;
+
+        if (!maleInputField?.name) {
+            toaster.error({ text: `Please enter boy's name` });
+            handleInputFieldError(`boysName`, `Please enter boy's name`);
+            return isValid = false;
+        }
+        if (!maleInputField?.birth_date_time) {
+            toaster.error({ text: `Please enter boy's birth date & time` });
+            handleInputFieldError(`boysDOB`, `Please enter boy's birth date & time`);
+            return isValid = false;
+        }
+        if (!maleInputField?.place_of_birth) {
+            toaster.error({ text: `Please select boy's place of birth` });
+            handleInputFieldError(`boysPlaceOfBirth`, `Please select boy's place of birth`);
+            return isValid = false;
+        }
+        if (!femaleInputField?.name) {
+            toaster.error({ text: `Please enter girl's name` });
+            handleInputFieldError(`girlsName`, `Please enter girl's name`);
+            return isValid = false;
+        }
+        if (!femaleInputField?.birth_date_time) {
+            toaster.error({ text: `Please enter girl's birth date & time` });
+            handleInputFieldError(`girlsDOB`, `Please enter girl's birth date & time`);
+            return isValid = false;
+        }
+        if (!femaleInputField?.place_of_birth) {
+            toaster.error({ text: `Please select girl's place of birth` });
+            handleInputFieldError(`girlsPlaceOfBirth`, `Please select girl's place of birth`);
+            return isValid = false;
+        }
+
+        return isValid;
     };
 
     // Todo : Handle Submit
     const handleGetReport = () => {
         console.log({ maleInputField, femaleInputField });
+
+        if (userCustomerDataById) {
+            const payload = {
+                data: {
+                    customerId: userCustomerDataById?._id,
+                    maleKundliData: {
+                        name: maleInputField?.name,
+                        dob: maleInputField?.birth_date_time,
+                        tob: maleInputField?.birth_date_time,
+                        place: maleInputField?.place_of_birth,
+                        lat: maleInputField?.latitude,
+                        lon: maleInputField?.longitude
+                    },
+                    femaleKundliData: {
+                        name: femaleInputField?.name,
+                        dob: femaleInputField?.birth_date_time,
+                        tob: femaleInputField?.birth_date_time,
+                        place: femaleInputField?.place_of_birth,
+                        lat: femaleInputField?.latitude,
+                        lon: femaleInputField?.longitude
+                    }
+                },
+                onComplete: (id) => navigate(`/kundli-matching/reports/${id}`)
+            }
+            //! Dispatch API For Create Profile
+            handleValidation() && dispatch(ProfileActions.createKundliMatchingProfile(payload));
+        } else {
+            toaster.info({ text: 'Please Login' })
+        }
     };
 
     return (
@@ -62,12 +149,12 @@ const KundliMatching = () => {
                         <form className='flex-1 px-5 my-8 flex flex-col gap-6'>
                             <div className='flex flex-col gap-1'>
                                 <label className='text-grey text-sm'>Boy Name</label>
-                                <input name='name' value={maleInputField?.name} onChange={handleMaleInputField} type='text' placeholder='Name' className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm' />
+                                <input name='name' value={maleInputField?.name} onChange={handleMaleInputField} onFocus={(e) => handleInputFieldError('boysName', null)} type='text' placeholder='Name' className={`w-[100%] outline-none border border-greybg ${inputFieldError?.boysName && 'border-red-600'} focus:border-green-500 px-5 py-[10px] rounded-sm text-sm`} />
                             </div>
 
                             <div className='flex flex-col gap-1'>
                                 <label className='text-grey text-sm'> Birth Date & Time</label>
-                                <input name='birth_date_time' value={maleInputField?.birth_date_time} onChange={handleMaleInputField} type='datetime-local' className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm' />
+                                <input name='birth_date_time' value={maleInputField?.birth_date_time} onChange={handleMaleInputField} onFocus={(e) => handleInputFieldError('boysDOB', null)} type='datetime-local' className={`w-[100%] outline-none border border-greybg ${inputFieldError?.boysDOB && 'border-red-600'} focus:border-green-500 px-5 py-[10px] rounded-sm text-sm`} />
                             </div>
 
                             <div className='flex flex-col gap-1'>
@@ -80,8 +167,8 @@ const KundliMatching = () => {
                                         type='text'
                                         name='place_of_birth'
                                         value={maleInputField.place_of_birth}
-                                        onChange={handleMaleInputField}
-                                        className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm'
+                                        onChange={handleMaleInputField} onFocus={(e) => handleInputFieldError('boysPlaceOfBirth', null)}
+                                        className={`w-[100%] outline-none border border-greybg ${inputFieldError?.boysPlaceOfBirth && 'border-red-600'} focus:border-green-500 px-5 py-[10px] rounded-sm text-sm`}
                                         placeholder='Enter place of birth'
                                     />
                                 </Autocomplete>
@@ -91,12 +178,12 @@ const KundliMatching = () => {
                         <form className='flex-1 px-5 my-8 flex flex-col gap-6'>
                             <div className='flex flex-col gap-1'>
                                 <label className='text-grey text-sm'>Girl Name</label>
-                                <input name='name' value={femaleInputField?.name} onChange={handleFemaleInputField} type='text' placeholder='Name' className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm' />
+                                <input name='name' value={femaleInputField?.name} onChange={handleFemaleInputField} onFocus={(e) => handleInputFieldError('girlsName', null)} type='text' placeholder='Name' className={`w-[100%] outline-none border border-greybg ${inputFieldError?.girlsName && 'border-red-600'} focus:border-green-500 px-5 py-[10px] rounded-sm text-sm`} />
                             </div>
 
                             <div className='flex flex-col gap-1'>
                                 <label className='text-grey text-sm'> Birth Date & Time</label>
-                                <input name='birth_date_time' value={femaleInputField?.birth_date_time} onChange={handleFemaleInputField} type='datetime-local' className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm' />
+                                <input name='birth_date_time' value={femaleInputField?.birth_date_time} onChange={handleFemaleInputField} onFocus={(e) => handleInputFieldError('girlsDOB', null)} type='datetime-local' className={`w-[100%] outline-none border border-greybg ${inputFieldError?.girlsDOB && 'border-red-600'} focus:border-green-500 px-5 py-[10px] rounded-sm text-sm`} />
                             </div>
 
                             <div className='flex flex-col gap-1'>
@@ -109,8 +196,8 @@ const KundliMatching = () => {
                                         type='text'
                                         name='place_of_birth'
                                         value={femaleInputField.place_of_birth}
-                                        onChange={handleFemaleInputField}
-                                        className='w-[100%] outline-none border border-greybg px-5 py-[10px] rounded-sm text-sm'
+                                        onChange={handleFemaleInputField} onFocus={(e) => handleInputFieldError('girlsPlaceOfBirth', null)}
+                                        className={`w-[100%] outline-none border border-greybg ${inputFieldError?.girlsPlaceOfBirth && 'border-red-600'} focus:border-green-500 px-5 py-[10px] rounded-sm text-sm`}
                                         placeholder='Enter place of birth'
                                     />
                                 </Autocomplete>

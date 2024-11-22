@@ -1,65 +1,56 @@
+import moment from 'moment';
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { KundliFormatDateTime } from '../../../utils/common-function';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
 import { CallSvg, ChatSvg, FemaleSvg, MaleSvg } from '../../../assets/svg';
+import * as ProfileActions from '../../../redux/actions/profileAction';
 import * as AstrologyApiActions from '../../../redux/actions/astrologyApiAction';
-import { KundliFormatDateTime } from '../../../utils/common-function';
-import moment from 'moment';
-
-const basicDatails = {
-    "_id": "674031295b57ff572b1730f4",
-    "customerId": "6735cf534359c21977a05642",
-    "MaleName": "Gaurav",
-    "Malegender": "Male",
-    "MaletimeOfBirth": "2024-11-22T12:52:00.000Z",
-    "MaledateOfBirth": "2024-11-22T12:52:00.000Z",
-    "MaleplaceOfBirth": "Parkers Hotel, 109-113 Corporation St, Manchester M4 4DX, UK",
-    "Malelatitude": 53.48839599999999,
-    "Malelongitude": -2.239448,
-    "FemaleName": "Gaurav",
-    "Femalegender": "Female",
-    "FemaletimeOfBirth": "2024-11-22T12:54:00.000Z",
-    "FemaledateOfBirth": "2024-11-22T12:54:00.000Z",
-    "FemaleplaceOfBirth": "R. Copacabana, 1024 - Floresta, Joinville - SC, 89211-388, Brazil",
-    "Femalelatitude": -26.3327851,
-    "Femalelongitude": -48.8581045,
-    "timeZone": "5.5",
-    "__v": 0
-}
 
 const Reports = () => {
+    const { profileId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const { kundliMatchingProfileByIdData } = useSelector(state => state?.profileReducer);
     const { kundliMatchingBirthDetailsData, kundliMatchingAstroDetailsData, kundliMatchingDashakootPointsDetailsData, kundliMatchingAshtakootPointsDetailsData, kundliMatchingManglikReportDetailsData } = useSelector(state => state?.astrologyApiReducer);
+
+
+    useEffect(() => {
+        //! Dispatching API For Gettting Profile Data 
+        dispatch(ProfileActions?.getKundliMatchingProfileById({ Id: profileId }));
+    }, [profileId]);
 
     useEffect(() => {
         const payload = {
-            m_day: KundliFormatDateTime(basicDatails?.MaledateOfBirth)?.day,
-            m_month: KundliFormatDateTime(basicDatails?.MaledateOfBirth)?.month,
-            m_year: KundliFormatDateTime(basicDatails?.MaledateOfBirth)?.year,
-            m_hour: KundliFormatDateTime(basicDatails?.MaledateOfBirth)?.hour,
-            m_min: KundliFormatDateTime(basicDatails?.MaledateOfBirth)?.min,
-            m_lat: basicDatails?.Malelatitude,
-            m_lon: basicDatails?.Malelongitude,
+            m_day: KundliFormatDateTime(kundliMatchingProfileByIdData?.MaledateOfBirth)?.day,
+            m_month: KundliFormatDateTime(kundliMatchingProfileByIdData?.MaledateOfBirth)?.month,
+            m_year: KundliFormatDateTime(kundliMatchingProfileByIdData?.MaledateOfBirth)?.year,
+            m_hour: KundliFormatDateTime(kundliMatchingProfileByIdData?.MaledateOfBirth)?.hour,
+            m_min: KundliFormatDateTime(kundliMatchingProfileByIdData?.MaledateOfBirth)?.min,
+            m_lat: kundliMatchingProfileByIdData?.Malelatitude,
+            m_lon: kundliMatchingProfileByIdData?.Malelongitude,
             m_tzone: 5.5,
 
-            f_day: KundliFormatDateTime(basicDatails?.FemaledateOfBirth)?.day,
-            f_month: KundliFormatDateTime(basicDatails?.FemaledateOfBirth)?.month,
-            f_year: KundliFormatDateTime(basicDatails?.FemaledateOfBirth)?.year,
-            f_hour: KundliFormatDateTime(basicDatails?.FemaledateOfBirth)?.hour,
-            f_min: KundliFormatDateTime(basicDatails?.FemaledateOfBirth)?.min,
-            f_lat: basicDatails?.Femalelatitude,
-            f_lon: basicDatails?.Femalelongitude,
+            f_day: KundliFormatDateTime(kundliMatchingProfileByIdData?.FemaledateOfBirth)?.day,
+            f_month: KundliFormatDateTime(kundliMatchingProfileByIdData?.FemaledateOfBirth)?.month,
+            f_year: KundliFormatDateTime(kundliMatchingProfileByIdData?.FemaledateOfBirth)?.year,
+            f_hour: KundliFormatDateTime(kundliMatchingProfileByIdData?.FemaledateOfBirth)?.hour,
+            f_min: KundliFormatDateTime(kundliMatchingProfileByIdData?.FemaledateOfBirth)?.min,
+            f_lat: kundliMatchingProfileByIdData?.Femalelatitude,
+            f_lon: kundliMatchingProfileByIdData?.Femalelongitude,
             f_tzone: 5.5
         };
 
-        dispatch(AstrologyApiActions?.getKundliMatchingBirthDetails(payload));
-        dispatch(AstrologyApiActions?.getKundliMatchingAstroDetails(payload));
-        dispatch(AstrologyApiActions?.getKundliMatchingAshtakootPointsDetails(payload));
-        dispatch(AstrologyApiActions?.getKundliMatchingDashakootPointsDetails(payload));
-        dispatch(AstrologyApiActions?.getKundliMatchingManglikReportDetails(payload));
-    }, []);
+        if (kundliMatchingProfileByIdData) {
+            dispatch(AstrologyApiActions?.getKundliMatchingBirthDetails(payload));
+            dispatch(AstrologyApiActions?.getKundliMatchingAstroDetails(payload));
+            dispatch(AstrologyApiActions?.getKundliMatchingAshtakootPointsDetails(payload));
+            dispatch(AstrologyApiActions?.getKundliMatchingDashakootPointsDetails(payload));
+            dispatch(AstrologyApiActions?.getKundliMatchingManglikReportDetails(payload));
+        }
+    }, [kundliMatchingProfileByIdData]);
 
     return (
         <>
@@ -68,9 +59,9 @@ const Reports = () => {
             <section className='px-[100px] max-lg:px-[20px] pt-[50px]'>
                 <article>
                     <main className='flex items-center justify-center gap-5'>
-                        <div className='border border-primary px-5 py-2 bg-orange-100 rounded-md'>{basicDatails?.MaleName}</div>
+                        <div className='border border-primary px-5 py-2 bg-orange-100 rounded-md'>{kundliMatchingProfileByIdData?.MaleName}</div>
                         <div><img src='https://aws.astrotalk.com/assets/images/rings.webp' className='object-contain w-20' /></div>
-                        <div className='border border-primary px-5 py-2 bg-orange-100 rounded-md'>{basicDatails?.FemaleName}</div>
+                        <div className='border border-primary px-5 py-2 bg-orange-100 rounded-md'>{kundliMatchingProfileByIdData?.FemaleName}</div>
                     </main>
                 </article>
             </section>
@@ -87,22 +78,22 @@ const Reports = () => {
 
                             <div className='flex items-center px-5 py-2 border-b'>
                                 <div className='basis-[35%] font-semibold'>Name</div>
-                                <div className='basis-[65%]'>{basicDatails?.MaleName}</div>
+                                <div className='basis-[65%]'>{kundliMatchingProfileByIdData?.MaleName}</div>
                             </div>
 
                             <div className='flex items-center px-5 py-2 border-b'>
                                 <div className='basis-[35%] font-semibold'>Birth Date</div>
-                                <div className='basis-[65%]'>{moment(basicDatails?.FemaledateOfBirth)?.format("DD MMM YYYY")}</div>
+                                <div className='basis-[65%]'>{moment(kundliMatchingProfileByIdData?.FemaledateOfBirth)?.format("DD MMM YYYY")}</div>
                             </div>
 
                             <div className='flex items-center px-5 py-2 border-b'>
                                 <div className='basis-[35%] font-semibold'>Birth Time</div>
-                                <div className='basis-[65%]'>{moment(basicDatails?.FemaledateOfBirth)?.format('hh:mm A')}</div>
+                                <div className='basis-[65%]'>{moment(kundliMatchingProfileByIdData?.FemaledateOfBirth)?.format('hh:mm A')}</div>
                             </div>
 
                             <div className='flex items-center px-5 py-2 border-b'>
                                 <div className='basis-[35%] font-semibold'>Birth Place</div>
-                                <div className='basis-[65%]'>{basicDatails?.MaleplaceOfBirth}</div>
+                                <div className='basis-[65%]'>{kundliMatchingProfileByIdData?.MaleplaceOfBirth}</div>
                             </div>
 
                             <div className='flex items-center px-5 py-2 border-b'>
@@ -110,7 +101,7 @@ const Reports = () => {
                                 <div className='basis-[65%]'>{kundliMatchingBirthDetailsData?.male_astro_details?.latitude?.toFixed(2)}</div>
                             </div>
 
-                            <div className='flex items-center px-5 py-2 border-b'>
+                            <div className='flex items-center px-5 py-2'>
                                 <div className='basis-[35%] font-semibold'>Longitude</div>
                                 <div className='basis-[65%]'>{kundliMatchingBirthDetailsData?.male_astro_details?.longitude?.toFixed(2)}</div>
                             </div>
@@ -125,22 +116,22 @@ const Reports = () => {
 
                             <div className='flex items-center px-5 py-2 border-b'>
                                 <div className='basis-[35%] font-semibold'>Name</div>
-                                <div className='basis-[65%]'>{basicDatails?.FemaleName}</div>
+                                <div className='basis-[65%]'>{kundliMatchingProfileByIdData?.FemaleName}</div>
                             </div>
 
                             <div className='flex items-center px-5 py-2 border-b'>
                                 <div className='basis-[35%] font-semibold'>Birth Date</div>
-                                <div className='basis-[65%]'>{moment(basicDatails?.FemaledateOfBirth)?.format("DD MMM YYYY")}</div>
+                                <div className='basis-[65%]'>{moment(kundliMatchingProfileByIdData?.FemaledateOfBirth)?.format("DD MMM YYYY")}</div>
                             </div>
 
                             <div className='flex items-center px-5 py-2 border-b'>
                                 <div className='basis-[35%] font-semibold'>Birth Time</div>
-                                <div className='basis-[65%]'>{moment(basicDatails?.FemaledateOfBirth)?.format('hh:mm A')}</div>
+                                <div className='basis-[65%]'>{moment(kundliMatchingProfileByIdData?.FemaledateOfBirth)?.format('hh:mm A')}</div>
                             </div>
 
                             <div className='flex items-center px-5 py-2 border-b'>
                                 <div className='basis-[35%] font-semibold'>Birth Place</div>
-                                <div className='basis-[65%]'>{basicDatails?.FemaleplaceOfBirth}</div>
+                                <div className='basis-[65%]'>{kundliMatchingProfileByIdData?.FemaleplaceOfBirth}</div>
                             </div>
 
                             <div className='flex items-center px-5 py-2 border-b'>
@@ -148,7 +139,7 @@ const Reports = () => {
                                 <div className='basis-[65%]'>{kundliMatchingBirthDetailsData?.female_astro_details?.latitude?.toFixed(2)}</div>
                             </div>
 
-                            <div className='flex items-center px-5 py-2 border-b'>
+                            <div className='flex items-center px-5 py-2'>
                                 <div className='basis-[35%] font-semibold'>Longitude</div>
                                 <div className='basis-[65%]'>{kundliMatchingBirthDetailsData?.female_astro_details?.longitude?.toFixed(2)}</div>
                             </div>
@@ -216,10 +207,10 @@ const Reports = () => {
                             </div>
 
                             <div className='px-5 py-2 font-semibold'>Analysis : Based on aspect</div>
-                            {kundliMatchingManglikReportDetailsData?.male?.manglik_present_rule?.based_on_aspect?.map((value, index) => (<div className='px-5 py-0.5'>{value}</div>))}
+                            {kundliMatchingManglikReportDetailsData?.male?.manglik_present_rule?.based_on_aspect?.map((value, index) => (<div key={index} className='px-5 py-0.5'>{value}</div>))}
 
                             <div className='px-5 py-2 font-semibold'>Analysis : Based on house</div>
-                            {kundliMatchingManglikReportDetailsData?.male?.manglik_present_rule?.based_on_house?.map((value, index) => (<div className='px-5 py-0.5'>{value}</div>))}
+                            {kundliMatchingManglikReportDetailsData?.male?.manglik_present_rule?.based_on_house?.map((value, index) => (<div key={index} className='px-5 py-0.5'>{value}</div>))}
                         </div>
 
                         <div className='flex-1 border border-gray-300 rounded-md pb-5'>
@@ -242,10 +233,10 @@ const Reports = () => {
                             </div>
 
                             <div className='px-5 py-2 font-semibold'>Analysis : Based on aspect</div>
-                            {kundliMatchingManglikReportDetailsData?.female?.manglik_present_rule?.based_on_aspect?.map((value, index) => (<div className='px-5 py-0.5'>{value}</div>))}
+                            {kundliMatchingManglikReportDetailsData?.female?.manglik_present_rule?.based_on_aspect?.map((value, index) => (<div key={index} className='px-5 py-0.5'>{value}</div>))}
 
                             <div className='px-5 py-2 font-semibold'>Analysis : Based on house</div>
-                            {kundliMatchingManglikReportDetailsData?.female?.manglik_present_rule?.based_on_house?.map((value, index) => (<div className='px-5 py-0.5'>{value}</div>))}
+                            {kundliMatchingManglikReportDetailsData?.female?.manglik_present_rule?.based_on_house?.map((value, index) => (<div key={index} className='px-5 py-0.5'>{value}</div>))}
                         </div>
                     </main>
 

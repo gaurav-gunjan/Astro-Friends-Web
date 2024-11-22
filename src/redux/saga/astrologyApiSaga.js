@@ -160,7 +160,7 @@ function* getKundliMatchingManglikReportDetails(action) {
         console.log('Get Kundli Matching Manglik Report Details Saga Response ::: ', data);
 
         if (data) yield put({ type: actionTypes.SET_KUNDLI_MATCHING_MANGLIK_REPORT_DETAILS, payload: data });
-        else toaster?.warning({ text: data?.error || data?.msg || data?.error_msg });
+        else toaster?.warning({ text: data?.msg || data?.error || data?.error_msg });
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
 
     } catch (error) {

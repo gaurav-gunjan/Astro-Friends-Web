@@ -2,6 +2,7 @@ import { all } from "redux-saga/effects";
 import authSaga from "./authSaga";
 import paymentSaga from "./paymentSaga";
 import userSaga from "./userSaga";
+import profileSaga from "./profileSaga";
 import astrologerSaga from "./astrologerSaga";
 import chatSaga from "./chatSaga";
 import kundliSaga from "./kundliSaga";
@@ -15,6 +16,7 @@ export default function* rootSaga() {
         authSaga(),
         paymentSaga(),
         userSaga(),
+        profileSaga(),
         astrologerSaga(),
         chatSaga(),
         kundliSaga(),

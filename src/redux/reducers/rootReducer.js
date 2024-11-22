@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import commonReducer from "./commonReducer";
 import paymentReducer from "./paymentReducer";
 import userReducer from "./userReducer";
+import profileReducer from "./profileReducer";
 import astrologerReducer from "./astrologerReducer";
 import chatReducer from "./chatReducer";
 import kundliReducer from "./kundliReducer";
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     commonReducer,
     paymentReducer,
     userReducer,
+    profileReducer,
     astrologerReducer,
     chatReducer,
     kundliReducer,

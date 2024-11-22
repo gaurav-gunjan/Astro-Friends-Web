@@ -42,6 +42,11 @@ export const get_astro_blogs = 'api/admin/get-astro-blogs-by-category';
 export const get_terms_and_conditions = 'api/admin/get-terms-condition';
 export const get_privacy_policy = 'api/admin/get-privacy-policy';
 
+//! Profile
+export const create_kundli_matching_profile = 'api/customers/match_save';
+export const get_kundli_matching_profile = 'api/customers/match_data';
+export const get_kundli_matching_profile_by_id = 'api/customers/match_date_by_id';
+
 //! Astrology API
 //* Horoscope
 export const get_daily_horoscope = (zodiacName) => `https://json.astrologyapi.com/v1/sun_sign_prediction/daily/${zodiacName}`;

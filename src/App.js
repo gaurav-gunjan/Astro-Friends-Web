@@ -146,7 +146,7 @@ const App = () => {
 
             {/* Kundli Matching */}
             <Route path='/kundli-matching' element={<KundliMatching />} />
-            <Route path='/kundli-matching/reports' element={<KundliMatchingReports />} />
+            <Route path='/kundli-matching/reports/:profileId' element={<KundliMatchingReports />} />
 
             {/* Horoscope */}
             <Route path='/horoscope/daily' element={<DailyHoroscope />} />
