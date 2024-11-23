@@ -5,6 +5,7 @@ import moment from 'moment';
 import Modal from 'react-modal';
 import ReactStars from 'react-stars';
 import { toast } from 'react-toastify';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import Profile from '../../../assets/images/logo/profile.jpg';
 import RadioButton from '../../../components/button/RadioButton';
 import { CallSvg, ChatSvg, CrossSvg, RightArrowHeadSvg, RightArrowSvg, StarSvg, VerifySvg } from '../../../assets/svg';
@@ -19,6 +20,7 @@ import OfflinePing from '../../../components/cards/OfflinePing';
 import { Color } from '../../../assets/colors';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
 import { Autocomplete } from '@react-google-maps/api';
+import { toaster } from '../../../utils/services/toast-service';
 
 Modal.setAppElement('#root');
 
@@ -32,6 +34,7 @@ const SingleAstrologer = () => {
     const astrologerId = stateData?._id;
 
     const dispatch = useDispatch();
+    const { isLoading } = useSelector(state => state?.commonReducer);
     const { astrologerDataById, astrologerReviewDataById } = useSelector(state => state?.astrologerReducer);
     const reversedAstrologerReviewData = [...astrologerReviewDataById].reverse();
     const { linkedProfileData } = useSelector(state => state?.chatReducer);
@@ -64,8 +67,12 @@ const SingleAstrologer = () => {
         if (!("Notification" in window)) {
             alert("This browser does not support desktop notifications.");
         } else if (Notification.permission === "granted") {
-            setChatIntakeFormModal(true);
-            setConnectionType(type);
+            if (userCustomerDataById) {
+                setChatIntakeFormModal(true);
+                setConnectionType(type);
+            } else {
+                toaster.info({ text: 'Please Login' })
+            }
         } else if (Notification.permission === "denied") {
             alert("You have blocked notifications. Please enable them in your browser settings.");
 
@@ -195,68 +202,113 @@ const SingleAstrologer = () => {
         <>
             <TopHeaderSection title={astrologerDataById?.astrologerName} />
 
-            <section className='bg-primary_bg_dark px-[100px] max-lg:px-[20px] pt-[50px] pb-[100px] text-black'>
-                <article className='flex flex-col gap-[50px] text-[15px]'>
+            {isLoading ?
+                <>
+                    <section className='px-[100px] max-lg:px-[20px] pt-[50px] pb-[100px]'>
+                        <article className='flex flex-col gap-[50px]'>
+                            <SkeletonTheme color="#e0e0e0" highlightColor="#f5f5f5">
+                                <main className='flex max-md:flex-col gap-[20px] rounded-xl'>
+                                    <div className='rounded-xl h-[250px] max-md:h-[300px] max-md:w-full w-[250px]'><Skeleton height={'100%'} width={'100%'} /></div>
 
-                    <main className='flex max-md:flex-col gap-[20px] rounded-xl'>
-                        <div className=''>
-                            <img className='rounded-xl h-[250px] max-md:h-[300px] max-md:w-full w-[250px] border-2 border-primary_text_dark' src={api_urls + astrologerDataById?.profileImage} />
-                        </div>
+                                    <div className='flex flex-col justify-center gap-[15px] rounded-xl p-[15px]'>
+                                        <div className='flex items-center gap-3'>
+                                            <div className='h-7 w-20'><Skeleton height={'100%'} /></div>
+                                            <div className='flex items-center gap-1'><div className='h-5 w-5'><Skeleton height={'100%'} /></div><div className='h-5 w-5'><Skeleton height={'100%'} /></div><div className='h-5 w-5'><Skeleton height={'100%'} /></div><div className='h-5 w-5'><Skeleton height={'100%'} /></div><div className='h-5 w-5'><Skeleton height={'100%'} /></div></div>
+                                        </div>
+                                        <div className='h-7 w-60'><Skeleton height={'100%'} /></div>
+                                        <div className='h-7 w-40'><Skeleton height={'100%'} /></div>
+                                        <hr />
+                                        <div className='h-7 w-24'><Skeleton height={'100%'} /></div>
+                                    </div>
 
-                        <div className='flex flex-col justify-center gap-[15px] rounded-xl p-[15px]'>
-                            <div className='flex items-center gap-3'>
-                                <div className='line-clamp-1'>{astrologerDataById?.astrologerName}</div>
-                                <div><ReactStars count={5} edit={false} value={Number(astrologerDataById?.rating)} size={20} color2={'#ffd700'} /></div>
+                                    <div className='flex-1 flex flex-col justify-end items-end max-md:items-start gap-[20px] rounded-xl text-[13px]'>
+                                        <div className='h-10 w-60'><Skeleton height={'100%'} style={{ borderRadius: '10px' }} /></div>
+                                        <div className='h-10 w-60'><Skeleton height={'100%'} style={{ borderRadius: '10px' }} /></div>
+                                    </div>
+                                </main>
+
+                                <main className='flex flex-col items-center gap-[15px] justify-center'>
+                                    <div className='h-7 w-24'><Skeleton height={'100%'} /></div>
+                                    <div className='h-40 w-full'><Skeleton height={'100%'} /></div>
+                                </main>
+
+                                <main className='flex flex-wrap gap-5 items-start'>
+                                    <div className='flex-grow basis-[100%] max-sm:basis-[100%] flex flex-col gap-5'>
+                                        <div className='border rounded-lg p-5 flex flex-col gap-4'>
+                                            <div className='h-7 w-28'><Skeleton height={'100%'} /></div>
+                                            <main className='flex flex-col gap-3'>
+                                                {Array(5)?.fill('')?.map((value, index) => (<div key={index} className='h-20 w-full'><Skeleton height={'100%'} /></div>))}
+                                            </main>
+                                        </div>
+                                    </div>
+                                </main>
+                            </SkeletonTheme>
+                        </article>
+                    </section>
+                </>
+                :
+                <section className='bg-primary_bg_dark px-[100px] max-lg:px-[20px] pt-[50px] pb-[100px] text-black'>
+                    <article className='flex flex-col gap-[50px] text-[15px]'>
+
+                        <main className='flex max-md:flex-col gap-[20px] rounded-xl'>
+                            <div className=''>
+                                <img className='rounded-xl h-[250px] max-md:h-[300px] max-md:w-full w-[250px] border-2 border-primary_text_dark' src={api_urls + astrologerDataById?.profileImage} />
                             </div>
-                            <div className='bg-primary text-white rounded-lg px-[10px] py-[5px] line-clamp-1'>{astrologerDataById?.skill?.length > 0 && astrologerDataById?.skill?.map(value => value?.skill)?.join(' , ')}</div>
-                            <div>Experience : {astrologerDataById?.experience} Years</div>
-                            <hr />
-                            <div className='line-clamp-1'>{astrologerDataById?.language?.length > 0 ? astrologerDataById?.language?.join(' , ') : "Hindi"}</div>
-                        </div>
 
-                        <div className='flex-1 flex flex-col justify-end items-end max-md:items-start gap-[20px] rounded-xl text-[13px]'>
-                            <button onClick={async () => {
-                                if (Number(userCustomerDataById?.wallet_balance) < Number(astrologerDataById?.chat_price) * 5) {
-                                    console.log(Number(userCustomerDataById?.wallet_balance));
-                                    console.log(Number(astrologerDataById?.chat_price) * 5);
-                                    const result = await Swal.fire({
-                                        icon: "warning", title: "Warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000,
-                                        confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey
-                                    });
-                                    console.log('result', result)
-                                    if (result.isConfirmed) {
-                                        navigate('/price-list')
+                            <div className='flex flex-col justify-center gap-[15px] rounded-xl p-[15px]'>
+                                <div className='flex items-center gap-3'>
+                                    <div className='line-clamp-1'>{astrologerDataById?.astrologerName}</div>
+                                    <div><ReactStars count={5} edit={false} value={Number(astrologerDataById?.rating)} size={20} color2={'#ffd700'} /></div>
+                                </div>
+                                <div className='bg-primary text-white rounded-lg px-[10px] py-[5px] line-clamp-1'>{astrologerDataById?.skill?.length > 0 && astrologerDataById?.skill?.map(value => value?.skill)?.join(' , ')}</div>
+                                <div>Experience : {astrologerDataById?.experience} Years</div>
+                                <hr />
+                                <div className='line-clamp-1'>{astrologerDataById?.language?.length > 0 ? astrologerDataById?.language?.join(' , ') : "Hindi"}</div>
+                            </div>
+
+                            <div className='flex-1 flex flex-col justify-end items-end max-md:items-start gap-[20px] rounded-xl text-[13px]'>
+                                <button onClick={async () => {
+                                    if (Number(userCustomerDataById?.wallet_balance) < Number(astrologerDataById?.chat_price) * 5) {
+                                        console.log(Number(userCustomerDataById?.wallet_balance));
+                                        console.log(Number(astrologerDataById?.chat_price) * 5);
+                                        const result = await Swal.fire({
+                                            icon: "warning", title: "Warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000,
+                                            confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey
+                                        });
+                                        console.log('result', result)
+                                        if (result.isConfirmed) {
+                                            navigate('/price-list')
+                                        }
+                                    } else {
+                                        handleOpenChatIntakeFormModal('Chat')
                                     }
-                                } else {
-                                    handleOpenChatIntakeFormModal('Chat')
-                                }
-                            }} disabled={astrologerDataById?.chat_status != "online"} className={`flex items-center gap-2 bg-primary text-white px-[25px] py-[7px] rounded-xl w-[220px] ${astrologerDataById?.chat_status != "online" && 'cursor-not-allowed'}`}><div className='bg-primary_card_bg_dark p-2 rounded-full'><ChatSvg h='12' w='12' /></div> <div className='line-clamp-1 mr-2'>{IndianRupee(astrologerDataById?.chat_price)} per min</div> <div>{astrologerDataById?.chat_status == "online" ? <OnlinePing /> : <OfflinePing />}</div></button>
-                            <button onClick={async () => {
-                                if (Number(userCustomerDataById?.wallet_balance) < Number(astrologerDataById?.call_price) * 5) {
-                                    console.log(Number(userCustomerDataById?.wallet_balance));
-                                    console.log(Number(astrologerDataById?.call_price) * 5);
-                                    const result = await Swal.fire({
-                                        icon: "warning", title: "Warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000,
-                                        confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey
-                                    });
-                                    console.log('result', result)
-                                    if (result.isConfirmed) {
-                                        navigate('/price-list')
+                                }} disabled={astrologerDataById?.chat_status != "online"} className={`flex items-center gap-2 bg-primary text-white px-[25px] py-[7px] rounded-xl w-[220px] ${astrologerDataById?.chat_status != "online" && 'cursor-not-allowed'}`}><div className='bg-primary_card_bg_dark p-2 rounded-full'><ChatSvg h='12' w='12' /></div> <div className='line-clamp-1 mr-2'>{IndianRupee(astrologerDataById?.chat_price)} per min</div> <div>{astrologerDataById?.chat_status == "online" ? <OnlinePing /> : <OfflinePing />}</div></button>
+                                <button onClick={async () => {
+                                    if (Number(userCustomerDataById?.wallet_balance) < Number(astrologerDataById?.call_price) * 5) {
+                                        console.log(Number(userCustomerDataById?.wallet_balance));
+                                        console.log(Number(astrologerDataById?.call_price) * 5);
+                                        const result = await Swal.fire({
+                                            icon: "warning", title: "Warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000,
+                                            confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey
+                                        });
+                                        console.log('result', result)
+                                        if (result.isConfirmed) {
+                                            navigate('/price-list')
+                                        }
+                                    } else {
+                                        handleOpenChatIntakeFormModal('Call')
                                     }
-                                } else {
-                                    handleOpenChatIntakeFormModal('Call')
-                                }
-                            }} disabled={astrologerDataById?.call_status != "online"} className={`flex items-center gap-2 bg-primary text-white px-[25px] py-[7px] rounded-xl w-[220px] ${astrologerDataById?.call_status != "online" && 'cursor-not-allowed'}`}><div className='bg-primary_card_bg_dark p-2 rounded-full'><CallSvg h='12' w='12' /></div> <div className='line-clamp-1 mr-2'>{IndianRupee(astrologerDataById?.call_price)} per min</div> <div>{astrologerDataById?.call_status == "online" ? <OnlinePing /> : <OfflinePing />}</div></button>
-                        </div>
-                    </main>
+                                }} disabled={astrologerDataById?.call_status != "online"} className={`flex items-center gap-2 bg-primary text-white px-[25px] py-[7px] rounded-xl w-[220px] ${astrologerDataById?.call_status != "online" && 'cursor-not-allowed'}`}><div className='bg-primary_card_bg_dark p-2 rounded-full'><CallSvg h='12' w='12' /></div> <div className='line-clamp-1 mr-2'>{IndianRupee(astrologerDataById?.call_price)} per min</div> <div>{astrologerDataById?.call_status == "online" ? <OnlinePing /> : <OfflinePing />}</div></button>
+                            </div>
+                        </main>
 
-                    <main className='flex flex-col gap-[15px]'>
-                        <div className='text-center font-semibold text-xl flex gap-3 items-center justify-center'>About me {isReadMore ? <div onClick={() => setIsReadMore(false)} className='-rotate-90 cursor-pointer'><RightArrowHeadSvg /></div> : <div onClick={() => setIsReadMore(true)} className='rotate-90 cursor-pointer'><RightArrowHeadSvg /></div>}</div>
-                        <div className={`text-justify text-grey tracking-wide ${isReadMore ? '' : 'line-clamp-2'} transition-all duration-500`}>{astrologerDataById?.long_bio}</div>
-                    </main>
+                        <main className='flex flex-col gap-[15px]'>
+                            <div className='text-center font-semibold text-xl flex gap-3 items-center justify-center'>About me {isReadMore ? <div onClick={() => setIsReadMore(false)} className='-rotate-90 cursor-pointer'><RightArrowHeadSvg /></div> : <div onClick={() => setIsReadMore(true)} className='rotate-90 cursor-pointer'><RightArrowHeadSvg /></div>}</div>
+                            <div className={`text-justify text-grey tracking-wide ${isReadMore ? '' : 'line-clamp-2'} transition-all duration-500`}>{astrologerDataById?.long_bio}</div>
+                        </main>
 
-                    <main className='flex flex-wrap gap-5 items-start'>
-                        {/* <div className='border rounded-lg basis-[100%] max-sm:basis-[100%] p-5'>
+                        <main className='flex flex-wrap gap-5 items-start'>
+                            {/* <div className='border rounded-lg basis-[100%] max-sm:basis-[100%] p-5'>
                             <div className='font-semibold'>Ratings & Reviews</div>
                             <div className='flex flex-col items-center justify-center gap-2'>
                                 <div className='text-5xl'>{astrologerDataById?.rating?.toFixed(2)}</div>
@@ -264,28 +316,30 @@ const SingleAstrologer = () => {
                             </div>
                         </div> */}
 
-                        <div className='flex-grow basis-[100%] max-sm:basis-[100%] flex flex-col gap-5'>
-                            <div className='border rounded-lg p-5 flex flex-col gap-4'>
-                                <div className='font-semibold'>User Review</div>
-                                <main className='flex flex-col gap-3'>
-                                    {reversedAstrologerReviewData.length > 0 ? reversedAstrologerReviewData.map((value, index) => (
-                                        <main key={index} className='border rounded-lg p-5 flex flex-col gap-2' style={{ boxShadow: "0 0 5px #bdb5b5" }}>
-                                            <div className='flex justify-between'>
-                                                <div className='flex gap-4 items-center'>
-                                                    <div><img src={Profile} className='h-10 w-10 rounded-[50%]' /></div>
-                                                    <div>{value?.customer?.customerName}</div>
+                            <div className='flex-grow basis-[100%] max-sm:basis-[100%] flex flex-col gap-5'>
+                                <div className='border rounded-lg p-5 flex flex-col gap-4'>
+                                    <div className='font-semibold'>User Review</div>
+                                    <main className='flex flex-col gap-3'>
+                                        {reversedAstrologerReviewData.length > 0 ? reversedAstrologerReviewData.map((value, index) => (
+                                            <main key={index} className='border rounded-lg p-5 flex flex-col gap-2' style={{ boxShadow: "0 0 5px #bdb5b5" }}>
+                                                <div className='flex justify-between'>
+                                                    <div className='flex gap-4 items-center'>
+                                                        <div><img src={Profile} className='h-10 w-10 rounded-[50%]' /></div>
+                                                        <div>{value?.customer?.customerName}</div>
+                                                    </div>
+                                                    <div className='flex gap-0 text-gray-600'><ReactStars count={5} edit={false} value={value?.ratings} size={24} color2={'#ffd700'} /></div>
                                                 </div>
-                                                <div className='flex gap-0 text-gray-600'><ReactStars count={5} edit={false} value={value?.ratings} size={24} color2={'#ffd700'} /></div>
-                                            </div>
-                                            <div>{value?.comments}</div>
-                                        </main>
-                                    )) : <div className='p-10 text-center'>No Data Found</div>}
-                                </main>
+                                                <div>{value?.comments}</div>
+                                            </main>
+                                        )) : <div className='p-10 text-center'>No Data Found</div>}
+                                    </main>
+                                </div>
                             </div>
-                        </div>
-                    </main>
-                </article>
-            </section>
+                        </main>
+                    </article>
+                </section>
+            }
+
 
             <Modal isOpen={chatIntakeFormModal} className="modal-content" overlayClassName="modal-overlay" closeTimeoutMS={200} >
                 <div className='text-center bg-primary text-white py-2 px-5 font-semibold flex justify-between'>

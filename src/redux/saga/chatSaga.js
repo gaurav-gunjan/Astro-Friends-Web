@@ -13,17 +13,14 @@ function* getLinkedProfileForChat(action) {
         const { payload } = action;
         console.log("Get Linked Profile For Chat Payload ::: ", payload);
 
-        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         const { data } = yield postAPI(get_linked_profile_for_chat, payload);
         console.log("Get Linked Profile For Chat Saga Response ::: ", data);
 
         if (data?.success) {
             yield put({ type: actionTypes.SET_LINKED_PROFILE_FOR_CHAT, payload: data?.data });
-            yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
         }
 
     } catch (error) {
-        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
         console.log("Get Linked Profile For Chat Saga Error ::: ", error);
     }
 }
