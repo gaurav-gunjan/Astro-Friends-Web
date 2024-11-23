@@ -19,6 +19,7 @@ const Chat = () => {
     const profileId = searchParams.get('profileId');
     const { socketConnectionStatus } = useSelector(state => state?.commonReducer);
     const [inputField, setInputField] = useState('');
+
     const current_user_id = localStorage.getItem('current_user_id');
     const current_user_data = JSON.parse(localStorage.getItem('current_user_data'));
     const currentUser = {
@@ -75,27 +76,31 @@ const Chat = () => {
 
     useEffect(() => {
         const fetchIntakeDetail = async () => {
-            const { data } = await axios.post(api_urls + 'api/customers/get_linked_profile', { profileId: '6735d57e4359c21977a0577c' });
-            if (data?.success) {
+            try {
+                const { data } = await axios.post(api_urls + 'api/customers/get_linked_profile', { profileId });
+                if (data?.success) {
 
-                const { firstName, lastName, dateOfBirth, timeOfBirth, placeOfBirth, maritalStatus, latitude, longitude, topic_of_concern, description } = data?.data;
+                    const { firstName, lastName, dateOfBirth, timeOfBirth, placeOfBirth, maritalStatus, latitude, longitude, topic_of_concern, description } = data?.data;
 
-                const message = {
-                    _id: Math.random().toString(36).substr(2, 9),
-                    text: `Firstname: ${firstName},  Lastname: ${lastName}, DOB: ${moment(dateOfBirth)?.format('DD MMM YYYY')}, TOB: ${moment(timeOfBirth)?.format('hh:mm a')}, POB: ${placeOfBirth}, Marital Status: ${maritalStatus}, Latitude:${latitude}, Longitude:${longitude}, Topic of concer:${topic_of_concern}, description: ${description}`,
-                    user: currentUser,
-                    createdAt: new Date().getTime(),
-                    addedAt: serverTimestamp(),
-                };
+                    const message = {
+                        _id: Math.random().toString(36).substr(2, 9),
+                        text: `Firstname: ${firstName},  Lastname: ${lastName}, DOB: ${moment(dateOfBirth)?.format('DD MMM YYYY')}, TOB: ${moment(timeOfBirth)?.format('hh:mm a')}, POB: ${placeOfBirth}, Marital Status: ${maritalStatus}, Latitude:${latitude}, Longitude:${longitude}, Topic of concer:${topic_of_concern}, description: ${description}`,
+                        user: currentUser,
+                        createdAt: new Date().getTime(),
+                        addedAt: serverTimestamp(),
+                    };
 
-                const chatNode = push(ref(database, `ChatMessages/${chat_id}`));
-                const newKey = chatNode.key;
-                const chatRef = ref(database, `ChatMessages/${chat_id}/${newKey}`);
-                await set(chatRef, { ...message, pending: false, sent: true, received: false });
+                    const chatNode = push(ref(database, `ChatMessages/${chat_id}`));
+                    const newKey = chatNode.key;
+                    const chatRef = ref(database, `ChatMessages/${chat_id}/${newKey}`);
+                    await set(chatRef, { ...message, pending: false, sent: true, received: false });
+                }
+            } catch (error) {
+                console.log("Error")
             }
         };
 
-        localStorage.getItem('user_type') === 'customer' && fetchIntakeDetail();
+        localStorage.getItem('user_type') === 'customer' && profileId && fetchIntakeDetail();
     }, []);
 
     const handleSend = async (text) => {
@@ -113,6 +118,8 @@ const Chat = () => {
         const newKey = chatNode.key;
         const chatRef = ref(database, `ChatMessages/${chat_id}/${newKey}`);
         await set(chatRef, { ...message, pending: false, sent: true, received: false });
+
+        setInputField('');
     };
 
     const handleFileChange = async (e) => {
@@ -206,8 +213,8 @@ const Chat = () => {
                 <div className="flex-shrink-0 p-4 bg-white border-t flex items-center">
                     <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
                     <button onClick={() => fileInputRef.current.click()} className="p-2 text-primary rounded-lg"><AttachmentBtnSvg /></button>
-                    <input type="text" placeholder="Type a message" className="flex-grow p-2 mx-2 border border-gray-300 rounded-lg outline-none" onChange={(e) => setInputField(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { handleSend(e.target.value); e.target.value = ''; setInputField('') } }} />
-                    <button onClick={() => (handleSend(inputField), setInputField(''))} className="p-2 text-primary rounded-lg"><SendBtnSvg /></button>
+                    <input type="text" value={inputField} placeholder="Type a message" className="flex-grow p-2 mx-2 border border-gray-300 rounded-lg outline-none" onChange={(e) => setInputField(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { handleSend(e.target.value); e.target.value = ''; setInputField('') } }} />
+                    <button onClick={() => handleSend(inputField)} className="p-2 text-primary rounded-lg"><SendBtnSvg /></button>
                 </div>
 
                 {/* Image Modal */}

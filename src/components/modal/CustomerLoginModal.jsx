@@ -36,7 +36,11 @@ const CustomerLoginModal = ({ isOpen, handleCloseModal }) => {
     //! Resend OTP 
     const handleResendOtp = () => {
         setResendTimer(30);
-        setCustomerOtp(null)
+        setCustomerOtp(null);
+        dispatch(AuthActions.customerLogin({
+            data: { phoneNumber: String(customerLoginInputFieldDetail?.phone_number)?.substring(customerLoginInputFieldDetail?.country_code_length) },
+            onComplete: () => (setOtpScreen(true), setResendTimer(30))
+        }));
     };
 
     const [customerOtp, setCustomerOtp] = useState(); //* Otp Field
