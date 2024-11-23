@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { CrossSvg } from '../../assets/svg';
 import Logo from '../../assets/images/logo/logo.png';
-import LoginImage from '../../assets/images/logo/logo.png';
+import LoginImage from '../../assets/images/auth/Login-Image.png';
 import * as AuthActions from '../../redux/actions/authAction';
 
 Modal.setAppElement('#root');
@@ -37,7 +37,7 @@ const AstrologerLoginModal = ({ isOpen, handleCloseModal }) => {
     return (
         <>
             <Modal isOpen={isOpen} className="modal-content" overlayClassName="modal-overlay" closeTimeoutMS={200} >
-                <section className="relative flex items-center justify-center bg-white max-md:p-5">
+                <section className="relative flex items-center justify-center bg-gray-100 max-md:p-5">
                     <div onClick={() => handleCloseModal()} className='cursor-pointer absolute text-primary right-5 top-5' ><CrossSvg strokeWidth='3' /></div>
 
                     <article className="rounded-lg overflow-hidden max-w-4xl w-full">

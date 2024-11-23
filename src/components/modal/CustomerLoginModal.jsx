@@ -7,7 +7,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { CrossSvg, EditSvg } from '../../assets/svg';
 import Logo from '../../assets/images/logo/logo.png';
-import LoginImage from '../../assets/images/logo/logo.png';
+import LoginImage from '../../assets/images/auth/Login-Image.png';
 import { toaster } from '../../utils/services/toast-service';
 import * as AuthActions from '../../redux/actions/authAction';
 
@@ -65,7 +65,7 @@ const CustomerLoginModal = ({ isOpen, handleCloseModal }) => {
 
     return (
         <Modal isOpen={isOpen} className="modal-content" overlayClassName="modal-overlay" closeTimeoutMS={200}>
-            <section className="relative flex items-center justify-center bg-white max-md:p-5">
+            <section className="relative flex items-center justify-center bg-gray-100 max-md:p-5">
                 <div onClick={() => (handleCloseModal(), setOtpScreen())} className='cursor-pointer absolute text-primary right-5 top-5'> <CrossSvg strokeWidth='3' />
                 </div>
                 <article className="rounded-lg overflow-hidden max-w-4xl w-full">
@@ -100,7 +100,7 @@ const CustomerLoginModal = ({ isOpen, handleCloseModal }) => {
                                 :
                                 <div className='flex flex-col gap-4'>
                                     <div className='text-black'>You will receive a 4 digit code for verification</div>
-                                    <PhoneInput country={'in'} placeholder='Enter mobile no' value={customerLoginInputFieldDetail?.phone_number} onChange={handleLoginInputField} onKeyDown={(e) => e.key === 'Enter' && handleLogin()} inputStyle={{ width: '100%', height: '45px', fontSize: "15px", backgroundColor: "#EEEEEE" }} />
+                                    <PhoneInput country={'in'} placeholder='Enter mobile no' value={customerLoginInputFieldDetail?.phone_number} onChange={handleLoginInputField} onKeyDown={(e) => e.key === 'Enter' && handleLogin()} inputStyle={{ width: '100%', height: '45px', fontSize: "15px", backgroundColor: "#FFF" }} />
                                     <button onClick={handleLogin} className="w-full shadow-lg bg-primary hover:bg-primary focus:shadow-outline focus:outline-none text-white text-sm py-2 px-4 rounded transition duration-300 transform hover:scale-95" type="submit">GET OTP</button>
 
                                     <div className='text-[12px] text-grey'>By login, you agree to our <Link to={'terms-and-conditions'} onClick={() => handleCloseModal()} className='underline text-blue-700'>Terms of Use</Link> and <Link to={'privacy-policy'} onClick={() => handleCloseModal()} className='underline text-blue-700'>Privacy Policy</Link></div>
