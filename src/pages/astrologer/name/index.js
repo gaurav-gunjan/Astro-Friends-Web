@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import Profile from '../../../assets/images/logo/profile.jpg';
 import RadioButton from '../../../components/button/RadioButton';
-import { CallSvg, ChatSvg, CrossSvg, RightArrowHeadSvg, RightArrowSvg, StarSvg, VerifySvg } from '../../../assets/svg';
+import { CallSvg, ChatSvg, CrossSvg, RightArrowHeadSvg, RightArrowSvg, StarSvg, SyncSvg, VerifySvg } from '../../../assets/svg';
 import { api_urls } from '../../../utils/api-urls';
 import { DateDifference, IndianRupee, ParseDateTime, YYYYMMDD } from '../../../utils/common-function';
 import * as ChatActions from '../../../redux/actions/chatAction';
@@ -49,8 +49,7 @@ const SingleAstrologer = () => {
     // TODO : Linked profile
     const [linkedProfileModal, setLinkedProfileModal] = useState(false);
     const handleOpenLinkedProfileModal = () => setLinkedProfileModal(true);
-    const handleCloseLinkedProfileModal = () => setLinkedProfileModal(false);
-    const [selectedLinkedProfileData, setSelectedLinkedProfileData] = useState({});
+    const [selectedLinkedProfileData, setSelectedLinkedProfileData] = useState(null);
 
     //* Handle Select : Linked Profile Data
     const handleSelectedLinkedProfileData = (data) => {
@@ -340,108 +339,83 @@ const SingleAstrologer = () => {
                 </section>
             }
 
-
-            <Modal isOpen={chatIntakeFormModal} className="modal-content" overlayClassName="modal-overlay" closeTimeoutMS={200} >
-                <div className='text-center bg-primary text-white py-2 px-5 font-semibold flex justify-between'>
-                    <div></div>
-                    <div>Chat Intake Form</div>
-                    <div onClick={handleCloseChatIntakeFormModal} className='cursor-pointer' ><CrossSvg h='16' w='16' color='#fff' strokeWidth='5' /></div>
-                </div>
-                <main className='flex flex-col gap-4 p-5'>
-                    <div className='text-center'>Help Our Astrologer Know a little bit about you. Your details will kept completely confidentail.</div>
-
-                    <form className='px-5 my-8 flex flex-wrap justify-between gap-6'>
-                        <div className='basis-[30%] max-md:basis-full flex flex-col gap-1'>
-                            <label className='text-grey text-sm'>First Name</label>
-                            <input name='first_name' value={chatIntakeDetail?.first_name} onChange={handleChatIntakeDetail} type='text' placeholder='First Name' className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm' />
-                        </div>
-                        <div className='basis-[30%] max-md:basis-full flex flex-col gap-1'>
-                            <label className='text-grey text-sm'>Last Name</label>
-                            <input name='last_name' value={chatIntakeDetail?.last_name} onChange={handleChatIntakeDetail} type='text' placeholder='Last Name' className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm' />
-                        </div>
-                        <div className='basis-[30%] max-md:basis-full flex flex-col gap-1'>
-                            <label className='text-grey text-sm'>Gender</label>
-                            <select name="gender" value={chatIntakeDetail?.gender} onChange={handleChatIntakeDetail} id="gender" className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm'>
-                                <option value="">Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        <div className='basis-[30%] max-md:basis-full flex flex-col gap-1'>
-                            <label className='text-grey text-sm'>Date of Birth</label>
-                            <input name='date_of_birth' value={chatIntakeDetail?.date_of_birth} onChange={handleChatIntakeDetail} type='date' className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm' />
-                        </div>
-                        <div className='basis-[30%] max-md:basis-full flex flex-col gap-1'>
-                            <label className='text-grey text-sm'>Time of Birth</label>
-                            <input name='time_of_birth' value={chatIntakeDetail?.time_of_birth} onChange={handleChatIntakeDetail} type='time' className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm' />
-                        </div>
-
-                        <div className='basis-[30%] max-md:basis-full flex flex-col gap-1'>
-                            <label className='text-grey text-sm'>Place of Birth</label>
-                            <Autocomplete
-                                onLoad={(ref) => (autocompleteRef.current = ref)}
-                                onPlaceChanged={handlePlaceSelect}
-                            >
-                                <input
-                                    type='text'
-                                    name='place_of_birth'
-                                    value={chatIntakeDetail.place_of_birth}
-                                    onChange={handleChatIntakeDetail}
-                                    className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm'
-                                    placeholder='Enter place of birth'
-                                />
-                            </Autocomplete>
-                        </div>
-
-                        <div className='basis-[30%] max-md:basis-full flex flex-col gap-1'>
-                            <label className='text-grey text-sm'>Marital Status</label>
-                            <select name="marital_status" value={chatIntakeDetail?.marital_status} onChange={handleChatIntakeDetail} id="marital_status" className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm'>
-                                <option value="">Select Marital Status</option>
-                                <option value="Married">Married</option>
-                                <option value="Unmarried">Unmarried</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        <div className='basis-[30%] max-md:basis-full flex flex-col gap-1'>
-                            <label className='text-grey text-sm'>Type of Concern</label>
-                            <select name="type_of_concern" value={chatIntakeDetail?.type_of_concern} onChange={handleChatIntakeDetail} id="type_of_concern" className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm'>
-                                <option value="">Select Type of Concern</option>
-                                <option value="Career">Career</option>
-                                <option value="Business">Business</option>
-                            </select>
-                        </div>
-                        <div className='basis-[100%] flex flex-col gap-1'>
-                            <label className='text-grey text-sm'>Description</label>
-                            <textarea name='description' rows={5} value={chatIntakeDetail?.description} onChange={handleChatIntakeDetail} placeholder='Description' className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm' />
-                        </div>
-
-                    </form>
-                    <div onClick={() => handleOpenLinkedProfileModal()} className='text-center text-primary cursor-pointer'>Show Linked Profile</div>
-                    <div onClick={handleSubmitChatIntakeForm} className='bg-primary text-center text-white rounded-lg p-2 text-sm cursor-pointer'>Start {connectionType}</div>
-                </main>
+            <Modal isOpen={chatIntakeFormModal} className="modal-content" overlayClassName="modal-overlay" closeTimeoutMS={200}>
+                <section className="relative shadow-2xl p-3 overflow-hidden bg-gray-200">
+                    <article>
+                        <main className='px-10 py-10 text-[14px] text-[#666373] flex flex-col gap-8'>
+                            <div onClick={() => handleCloseChatIntakeFormModal()} className='cursor-pointer bg-primary absolute top-4 right-4 flex items-center gap-2 text-white text-sm py-1 px-3 rounded-full'>Back to website <RightArrowSvg h='18' w='18' /> </div>
+                            <div className='flex flex-col gap-3'>
+                                <div className='flex flex-col items-center justify-end h-full'>
+                                    <div className='font-[500] text-3xl text-black'>Intake<span className='text-primary_text_dark'> Form</span></div>
+                                    <div className='flex items-center'><div className='w-[50px] h-[2px] bg-primary'></div><div className='w-[30px] h-[4px] bg-primary'></div><div className='w-[50px] h-[2px] bg-primary'></div></div>
+                                </div>
+                                <div className='text-[#666373] text-center'>Help Our Astrologer Know a little bit about you. Your details will kept completely confidentail.</div>
+                            </div>
+                            <div className='flex max-lg:flex-col gap-[20px] max-lg:gap-[15px]'>
+                                <div className='basis-[45%] max-lg:basis-full flex-grow flex flex-col gap-[15px]'>
+                                    <div className='flex items-center gap-2'>
+                                        <input name='first_name' value={chatIntakeDetail?.first_name} onChange={(e) => handleChatIntakeDetail(e)} placeholder='First Name' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' /> <div onClick={() => handleOpenLinkedProfileModal(true)} className='text-green-600 bg-white h-full max-lg:h-[35px] w-10 rounded-sm flex items-center justify-center cursor-pointer'><SyncSvg /></div>
+                                    </div>
+                                    <input name='last_name' value={chatIntakeDetail?.last_name} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Last Name' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                    <select name='gender' value={chatIntakeDetail?.gender} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Gender' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' >
+                                        <option value="" className='text-gray-400'>----------Select Gender----------</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <input name='date_of_birth' value={chatIntakeDetail?.date_of_birth} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Date of Birth' type='date' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                    <input name='time_of_birth' value={chatIntakeDetail?.time_of_birth} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Time of Birth' type='time' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                    <Autocomplete onLoad={(ref) => (autocompleteRef.current = ref)} onPlaceChanged={handlePlaceSelect} >
+                                        <input name='place_of_birth' value={chatIntakeDetail?.place_of_birth} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Place of Birth' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                    </Autocomplete>
+                                </div>
+                                <div className='basis-[45%] max-lg:basis-full flex-grow flex flex-col gap-[15px]'>
+                                    <select name='marital_status' value={chatIntakeDetail?.marital_status} onChange={(e) => handleChatIntakeDetail(e)} placeholder='marital status' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' >
+                                        <option value="" className='text-gray-400'>----------Select Marital Status----------</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Unmarried">Unmarried</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <select name='type_of_concern' value={chatIntakeDetail?.type_of_concern} onChange={(e) => handleChatIntakeDetail(e)} placeholder='type of concern' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' >
+                                        <option value="" className='text-gray-400'>----------Select Type of Concern----------</option>
+                                        <option value="Career">Career</option>
+                                        <option value="Business">Business</option>
+                                    </select>
+                                    <textarea name='description' rows={6} value={chatIntakeDetail?.description} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Description' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                    <div onClick={() => handleSubmitChatIntakeForm()} className='cursor-pointer bg-primary border border-primary hover:bg-orange-400 text-center text-white font-semibold rounded-sm px-5 py-2 transition-all duration-500'>Start {connectionType}</div>
+                                </div>
+                            </div>
+                        </main>
+                    </article>
+                </section>
             </Modal>
 
-            <Modal isOpen={linkedProfileModal} className="modal-content" overlayClassName="modal-overlay" closeTimeoutMS={200} >
-                <div className='text-center bg-primary text-white py-2 px-5 font-semibold flex justify-between'>
-                    <div></div>
-                    <div>Linked Profile</div>
-                    <div onClick={handleCloseLinkedProfileModal} className='cursor-pointer' ><CrossSvg h='16' w='16' color='#fff' strokeWidth='5' /></div>
-                </div>
+            <Modal isOpen={linkedProfileModal} className="modal-content-small" overlayClassName="modal-overlay-small" closeTimeoutMS={200} >
+                <div className='bg-gray-100 text-white p-5 flex flex-col gap-2'>
+                    <div className='text-center px-5 font-semibold flex justify-between items-center'>
+                        <div className='p-3 px-4'></div>
+                        <div className='flex flex-col items-center justify-end h-full'>
+                            <div className='font-[500] text-2xl text-primary'>Linked<span className='text-primary_text_dark'> Profile</span></div>
+                            <div className='flex items-center'><div className='w-[50px] h-[2px] bg-primary'></div><div className='w-[30px] h-[4px] bg-primary'></div><div className='w-[50px] h-[2px] bg-primary'></div></div>
+                        </div>
+                        <div onClick={() => setLinkedProfileModal(false)} className='cursor-pointer bg-primary p-2 rounded-full' ><CrossSvg h='12' w='12' strokeWidth='5' /></div>
+                    </div>
 
-                <main className='flex flex-col gap-4 p-5 max-h-[400px] overflow-scroll'>
-                    {linkedProfileData?.map((value, index) => (
-                        <RadioButton key={index}
-                            label={value?.firstName + ' ' + value?.lastName + ' - ' + value?.gender + ' - ' + DateDifference(moment(value?.dateOfBirth).format('YYYY-MM-DD'))}
-                            name="custom-radio"
-                            value={value?._id}
-                            checked={selectedLinkedProfileData?._id === value?._id}
-                            onChange={() => handleSelectedLinkedProfileData(value)}
-                        />
-                    ))}
-                </main>
-                <div className='py-2 px-5 font-semibold flex justify-center'>
-                    <div onClick={() => handleCloseLinkedProfileModal()} className='bg-primary text-white px-10 py-1 rounded-md cursor-pointer'>Select</div>
+                    <main className='flex flex-col gap-4 p-5'>
+                        {linkedProfileData?.map((value, index) => (
+                            <RadioButton key={index}
+                                label={value?.firstName + ' ' + value?.lastName + ' - ' + value?.gender + ' - ' + DateDifference(moment(value?.dateOfBirth).format('YYYY-MM-DD'))}
+                                name="custom-radio"
+                                value={value?._id}
+                                checked={selectedLinkedProfileData?._id === value?._id}
+                                onChange={() => handleSelectedLinkedProfileData(value)}
+                            />
+                        ))}
+                    </main>
+                    <div onClick={() => {
+                        if (selectedLinkedProfileData) setLinkedProfileModal(false)
+                        else toaster.warning({ text: 'Please select a linked profile' });
+                    }} className='bg-primary text-center py-1.5 rounded-[2px] cursor-pointer'>Select</div>
                 </div>
             </Modal>
 
