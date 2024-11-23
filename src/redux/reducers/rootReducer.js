@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import commonReducer from "./commonReducer";
+import authReducer from "./authReducer";
 import paymentReducer from "./paymentReducer";
 import userReducer from "./userReducer";
 import profileReducer from "./profileReducer";
@@ -13,6 +14,7 @@ import staticPageReducer from "./staticPageReducer";
 
 const rootReducer = combineReducers({
     commonReducer,
+    authReducer,
     paymentReducer,
     userReducer,
     profileReducer,

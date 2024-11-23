@@ -80,9 +80,9 @@ const ChatWithAstrologer = () => {
                             </div>
                         </main>
 
-                        <main className='flex flex-wrap justify-between max-md:justify-center gap-[30px] gap-y-[40px]'>
+                        <main className='flex flex-wrap gap-[2.5%] gap-y-[40px]'>
                             {astrologerData?.astrologer?.map((value, index) => (
-                                <div key={index} onClick={() => navigate(`/astrologer/${value?.astrologerName?.split(' ')[0]?.toLowerCase()}`, { state: { stateData: value } })} className='w-[390px] max-md:w-[90vw] flex gap-[20px] rounded-xl p-2 cursor-pointer' style={{ boxShadow: "0 0 10px #bdb5b5" }}>
+                                <div key={index} onClick={() => navigate(`/astrologer/${value?.astrologerName?.split(' ')[0]?.toLowerCase()}`, { state: { stateData: value } })} className='lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full flex gap-[20px] rounded-xl p-2 cursor-pointer' style={{ boxShadow: "0 0 10px #bdb5b5" }}>
                                     <div className='w-[130px] relative'>
                                         <div className='absolute top-1 right-2 text-xs text-white'>{value?.call_status == "online" ? <div className='bg-green-600 px-2 py-0.5 rounded-lg'>Online</div> : <div className='bg-red-600 px-2 py-0.5 rounded-lg'>Offline</div>}</div>
                                         <img className='rounded-xl h-[110px] w-full' src={api_urls + value?.profileImage} />
@@ -95,7 +95,6 @@ const ChatWithAstrologer = () => {
                                         <div className='absolute right-2 top-0'><ReactStars count={5} edit={false} value={Number(value?.rating)} size={20} color2={'#ffd700'} /></div>
                                         <div className='line-clamp-1'>{value?.astrologerName}</div>
                                         <div className='bg-primary text-white rounded-lg px-[10px] py-[5px] line-clamp-1'>{value?.skill?.length > 0 && value?.skill?.map(item => item?.skill)?.join(' , ')}</div>
-                                        {/* <div>{value?.skill?.length > 0 ? value?.skill?.map(value => value?.skill)?.join(' , ') : 'N/A'}</div> */}
                                         <div>Experience : {value?.experience} Years</div>
                                         <hr />
                                         <div className='line-clamp-1'>{value?.language.length > 0 ? value?.language.join(' , ') : "Hindi"}</div>

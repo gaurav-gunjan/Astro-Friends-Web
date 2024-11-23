@@ -5,6 +5,7 @@ export const SET_IS_LOADING = 'SET_IS_LOADING';
 //* Customer Auth
 export const CUSTOMER_LOGIN = 'CUSTOMER_LOGIN';
 export const CUSTOMER_LOGIN_OTP = 'CUSTOMER_LOGIN_OTP';
+export const CUSTOMER_LOGIN_INPUT_FIELD = 'CUSTOMER_LOGIN_INPUT_FIELD';
 
 //* Astrologer Auth
 export const ASTROLOGER_LOGIN = 'ASTROLOGER_LOGIN';

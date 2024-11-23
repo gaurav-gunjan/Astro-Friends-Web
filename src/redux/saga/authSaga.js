@@ -71,7 +71,7 @@ function* customerLoginOtp(action) {
         }
 
     } catch (error) {
-        Swal.fire({ icon: "error", text: 'Invalid OTP', text: 'Please try again', showConfirmButton: false, timer: 2000, });
+        Swal.fire({ icon: "error", text: error?.response?.data?.message || 'Please try again', showConfirmButton: false, timer: 2000, });
         console.log("Customer Login Saga Error ::: ", error)
     }
 }

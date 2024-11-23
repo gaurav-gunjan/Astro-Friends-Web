@@ -12,7 +12,7 @@ function* getDailyHoroscope(action) {
 
         if (payload?.day == 'Today') {
             yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-            yield delay(500);
+            yield delay(100);
             const data = yield AstrologyAPIRequest(get_daily_horoscope(payload?.zodiacSign));
             console.log('Get Daily Horoscope Saga Response - Today ::: ', data);
 
@@ -22,7 +22,7 @@ function* getDailyHoroscope(action) {
 
         } else if (payload?.day == 'Tomorrow') {
             yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-            yield delay(500);
+            yield delay(100);
             const data = yield AstrologyAPIRequest(get_daily_tomorrow_horoscope(payload?.zodiacSign));
             console.log('Get Daily Horoscope Saga Response - Tomorrow ::: ', data);
 
@@ -32,7 +32,7 @@ function* getDailyHoroscope(action) {
 
         } else {
             yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-            yield delay(500);
+            yield delay(100);
             const data = yield AstrologyAPIRequest(get_daily_yesterday_horoscope(payload?.zodiacSign));
             console.log('Get Daily Horoscope Saga Response - Yesterday ::: ', data);
 
@@ -53,7 +53,7 @@ function* getMonthlyHoroscope(action) {
         console.log("Get Monthly Horoscope Payload ::: ", payload);
 
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-        yield delay(500);
+        yield delay(100);
         const data = yield AstrologyAPIRequest(get_monthly_horoscope(payload));
         console.log('Get Monthly Horoscope Saga Response ::: ', data);
 
@@ -75,7 +75,7 @@ function* getKundliMatchingBirthDetails(action) {
         // console.log("Get Kundli Matching Birth Details Payload ::: ", payload);
 
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-        yield delay(500);
+        yield delay(100);
         const data = yield AstrologyAPIRequest(get_kundli_matching_birth_details, payload);
         console.log('Get Kundli Matching Birth Details Saga Response ::: ', data);
 
@@ -95,7 +95,7 @@ function* getKundliMatchingAstroDetails(action) {
         // console.log("Get Kundli Matching Astro Details Payload ::: ", payload);
 
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-        yield delay(500);
+        yield delay(100);
         const data = yield AstrologyAPIRequest(get_kundli_matching_astro_details, payload);
         console.log('Get Kundli Matching Astro Details Saga Response ::: ', data);
 
@@ -115,7 +115,7 @@ function* getKundliMatchingAshtakootPointsDetails(action) {
         // console.log("Get Kundli Matching Ashtakoot Points Details Payload ::: ", payload);
 
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-        yield delay(500);
+        yield delay(100);
         const data = yield AstrologyAPIRequest(get_kundli_matching_ashtakoot_points_details, payload);
         console.log('Get Kundli Matching Ashtakoot Points Details Saga Response ::: ', data);
 
@@ -135,7 +135,7 @@ function* getKundliMatchingDashakootPointsDetails(action) {
         // console.log("Get Kundli Matching Dashakoot Points Details Payload ::: ", payload);
 
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-        yield delay(500);
+        yield delay(100);
         const data = yield AstrologyAPIRequest(get_kundli_matching_dashakoot_points_details, payload);
         console.log('Get Kundli Matching Dashakoot Points Details Saga Response ::: ', data);
 
@@ -155,7 +155,7 @@ function* getKundliMatchingManglikReportDetails(action) {
         // console.log("Get Kundli Matching Manglik Report Details Payload ::: ", payload);
 
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-        yield delay(500);
+        yield delay(100);
         const data = yield AstrologyAPIRequest(get_kundli_matching_manglik_report_details, payload);
         console.log('Get Kundli Matching Manglik Report Details Saga Response ::: ', data);
 
