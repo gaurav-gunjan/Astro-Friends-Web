@@ -4,7 +4,7 @@ import moment from 'moment';
 
 const CountDown = () => {
     const { chatTimerCountDown } = useSelector(state => state?.chatReducer);
-    console.log('chatTimerCountDown', chatTimerCountDown);
+    // console.log('chatTimerCountDown', chatTimerCountDown);
 
     const timeFormat = (seconds) => {
         const duration = moment.duration(seconds, 'seconds');

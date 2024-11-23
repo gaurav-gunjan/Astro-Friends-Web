@@ -70,12 +70,12 @@ const Chart = ({ data }) => {
     return (
         <div className='flex flex-col gap-5 justify-center items-center'>
 
-            <select onChange={(e) => dispatch(KundliActions.kundliGetChart({ data: e.target.value, kundliPayload: data }))} name="chart_route" id="chart_route" className='border border-primary outline-none w-full rounded-md p-2'>
+            <select onChange={(e) => dispatch(KundliActions.kundliGetChart({ data: e.target.value, kundliPayload: data }))} name="chart_route" id="chart_route" className='border border-primary outline-none w-full rounded-md p-2 mb-20'>
                 <option value={''}>select chart</option>
                 {chartOption?.map((value, index) => <option key={index} value={value?.value}>{value?.label}</option>)}
             </select>
 
-            <svg width="350" height="350" viewBox="0 0 350 350" className="horo-chart">
+            <svg width="350" height="350" viewBox="0 0 350 350" className="horo-chart scale-150">
                 {paths.map((d, index) => (
                     <path key={index} d={d} fill="none" stroke="red" />
                 ))}

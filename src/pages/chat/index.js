@@ -1,5 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { database, ref, push, onValue, serverTimestamp, set } from '../../config/firebase-config'; // Update with your actual firebase config import
@@ -8,13 +9,16 @@ import { api_urls } from '../../utils/api-urls';
 import { AttachmentBtnSvg, SendBtnSvg } from '../../assets/svg';
 import { generateRandomNumber } from '../../utils/common-function';
 import ChatImageModal from '../../components/modal/ChatImageModal';
+import SocketService from '../../utils/services/socket-service';
 
 const Chat = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const customer_id = searchParams.get('customer');
     const astrologer_id = searchParams.get('astrologer');
-
+    const profileId = searchParams.get('profileId');
+    const { socketConnectionStatus } = useSelector(state => state?.commonReducer);
+    const [inputField, setInputField] = useState('');
     const current_user_id = localStorage.getItem('current_user_id');
     const current_user_data = JSON.parse(localStorage.getItem('current_user_data'));
     const currentUser = {
@@ -68,6 +72,31 @@ const Chat = () => {
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    useEffect(() => {
+        const fetchIntakeDetail = async () => {
+            const { data } = await axios.post(api_urls + 'api/customers/get_linked_profile', { profileId: '6735d57e4359c21977a0577c' });
+            if (data?.success) {
+
+                const { firstName, lastName, dateOfBirth, timeOfBirth, placeOfBirth, maritalStatus, latitude, longitude, topic_of_concern, description } = data?.data;
+
+                const message = {
+                    _id: Math.random().toString(36).substr(2, 9),
+                    text: `Firstname: ${firstName},  Lastname: ${lastName}, DOB: ${moment(dateOfBirth)?.format('DD MMM YYYY')}, TOB: ${moment(timeOfBirth)?.format('hh:mm a')}, POB: ${placeOfBirth}, Marital Status: ${maritalStatus}, Latitude:${latitude}, Longitude:${longitude}, Topic of concer:${topic_of_concern}, description: ${description}`,
+                    user: currentUser,
+                    createdAt: new Date().getTime(),
+                    addedAt: serverTimestamp(),
+                };
+
+                const chatNode = push(ref(database, `ChatMessages/${chat_id}`));
+                const newKey = chatNode.key;
+                const chatRef = ref(database, `ChatMessages/${chat_id}/${newKey}`);
+                await set(chatRef, { ...message, pending: false, sent: true, received: false });
+            }
+        };
+
+        localStorage.getItem('user_type') === 'customer' && fetchIntakeDetail();
+    }, []);
 
     const handleSend = async (text) => {
         if (!text.trim()) return;
@@ -130,6 +159,14 @@ const Chat = () => {
 
     const groupedMessages = groupMessagesByDate();
 
+    // // Todo : Emitting 'join-room' Event On Page Mount or Page Relaoding
+    // useEffect(() => {
+    //     const local_chatId = localStorage.getItem('chatId');
+    //     console.log("Local chat id: ", local_chatId);
+    //     if (local_chatId) SocketService.emit('joinChatRoom', local_chatId);
+    //     else navigate('/');
+    // }, [socketConnectionStatus]);
+
     return (
         <>
             <div className='h-[94.5px] max-md:h-[70.5px]'></div>
@@ -169,8 +206,8 @@ const Chat = () => {
                 <div className="flex-shrink-0 p-4 bg-white border-t flex items-center">
                     <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
                     <button onClick={() => fileInputRef.current.click()} className="p-2 text-primary rounded-lg"><AttachmentBtnSvg /></button>
-                    <input type="text" placeholder="Type a message" className="flex-grow p-2 mx-2 border border-gray-300 rounded-lg outline-none" onKeyDown={(e) => { if (e.key === 'Enter') { handleSend(e.target.value); e.target.value = ''; } }} />
-                    <button onClick={() => handleSend('Hello')} className="p-2 text-primary rounded-lg"><SendBtnSvg /></button>
+                    <input type="text" placeholder="Type a message" className="flex-grow p-2 mx-2 border border-gray-300 rounded-lg outline-none" onChange={(e) => setInputField(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { handleSend(e.target.value); e.target.value = ''; setInputField('') } }} />
+                    <button onClick={() => (handleSend(inputField), setInputField(''))} className="p-2 text-primary rounded-lg"><SendBtnSvg /></button>
                 </div>
 
                 {/* Image Modal */}
@@ -181,143 +218,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
-
-
-
-//! Old One 
-// import React, { useEffect, useRef, useState } from 'react';
-// import { useLocation } from 'react-router-dom';
-// import { database, ref, push, onValue, serverTimestamp, set } from '../../config/firebase-config';
-// import { MinChatUiProvider, MainContainer, MessageInput, MessageContainer, MessageList, MessageHeader } from "@minchat/react-chat-ui";
-// import Timer from './features/Timer';
-// import axios from 'axios';
-// import { api_urls } from '../../utils/api-urls';
-// import { useSelector } from 'react-redux';
-// import { generateRandomNumber } from '../../utils/common-function';
-// import HeaderBG from '../../components/common/HeaderBG';
-
-// const Chat = () => {
-//     const location = useLocation();
-//     const searchParams = new URLSearchParams(location.search);
-//     const customer_id = searchParams.get('customer');
-//     const astrologer_id = searchParams.get('astrologer');
-//     // const { userCustomerDataById, userAstrologerDataById } = useSelector(state => state?.userReducer);
-//     const user_type = localStorage.getItem('user_type')
-//     const current_user_id = localStorage.getItem('current_user_id');
-//     const current_user_data = JSON.parse(localStorage.getItem('current_user_data'));
-//     const currentUser = { _id: user_type == 'astrologer' ? 'astro_' + current_user_id : 'customer_' + current_user_id, name: current_user_data?.astrologerName || current_user_data?.customerName };
-
-//     // console.log('Local Storage', { current_user_id, current_user_data });
-//     // console.log('Redux Customer', { current_user_id: userCustomerDataById?._id, current_user_data: userCustomerDataById });
-//     // console.log('Redux Astrologer', { current_user_id: userAstrologerDataById?._id, current_user_data: userAstrologerDataById });
-
-//     // let currentUser;
-//     // if (userCustomerDataById) {
-//     //     currentUser = { id: userCustomerDataById?._id, name: userCustomerDataById?.customerName };
-//     // }
-//     // if (userAstrologerDataById) {
-//     //     currentUser = { id: userAstrologerDataById?._id, name: userAstrologerDataById?.astrologerName };
-//     // }
-
-//     const [messages, setMessages] = useState([]);
-
-//     const fileInputRef = useRef(null);
-//     const handleAttachClick = () => { if (fileInputRef.current) fileInputRef.current.click() };
-
-//     const handleFileChange = async (e) => {
-//         console.log("Handle File Change Outside ::: ", e.target.files[0]);
-//         if (e.target.files[0] && e.target.files.length > 0) {
-//             console.log("Handle File Change Inside ::: ", e.target.files[0]);
-
-//             try {
-//                 // const formData = { fileType: 'image', filePath: e.target.files[0] }
-//                 const formData = new FormData();
-//                 formData.append('fileType', 'image');
-//                 formData.append('filePath', e.target.files[0])
-//                 const { data } = await axios.post(api_urls + 'api/customers/store-file', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-//                 console.log("API Data ::: ", data);
-
-//                 if (data?.success) {
-//                     const message = { _id: generateRandomNumber(), text: '', image: api_urls + data?.data?.filePath, user: currentUser, createdAt: new Date().getTime(), addedAt: serverTimestamp(), };
-//                     console.log('message', message);
-//                     const chatNode = push(ref(database, `ChatMessages/${chat_id}`));
-//                     const newKey = chatNode.key;
-//                     const chatRef = ref(database, `ChatMessages/${chat_id}/${newKey}`);
-
-//                     await set(chatRef, { ...message, pending: false, sent: true, received: false });
-//                 } else {
-//                     console.log("Error")
-//                 }
-//             } catch (error) {
-//                 console.log("Error  ::: ", error);
-//             }
-//         }
-//     };
-
-//     const requestedData = { user_id: customer_id, astroID: astrologer_id };
-//     const chat_id = `customer_${requestedData?.user_id}_astro_${requestedData?.astroID}`;
-//     const localRequestedData = JSON.parse(localStorage.getItem('chat_requested_data'));
-//     // console.log("Local Requested Data ::: ", localRequestedData);
-
-//     // console.log("message ::: ", messages);
-
-//     //! Initiate Chat
-//     useEffect(() => {
-//         const messagesRef = ref(database, `ChatMessages/${chat_id}`);
-//         onValue(messagesRef, (snapshot) => {
-//             const data = snapshot.val();
-//             const loadedMessages = [];
-
-//             for (let key in data) {
-//                 const message = data[key];
-//                 const media = message.image && { type: 'image', url: message.image, size: '', name: '' };
-//                 console.log("Single Message ::: ", message)
-//                 console.log("Single Message User ID ::: ", message?.user?._id)
-
-//                 loadedMessages.push({ ...message, media, createdAt: new Date(message?.createdAt), user: { id: message?.user?._id, name: message?.user?.name } });
-//             }
-//             setMessages(loadedMessages);
-//         });
-//     }, []);
-//     console.log('Message ::: ', messages);
-
-//     //! Send Chat Message 
-//     const handleSend = async (text) => {
-//         const message = { _id: generateRandomNumber(), text, image: '', user: currentUser, createdAt: new Date().getTime(), addedAt: serverTimestamp(), };
-//         console.log("Genrated Random Number ::: ", generateRandomNumber())
-//         console.log('message', message)
-//         const chatNode = push(ref(database, `ChatMessages/${chat_id}`));
-//         const newKey = chatNode.key;
-//         const chatRef = ref(database, `ChatMessages/${chat_id}/${newKey}`);
-
-//         await set(chatRef, { ...message, pending: false, sent: true, received: false });
-//     };
-
-//     return (
-//         <>
-//             <HeaderBG />
-
-//             <div className='p-5 pl-10'>
-//                 <MinChatUiProvider theme="#6EA9D7">
-//                     <MainContainer style={{ height: '75vh', width: "100%" }}>
-//                         <MessageContainer>
-//                             <MessageHeader showBack={false} >
-//                                 <Timer requestedData={localRequestedData} />
-//                             </MessageHeader>
-//                             <MessageList
-//                                 currentUserId={user_type == 'astrologer' ? 'astro_' + current_user_id : 'customer_' + current_user_id}
-//                                 messages={messages.map(msg => ({ ...msg, }))}
-//                             />
-//                             <MessageInput placeholder="Type message here" showAttachButton onAttachClick={handleAttachClick} onSendMessage={handleSend} />
-
-//                             <input type='file' accept="image/*" ref={fileInputRef} style={{ display: "none" }} onChange={handleFileChange} />
-//                         </MessageContainer>
-//                     </MainContainer>
-//                 </MinChatUiProvider>
-//             </div>
-//         </>
-//     )
-// }
-
-// export default Chat;

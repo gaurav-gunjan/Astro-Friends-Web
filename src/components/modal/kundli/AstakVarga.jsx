@@ -35,7 +35,7 @@ const AstakVarga = ({ data }) => {
                     </div>
                 </div>
                 {selectedTab === 'Table' && <TableTab data={data[`${selectedBody}Reports`]} />}
-                {selectedTab === 'Chart' && <ChartTab data={data[getChartKey(selectedBody)]} />}
+                {selectedTab === 'Chart' && <div className='pt-10 pb-20'><ChartTab data={data[getChartKey(selectedBody)]} /></div>}
             </div>
         </div>
     );
@@ -80,7 +80,7 @@ const TableTab = ({ data }) => {
 const ChartTab = ({ data }) => {
     return (
         <div
-            className="flex justify-center items-center"
+            className="flex justify-center items-center scale-125"
             dangerouslySetInnerHTML={{ __html: data?.svg }}
         />
     );

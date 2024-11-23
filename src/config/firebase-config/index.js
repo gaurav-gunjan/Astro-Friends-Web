@@ -61,7 +61,7 @@ const onMessageListener = (navigate, dispatch) => {
         case 'customer':
           console.log('For Customer', notificationData?.sent_to)
           // url = `/chat/customer-accept-reject?user_id=${notificationData.user_id}&astroID=${notificationData.astroID}&chatId=${notificationData.chatId}&astrologerName=${notificationData.astrologerName}&chatPrice=${notificationData.chatPrice}&priority=${notificationData.priority}&type=${notificationData.type}`;
-          navigate(`/chat?customer=${notificationData.user_id}&astrologer=${notificationData.astroID}&chatId=${notificationData?.chatId}`, { replace: true })
+          navigate(`/chat?customer=${notificationData.user_id}&astrologer=${notificationData.astroID}&chatId=${notificationData?.chatId}&profileId=${notificationData?.profileId}`, { replace: true })
           break;
 
         default:

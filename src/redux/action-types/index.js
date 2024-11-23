@@ -1,5 +1,6 @@
 //! Common
 export const SET_IS_LOADING = 'SET_IS_LOADING';
+export const SET_SOCKET_CONNECTION_STATUS = 'SET_SOCKET_CONNECTION_STATUS';
 
 //! Auth
 //* Customer Auth

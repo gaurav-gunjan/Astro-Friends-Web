@@ -59,6 +59,7 @@ function* chatRequestSendByCustomer(action) {
                     duration: send_request?.data?.duration,
                     newUser: false
                 });
+                localStorage.setItem('Chat_price_during_chat', send_request?.data?.newChat?.chatPrice);
                 SocketService.emit('joinChatRoom', send_request?.data?.newChat?._id);
                 yield call(payload?.onComplete)
             } else {
@@ -88,6 +89,7 @@ function* chatRequestAcceptRejectByAstrologer(action) {
 
         if (payload?.data?.status == 'Accept') {
             console.log("Accept")
+            localStorage.setItem('chatId', payload?.data?.requestedData?.chatId);
             SocketService.emit('onAstroAccept', payload?.data?.requestedData?.chatId)
             SocketService.emit('joinChatRoom', payload?.data?.requestedData?.chatId)
             yield call(payload?.onComplete);

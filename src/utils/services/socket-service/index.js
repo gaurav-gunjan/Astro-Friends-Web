@@ -1,6 +1,7 @@
 import { io } from 'socket.io-client';
 import { api_urls } from '../../api-urls';
 import * as ChatActions from '../../../redux/actions/chatAction';
+import * as CommonActions from '../../../redux/actions/commonAction';
 import { replace } from 'react-router-dom';
 const SOCKET_URL = api_urls;
 
@@ -17,13 +18,14 @@ class SocketService {
                 timeout: 20000,
             });
 
-            this.socket.on('connect', data => {
-                // console.log('Socket Connected Event :', data);
-                //? this.emit('reconnect');
+            this.socket.on('connect', () => {
+                console.log('Connected to server with socket ID:', this.socket.id);
+                dispatch(CommonActions?.setSocketConnectionStatus(true));
             });
 
             this.socket.on('disconnect', reason => {
-                console.log('Socket Disconnected:', reason);
+                console.log('Disconnected from server:', reason);
+                dispatch(CommonActions?.setSocketConnectionStatus(false));
                 if (reason === 'io server disconnect') {
                     //? The disconnection was initiated by the server, you need to reconnect manually
                     this.socket.connect();
@@ -56,7 +58,7 @@ class SocketService {
             });
 
             this.socket.on('updateChatTimer', data => {
-                console.log("Timer Data ::: ", data);
+                // console.log("Timer Data ::: ", data);
                 dispatch(ChatActions.setChatTimerCountdown(data));
             });
 
