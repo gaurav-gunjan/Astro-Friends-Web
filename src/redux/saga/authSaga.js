@@ -2,10 +2,11 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import * as actionTypes from "../action-types";
 import { api_urls } from '../../utils/api-urls';
-import { astrologer_login, customer_login, customer_login_otp } from '../../utils/api-routes';
+import { astrologer_login, customer_change_picture, customer_login, customer_login_otp, customer_update_profile } from '../../utils/api-routes';
 import { put, call, takeLeading } from 'redux-saga/effects';
 import { access_token, refresh_token } from '../../utils/constants';
 import { Color } from '../../assets/colors';
+import { toaster } from '../../utils/services/toast-service';
 
 function* astrologerLogin(action) {
     try {
@@ -76,6 +77,44 @@ function* customerLoginOtp(action) {
     }
 }
 
+function* customerUpdateProfile(action) {
+    try {
+        const { payload } = action;
+        console.log("Payload ::: ", payload);
+
+        const { data } = yield axios.post(api_urls + customer_update_profile, payload);
+        console.log("Customer Update Profile Saga Response ::: ", data);
+
+        if (data?.success) {
+            toaster.success({ text: 'Profile updated successfully!!!' });
+            yield put({ type: actionTypes.GET_USER_CUSTOMER_BY_ID, payload: { customerId: payload?.customerId } });
+        }
+
+    } catch (error) {
+        toaster.error({ text: 'Failed to updated profile!!!' });
+        console.log("Customer Update Profile Saga Error ::: ", error)
+    }
+};
+
+function* customerChangePicture(action) {
+    try {
+        const { payload } = action;
+        console.log("Payload ::: ", payload);
+
+        const { data } = yield axios.post(api_urls + customer_change_picture, payload?.data);
+        console.log("Customer Change Picture Saga Response ::: ", data);
+
+        if (data?.success) {
+            toaster.success({ text: 'Profile picture updated successfully!!!' });
+            yield put({ type: actionTypes.GET_USER_CUSTOMER_BY_ID, payload: { customerId: payload?.customerId } });
+        }
+
+    } catch (error) {
+        toaster.error({ text: 'Failed to change profile picture!!!' });
+        console.log("Customer Change Picture Saga Error ::: ", error)
+    }
+};
+
 function* userLogout(action) {
     try {
         const { payload } = action;
@@ -108,5 +147,7 @@ export default function* authSaga() {
     yield takeLeading(actionTypes.ASTROLOGER_LOGIN, astrologerLogin);
     yield takeLeading(actionTypes.CUSTOMER_LOGIN, customerLogin);
     yield takeLeading(actionTypes.CUSTOMER_LOGIN_OTP, customerLoginOtp);
+    yield takeLeading(actionTypes.CUSTOMER_UPDATE_PROFILE, customerUpdateProfile);
+    yield takeLeading(actionTypes.CUSTOMER_CHANGE_PICTURE, customerChangePicture);
     yield takeLeading(actionTypes.USER_LOGOUT, userLogout);
 }

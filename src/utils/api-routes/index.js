@@ -2,6 +2,8 @@
 //* Customer Auth
 export const customer_login = 'api/customers/customer-login';
 export const customer_login_otp = 'api/customers/verify_web_customer';
+export const customer_update_profile = 'api/customers/update_profile_intake';
+export const customer_change_picture = 'api/customers/change_profile';
 
 //* Astrologer Auth
 export const astrologer_login = 'api/astrologer/astrologer_web_login';

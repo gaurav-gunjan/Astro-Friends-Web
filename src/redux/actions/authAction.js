@@ -8,6 +8,14 @@ export const customerLoginOtp = (payload) => ({
     type: actionTypes.CUSTOMER_LOGIN_OTP, payload,
 });
 
+export const customerUpdateProfile = (payload) => ({
+    type: actionTypes.CUSTOMER_UPDATE_PROFILE, payload,
+});
+
+export const customerChangePicture = (payload) => ({
+    type: actionTypes.CUSTOMER_CHANGE_PICTURE, payload,
+});
+
 export const customerLoginInputField = (payload) => ({
     type: actionTypes.CUSTOMER_LOGIN_INPUT_FIELD, payload,
 });
