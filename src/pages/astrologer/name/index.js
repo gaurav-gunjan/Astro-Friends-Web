@@ -292,7 +292,7 @@ const SingleAstrologer = () => {
                                         });
                                         console.log('result', result)
                                         if (result.isConfirmed) {
-                                            navigate('/price-list')
+                                            navigate('/recharge')
                                         }
                                     } else {
                                         handleOpenChatIntakeFormModal('Call')

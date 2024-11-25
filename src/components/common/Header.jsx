@@ -134,7 +134,8 @@ const Header = () => {
                                 <ProfileSvg /> <div>{userAstrologerDataById?.astrologerName}</div>
                             </div>}
 
-                            {userCustomerDataById && <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-1 cursor-pointer'>
+                            {userCustomerDataById && <div onClick={() => navigate('/profile')} className='flex items-center gap-1 cursor-pointer'>
+                                {/* onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} */}
                                 <ProfileSvg /> <div>{userCustomerDataById?.customerName}</div>
                             </div>}
 
