@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { CallSvg, ChatSvg, CrossSvg, HamburgerSvg, ProfileSvg, SupportSvg } from '../../assets/svg';
+import { CallSvg, ChatSvg, CrossSvg, HamburgerSvg, PersonSvg, ProfileSvg, SupportSvg, WalletOutlineSvg, WalletSvg } from '../../assets/svg';
 import DownloadApp from '../cards/DownloadApp';
 import CustomerLoginModal from '../modal/CustomerLoginModal';
 import AstrologerLoginModal from '../modal/AstrologerLoginModal';
@@ -120,12 +120,12 @@ const Header = () => {
                         <Link to={'/'} ><img className='h-16 max-md:h-10' src={'https://astrofriends.in/public/storage/images/AdminLogo1712034903.png'} /></Link>
 
                         <nav className='flex items-center gap-5 max-lg:hidden'>
-                            <Link to={'/astrologer'} className='cursor-pointer bg-primary flex items-center gap-1.5 px-3.5 py-2 rounded-full'>
-                                <CallSvg /> <div className='text-white '>Talk To Astrologer</div>
+                            <Link to={'/astrologer'} className='cursor-pointer bg-primary text-white flex items-center gap-1.5 px-5 py-2 shadow-lg rounded-full'>
+                                <CallSvg /> <div>Talk To Astrologer</div>
                             </Link>
 
-                            <Link to={'/astrologer'} className='cursor-pointer bg-primary flex items-center gap-1.5 px-3.5 py-2 rounded-full'>
-                                <ChatSvg /> <div className='text-white'>Chat With Astrologer</div>
+                            <Link to={'/astrologer'} className='cursor-pointer bg-primary text-white flex items-center gap-1.5 px-5 py-2 shadow-lg rounded-full'>
+                                <ChatSvg /> <div>Chat With Astrologer</div>
                             </Link>
 
                             {!userCustomerDataById && !userAstrologerDataById && <div onClick={handleOpenLoginCustomerModal} className='flex items-center gap-1.5 cursor-pointer'><ProfileSvg /><div>Sign In</div></div>}
@@ -134,10 +134,19 @@ const Header = () => {
                                 <ProfileSvg /> <div>{userAstrologerDataById?.astrologerName}</div>
                             </div>}
 
-                            {userCustomerDataById && <div onClick={() => navigate('/profile')} className='flex items-center gap-1 cursor-pointer'>
-                                {/* onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} */}
-                                <ProfileSvg /> <div>{userCustomerDataById?.customerName}</div>
-                            </div>}
+                            {userCustomerDataById &&
+                                <div className='group  relative'>
+                                    <div className='flex items-center gap-1 cursor-pointer'><ProfileSvg /> <div>{userCustomerDataById?.customerName}</div></div>
+
+                                    <div className='font-normal absolute overflow-hidden top-16 right-0 bg-white w-48 h-0 group-hover:h-48 transition-all duration-500 ease-in group-hover:border-b shadow-2xl'>
+                                        <div className='flex flex-col items-center gap-3 py-5'>
+                                            <ProfileSvg h='40' w='40' />
+                                            <div>XXXXXX{userCustomerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
+                                        </div>
+                                        <div onClick={() => navigate('/my-account')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><PersonSvg /><div>My Account</div></div>
+                                        <div onClick={() => navigate('/my-wallet')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>My Wallet</div></div>
+                                    </div>
+                                </div>}
 
                             {hamburger ? <div onClick={() => setHamburger(!hamburger)} className='cursor-pointer'><CrossSvg h='30' w='30' /></div> : <div onClick={() => setHamburger(!hamburger)} className='cursor-pointer'><HamburgerSvg h='30' w='30' /></div>}
 

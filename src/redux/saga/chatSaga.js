@@ -57,7 +57,8 @@ function* chatRequestSendByCustomer(action) {
                     customerID: send_request?.data?.newChat?.customerId,
                     astroID: send_request?.data?.newChat?.astrologerId,
                     duration: send_request?.data?.duration,
-                    newUser: false
+                    newUser: false,
+                    profileId: profileId
                 });
                 localStorage.setItem('Chat_price_during_chat', send_request?.data?.newChat?.chatPrice);
                 SocketService.emit('joinChatRoom', send_request?.data?.newChat?._id);

@@ -44,6 +44,7 @@ const onMessageListener = (navigate, dispatch) => {
     const notificationOptions = { data: payload.data, body: payload.data.title };
     const notificationData = notificationOptions.data;
     console.log("NotificationData :: ", notificationData);
+    console.log('Profile Id ::: ', notificationData?.profileId);
 
     if (notificationData?.type == 'call_invoice') {
       dispatch(ChatActions?.setCallInvoiceVisibility(true));

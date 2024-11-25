@@ -70,6 +70,8 @@ const Chat = () => {
         });
     }, [chat_id]);
 
+    console.log("Message ::: ", messages);
+
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
@@ -96,11 +98,11 @@ const Chat = () => {
                     await set(chatRef, { ...message, pending: false, sent: true, received: false });
                 }
             } catch (error) {
-                console.log("Error")
+                console.log("Error");
             }
         };
 
-        localStorage.getItem('user_type') === 'customer' && profileId && fetchIntakeDetail();
+        // localStorage.getItem('user_type') === 'customer' && profileId && fetchIntakeDetail();
     }, []);
 
     const handleSend = async (text) => {

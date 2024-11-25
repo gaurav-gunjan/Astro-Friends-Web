@@ -7,7 +7,7 @@ import { RightArrowSvg } from '../../assets/svg';
 import { toaster } from '../../utils/services/toast-service';
 import { website_name } from '../../utils/constants';
 
-const Profile = () => {
+const MyAccount = () => {
     const dispatch = useDispatch();
     const { userCustomerDataById } = useSelector(state => state?.userReducer);
 
@@ -85,7 +85,7 @@ const Profile = () => {
 
     //! Handle Submit
     const handleSubmit = async () => {
-        console.log({ ...inputFieldDetail });
+        console.log({ ...inputFieldDetail, phone: userCustomerDataById?.phoneNumber });
     };
 
     return (
@@ -105,7 +105,7 @@ const Profile = () => {
                                     <input name='first_name' value={inputFieldDetail?.first_name} onChange={(e) => handleInputFieldDetail(e)} placeholder='First Name' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
                                     <input name='last_name' value={inputFieldDetail?.last_name} onChange={(e) => handleInputFieldDetail(e)} placeholder='Last Name' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
                                     <input name='email' type='email' value={inputFieldDetail?.email} onChange={(e) => handleInputFieldDetail(e)} placeholder='Email' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                    <input name='phone' readOnly value={inputFieldDetail?.phone} placeholder='Phone' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                    <input name='phone' readOnly value={userCustomerDataById?.phoneNumber} placeholder='Phone' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
                                     <select name='gender' value={inputFieldDetail?.gender} onChange={(e) => handleInputFieldDetail(e)} placeholder='Gender' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[7px]' >
                                         <option value="" className='text-gray-400'>----------Select Gender----------</option>
                                         <option value="Male">Male</option>
@@ -152,4 +152,4 @@ const Profile = () => {
     )
 }
 
-export default Profile;
+export default MyAccount;

@@ -20,7 +20,8 @@ import NotFound from './components/features/NotFound';
 import RatingModal from './components/modal/RatingModal';
 import ChatInvoiceModal from './components/modal/ChatInvoiceModal';
 import CallInvoiceModal from './components/modal/CallInvoiceModal';
-import Profile from './pages/profile';
+import MyAccount from './pages/my-account';
+import MyWallet from './pages/my-wallet';
 
 //! Lazy Load Pages
 const LandingPage = lazy(() => import('./pages/landing-page'));
@@ -130,7 +131,8 @@ const App = () => {
           <Routes>
             <Route path='*' element={<NotFound />} />
             <Route path='/' element={<LandingPage />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route path='/my-account' element={<MyAccount />} />
+            <Route path='/my-wallet' element={<MyWallet />} />
 
             {/* Chat */}
             {/* {localStorage.getItem('user_type') == 'customer' && <Route path='/astrologer' element={<Astrologer />} />} */}
