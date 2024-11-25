@@ -152,7 +152,7 @@ const MyAccount = () => {
 
             <section className='px-[100px] py-7 max-sm:px-[20px]'>
                 <article className='shadow-xl p-3 py-10 overflow-hidden bg-[#EFEFEF] rounded-md relative'>
-                    <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='cursor-pointer bg-primary absolute top-4 right-4 flex items-center justify-center gap-3 text-white text-sm py-1.5 px-5 rounded-full'>Logout <LogoutSvg h='18' w='18' /> </div>
+                    {/* <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='cursor-pointer bg-primary absolute top-4 right-4 flex items-center justify-center gap-3 text-white text-sm py-1.5 px-5 rounded-full'>Logout <LogoutSvg h='18' w='18' /> </div> */}
                     <div className='text-[#666373] text-center text-sm'>View and update your profile in your {website_name} Astro account.</div>
                     <main className='px-7 flex justify-center gap-4 py-[20px]'>
                         {['Update Profile', 'Change Picture']?.map((value, index) => <div onClick={() => setActiveHead(value)} key={index} className={`w-32 text-sm border text-center border-primary ${activeHead == value && 'bg-primary text-white'} hover:scale-105 py-2 rounded-md cursor-pointer flex items-center justify-center transition-all duration-300`}>{value}</div>)}
