@@ -70,7 +70,7 @@ const SingleAstrologer = () => {
                 setChatIntakeFormModal(true);
                 setConnectionType(type);
             } else {
-                toaster.info({ text: 'Please Login' })
+                toaster.info({ text: 'Please login as a customer' })
             }
         } else if (Notification.permission === "denied") {
             alert("You have blocked notifications. Please enable them in your browser settings.");
