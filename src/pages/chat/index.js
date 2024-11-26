@@ -70,8 +70,6 @@ const Chat = () => {
         });
     }, [chat_id]);
 
-    console.log("Message ::: ", messages);
-
     useEffect(() => {
         scrollToBottom();
     }, [messages]);

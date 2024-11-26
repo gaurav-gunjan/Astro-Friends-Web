@@ -12,6 +12,9 @@ const initialState = {
     callInvoiceVisibility: false,
     //* Rating 
     astrologerRatingVisibility: { data: null, ratingVisible: false },
+    //? Chat Request
+    requestInitiatedByCustomer: { initiated: false, timer: 60 },
+    rejectChatByAstrologer: { rejected: false, timer: 60 }
 };
 
 const chatReducer = (state = initialState, actions) => {
@@ -39,6 +42,13 @@ const chatReducer = (state = initialState, actions) => {
 
         case actionTypes.SET_ASTROLOGER_RATING_VISIBILITY:
             return { ...state, astrologerRatingVisibility: payload }
+
+        //! Chat Request
+        case actionTypes.REQUEST_INITIATED_BY_CUSTOMER:
+            return { ...state, requestInitiatedByCustomer: payload }
+
+        case actionTypes.REJECT_CHAT_BY_ASTROLOGER:
+            return { ...state, rejectChatByAstrologer: payload }
 
         default:
             return state;

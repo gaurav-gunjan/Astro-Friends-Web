@@ -6,6 +6,7 @@ import { api_urls } from '../../utils/api-urls';
 import SocketService from '../../utils/services/socket-service';
 import { postAPI } from '../../utils/api-function';
 import { create_profile_for_chat, get_linked_profile_for_chat, initiate_chat_message } from '../../utils/api-routes';
+import { toaster } from '../../utils/services/toast-service';
 
 // TODO : Chat
 function* getLinkedProfileForChat(action) {
@@ -50,7 +51,7 @@ function* chatRequestSendByCustomer(action) {
             console.log('send_request', send_request?.data)
 
             if (send_request?.data?.success) {
-                Swal.fire({ icon: "success", text: "Chat Request Send Successfully", showConfirmButton: false, timer: 2000 });
+                toaster.success({ text: "Chat request send successfully!!!" });
                 SocketService.emit('createChatRoom', {
                     roomID: send_request?.data?.newChat?._id,
                     chatPrice: send_request?.data?.newChat?.chatPrice,
@@ -63,6 +64,9 @@ function* chatRequestSendByCustomer(action) {
                 localStorage.setItem('Chat_price_during_chat', send_request?.data?.newChat?.chatPrice);
                 SocketService.emit('joinChatRoom', send_request?.data?.newChat?._id);
                 yield call(payload?.onComplete)
+
+                yield put({ type: actionTypes.REQUEST_INITIATED_BY_CUSTOMER, payload: { initiated: true, timer: 60 } });
+
             } else {
                 Swal.fire({ icon: "error", title: 'Failed', text: send_request?.data?.message, showConfirmButton: false, timer: 2000, });
             }

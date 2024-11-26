@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Suspense, lazy } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,6 +22,7 @@ import ChatInvoiceModal from './components/modal/ChatInvoiceModal';
 import CallInvoiceModal from './components/modal/CallInvoiceModal';
 import MyAccount from './pages/my-account';
 import MyWallet from './pages/my-wallet';
+import PageBlock from './components/features/PageBlock';
 
 //! Lazy Load Pages
 const LandingPage = lazy(() => import('./pages/landing-page'));
@@ -60,6 +61,8 @@ const PrivacyPolicy = lazy(() => import('./pages/privacy-policy'));
 const TermsOfUse = lazy(() => import('./pages/terms-of-use'));
 
 const App = () => {
+  const { requestInitiatedByCustomer } = useSelector(state => state?.chatReducer);
+
   const location = useLocation()
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -185,6 +188,7 @@ const App = () => {
         <ChatInvoiceModal />
         <CallInvoiceModal />
         <RatingModal />
+        {requestInitiatedByCustomer?.initiated && <PageBlock />}
         <ToastContainer />
       </LoadScript>
     </>

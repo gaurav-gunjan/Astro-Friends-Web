@@ -2,15 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import SocketService from '../../../utils/services/socket-service';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as ChatActions from '../../../redux/actions/chatAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Logo from '../../../assets/images/logo/logo.png';
 import soundFile from '../../../assets/audio/incoming.mp3';
 import HeaderBG from '../../../components/common/HeaderBG';
+import { toaster } from '../../../utils/services/toast-service';
 
 const AstrologerAcceptReject = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
+    const { rejectChatByAstrologer } = useSelector(state => state?.chatReducer);
+
     const searchParams = new URLSearchParams(location.search);
     const customer_id = searchParams.get('user_id');
     const astrologer_id = searchParams.get('astroID');
@@ -72,6 +75,21 @@ const AstrologerAcceptReject = () => {
     useEffect(() => {
         setIsSoundPlaying(true)
     }, []);
+
+    useEffect(() => {
+        let timerInterval;
+        if (!rejectChatByAstrologer.rejected && rejectChatByAstrologer.timer > 0) {
+            timerInterval = setInterval(() => {
+                dispatch(ChatActions?.rejectChatByAstrologer({ rejected: false, timer: rejectChatByAstrologer.timer - 1 }));
+            }, 1000);
+        } else if (rejectChatByAstrologer.timer === 0) {
+            dispatch(ChatActions?.rejectChatByAstrologer({ rejected: true, timer: 60 }));
+            toaster.info({ text: 'Chat request is declined!!!' });
+            handleAcceptRejectChat({ status: "Reject", requestedData });
+        }
+
+        return () => clearInterval(timerInterval); // Cleanup the interval when component unmounts or timer reaches 0
+    }, [rejectChatByAstrologer.initiated, rejectChatByAstrologer.timer, dispatch]);
 
     return (
         <>

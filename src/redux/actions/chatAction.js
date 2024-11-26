@@ -103,3 +103,12 @@ export const getAstrologerRatingVisibility = payload => ({
 export const setAstrologerRatingVisibility = payload => ({
     type: actionTypes.SET_ASTROLOGER_RATING_VISIBILITY, payload,
 });
+
+//? Chat Request
+export const requestInitiatedByCustomer = payload => ({
+    type: actionTypes?.REQUEST_INITIATED_BY_CUSTOMER, payload
+});
+
+export const rejectChatByAstrologer = payload => ({
+    type: actionTypes?.REJECT_CHAT_BY_ASTROLOGER, payload
+});
