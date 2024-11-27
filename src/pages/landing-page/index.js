@@ -97,7 +97,7 @@ const LandingPage = () => {
                 </article>
             </section>
 
-            <section className='px-[100px] max-lg:px-[20px] py-[50px] bg-white'>
+            {/* <section className='px-[100px] max-lg:px-[20px] py-[50px] bg-white'>
                 <article>
                     <div className='flex flex-col items-center gap-2 mb-10'>
                         <div className='text-[30px] font-[600] tracking-tight uppercase'>Engaging Astrology Videos</div>
@@ -105,6 +105,19 @@ const LandingPage = () => {
                     </div>
 
                     <AstrologyVideoSwiper data={astroBlogData} slidesPerView={slidesPerView} navigation={true} pagination={false} />
+                </article>
+            </section> */}
+            <section className='px-[100px] max-lg:px-[20px] py-[50px] bg-primary'>
+                <article>
+                    <div className='flex flex-col items-center gap-2 mb-10 text-white'>
+                        <div className='text-[30px] font-[600] tracking-tight uppercase'>As Seen On</div>
+                        <div className='w-[150px] h-[3px] bg-white'></div>
+                    </div>
+
+                    <main className='flex items-center justify-center gap-5'>
+                        <div className='w-[180px] h-[100px] p-3 bg-white rounded-lg'><img className='w-full h-full' src='https://astrofriends.in/public/storage/images/bannerImage_1017257351461725735146.png' /></div>
+                        <div className='w-[180px] h-[100px] p-3 bg-white rounded-lg'><img className='w-full h-full' src='https://astrofriends.in/public/storage/images/bannerImage_1017257351461725735146.png' /></div>
+                    </main>
                 </article>
             </section>
 
@@ -120,7 +133,7 @@ const LandingPage = () => {
                 </article>
             </section>
 
-            <section className='px-[100px] max-lg:px-[20px] py-[50px] bg-primary'>
+            {/* <section className='px-[100px] max-lg:px-[20px] py-[50px] bg-primary'>
                 <article>
                     <div className='flex flex-col items-center gap-2 mb-10 text-white'>
                         <div className='text-[30px] font-[600] tracking-tight uppercase'>As Seen On</div>
@@ -132,7 +145,7 @@ const LandingPage = () => {
                         <div className='w-[180px] h-[100px] p-3 bg-white rounded-lg'><img className='w-full h-full' src='https://astrofriends.in/public/storage/images/bannerImage_1017257351461725735146.png' /></div>
                     </main>
                 </article>
-            </section>
+            </section> */}
 
             <section className='px-[100px] max-lg:px-[20px] py-[50px] bg-white'>
                 <article>
