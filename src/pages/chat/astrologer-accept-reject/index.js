@@ -13,7 +13,8 @@ const AstrologerAcceptReject = () => {
     const location = useLocation();
     const dispatch = useDispatch();
     const { rejectChatByAstrologer } = useSelector(state => state?.chatReducer);
-
+    console.log('rejectChatByAstrologer',rejectChatByAstrologer);
+    
     const searchParams = new URLSearchParams(location.search);
     const customer_id = searchParams.get('user_id');
     const astrologer_id = searchParams.get('astroID');
@@ -84,9 +85,9 @@ const AstrologerAcceptReject = () => {
             }, 1000);
         } else if (rejectChatByAstrologer.timer === 0) {
             setTimeout(() => {
-                dispatch(ChatActions?.rejectChatByAstrologer({ rejected: true, timer: 60 }));
+                dispatch(ChatActions?.rejectChatByAstrologer({ rejected: false, timer: 60 }));
                 toaster.info({ text: 'Chat request is declined!!!' });
-                // handleAcceptRejectChat({ status: "Reject", requestedData });
+                handleAcceptRejectChat({ status: "Reject", requestedData });
             }, 1000);
         }
 

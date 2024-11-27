@@ -16,15 +16,15 @@ const PageBlock = () => {
             }, 1000);
         } else if (requestInitiatedByCustomer.timer === 0) {
             dispatch(ChatActions?.requestInitiatedByCustomer({ initiated: false, timer: 60 }));
-            toaster.info({ text: 'Chat declined by astrologer!!!' })
+            toaster.info({ text: 'Chat declined by astrologer!!!' });
             setTimeout(() => {
                 dispatch(AstrologerActions?.getAstrologer({ page: 1, search: '' }));
-            }, 1000);
+                console.log("Get Astrologer")
+            }, 2000);
         }
 
         return () => clearInterval(timerInterval); // Cleanup the interval when component unmounts or timer reaches 0
     }, [requestInitiatedByCustomer.initiated, requestInitiatedByCustomer.timer, dispatch]);
-
 
     return (
         <>

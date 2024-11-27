@@ -256,7 +256,7 @@ const SingleAstrologer = () => {
 
                             <div className='flex flex-col justify-center gap-[15px] rounded-xl p-[15px]'>
                                 <div className='flex items-center gap-3'>
-                                    <div className='line-clamp-1'>{astrologerDataById?.astrologerName}</div>
+                                    <div className='line-clamp-1 capitalize'>{astrologerDataById?.astrologerName}</div>
                                     <div><ReactStars count={5} edit={false} value={Number(astrologerDataById?.rating)} size={20} color2={'#ffd700'} /></div>
                                 </div>
                                 <div className='bg-primary text-white rounded-lg px-[10px] py-[5px] line-clamp-1'>{astrologerDataById?.skill?.length > 0 && astrologerDataById?.skill?.map(value => value?.skill)?.join(' , ')}</div>

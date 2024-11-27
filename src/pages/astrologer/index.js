@@ -80,7 +80,7 @@ const ChatWithAstrologer = () => {
 
                         <main className='flex flex-wrap gap-[2.5%] gap-y-[40px]'>
                             {astrologerData?.astrologer?.map((value, index) => (
-                                <div key={index} onClick={() => navigate(`/astrologer/${value?.astrologerName?.split(' ')[0]?.toLowerCase()}`, { state: { stateData: value } })} className='lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full flex gap-[20px] rounded-xl p-2 cursor-pointer' style={{ boxShadow: "0 0 10px #bdb5b5" }}>
+                                <div key={index} onClick={() => navigate(`/astrologer/${value?.astrologerName?.split(' ')[0]?.toLowerCase()}`, { state: { stateData: value } })} className='lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full flex gap-[20px] rounded-xl p-2 cursor-pointer capitalize' style={{ boxShadow: "0 0 10px #bdb5b5" }}>
                                     <div className='w-[130px] relative'>
                                         <div className={`absolute top-1 right-2 text-xs text-white ${value?.call_status == "online" ? 'bg-green-600' : 'bg-red-600'} capitalize  px-2 py-0.5 rounded-lg`}>{value?.call_status}</div>
 

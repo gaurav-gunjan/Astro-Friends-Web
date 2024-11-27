@@ -70,15 +70,15 @@ const LandingPage = () => {
                         <div className='w-[150px] h-[3px] bg-primary'></div>
                     </div>
 
-                    <main className='flex flex-wrap gap-x-[20px] gap-y-[40px] justify-evenly max-lg:justify-center text-[13px] font-semibold'>
+                    <main className='flex flex-wrap gap-x-[20px] max-md:gap-x-[3%] gap-y-[40px] justify-evenly  max-md:justify-normal text-[13px] font-semibold'>
                         {FreeAstrologyServiceData?.map((value, index) => (
-                            <div onClick={() => navigate(value?.path)} key={index} className='flex flex-col items-center gap-2 group/item cursor-pointer'>
+                            <div onClick={() => navigate(value?.path)} key={index} className='flex flex-col items-center gap-2 group/item cursor-pointer lg:basis-[initial] max-md:basis-[30%]'>
                                 <div className='relative border border-orange-700 p-2 rounded-full'>
                                     <div className='z-10 absolute inset-0 border-t-[2px] border-dashed border-primary rounded-full group-hover/item:rotate-180 transition-all duration-500 ease-out'></div>
                                     <img className='h-[50px] w-[50px] object-contain' src={value?.image} />
                                 </div>
 
-                                <div className='text-orange-700'>{value?.title}</div>
+                                <div className='text-orange-700 text-center'>{value?.title}</div>
                             </div>
                         ))}
                     </main>
