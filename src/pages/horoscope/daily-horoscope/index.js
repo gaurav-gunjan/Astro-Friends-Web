@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ZodiacImageWithName } from '../../../utils/static-data';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
 
@@ -7,8 +7,6 @@ const dateHead = ['Yesterday', 'Today', 'Tomorrow'];
 
 const DailyHoroscope = () => {
     const navigate = useNavigate();
-    const { pathname } = useLocation();
-    useEffect(() => { window.scrollTo(0, 0) }, [pathname]);
 
     const [activeDateHead, setActiveDateHead] = useState('Today');
 

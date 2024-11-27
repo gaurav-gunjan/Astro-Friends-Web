@@ -65,7 +65,7 @@ const Footer = ({ scrollToSection }) => {
                             <div className='text-[17px] font-[500] mb-2'>Horoscope</div>
                             <Link to='/horoscope/daily'>Daily Horoscope</Link>
                             <Link to='/horoscope/monthly'>Monthly Horoscope</Link>
-                            <Link to='/horoscope/yearly'>Yearly Horoscope</Link>
+                            <Link to='/horoscope/monthly'>Yearly Horoscope</Link>
                         </main>
 
                         {!userCustomerDataById && !userAstrologerDataById && <main className='flex flex-col gap-1'>
@@ -79,7 +79,7 @@ const Footer = ({ scrollToSection }) => {
                         <main className='flex flex-col gap-1'>
                             <div className='text-[17px] font-[500] mb-2'>Useful Links</div>
                             <div onClick={() => scrollToSection('about-us-section')} className='cursor-pointer'>About Us</div>
-                            <Link to='/contact-us'>Contact Us</Link>
+                            <div onClick={() => scrollToSection('about-us-section')} className='cursor-pointer'>Contact Us</div>
                             <Link to='/blog'>Blog</Link>
                         </main>
 

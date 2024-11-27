@@ -33,7 +33,7 @@ const BlogSwiper = ({ slidesPerView, navigation, pagination, data }) => {
                 {data?.map((value, index) => (
                     <SwiperSlide key={index}>
                         <div className='flex flex-col justify-center items-center border border-primary pb-4 rounded-lg'>
-                            <img src={api_urls + 'uploads/' + value?.image} className='h-44 w-full rounded-t-lg bg-red-400' />
+                            <img src={api_urls + 'uploads/' + value?.image} className='h-44 w-full rounded-t-lg border-b' />
 
                             <div className="p-3 flex flex-col items-center gap-2">
                                 <div className="flex items-center justify-between text-sm text-gray-600 ">

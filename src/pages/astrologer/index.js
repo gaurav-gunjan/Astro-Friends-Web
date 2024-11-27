@@ -1,6 +1,6 @@
 import ReactStars from 'react-stars';
 import React, { useEffect } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { IndianRupee } from '../../utils/common-function';
@@ -11,8 +11,6 @@ import CustomPagination from '../../components/features/CustomPagination';
 import * as AstrologerActions from '../../redux/actions/astrologerAction';
 
 const ChatWithAstrologer = () => {
-    const { pathname } = useLocation();
-    useEffect(() => { window.scrollTo(0, 0) }, [pathname]);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

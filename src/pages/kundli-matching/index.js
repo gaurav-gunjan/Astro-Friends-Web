@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Autocomplete } from '@react-google-maps/api';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
@@ -7,8 +7,6 @@ import * as ProfileActions from '../../redux/actions/profileAction';
 import { toaster } from '../../utils/services/toast-service';
 
 const KundliMatching = () => {
-    const { pathname } = useLocation();
-    useEffect(() => { window.scrollTo(0, 0) }, [pathname]);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { userCustomerDataById } = useSelector(state => state?.userReducer);

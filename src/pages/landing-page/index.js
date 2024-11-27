@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import LandingTopSwiper from '../../components/swiper/LandingTopSwiper.jsx';
 import backgroundImage from '../../assets/images/landing-page/background-image.jpg';
@@ -16,8 +16,6 @@ import { FreeAstrologyServiceData } from '../../utils/static-data/index.js';
 const LandingPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { pathname } = useLocation();
-    useEffect(() => { window.scrollTo(0, 0) }, [pathname]);
 
     const { astroBlogData } = useSelector(state => state?.blogreducer);
     const { callIntakeDetailData } = useSelector(state => state?.chatReducer);

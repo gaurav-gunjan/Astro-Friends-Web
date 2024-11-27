@@ -21,10 +21,11 @@ const Blog = () => {
             <TopHeaderSection title={'Blog'} />
 
             <section className='px-[80px] max-md:px-[20px] pt-5 pb-14'>
-                <main className='flex justify-around max-md:justify-center gap-5 flex-wrap'>
+                <main className='flex flex-wrap gap-[2.5%] gap-y-[40px]'>
+                    {/* flex justify-around max-md:justify-center gap-5 flex-wrap  */}
                     {astroBlogData?.map((value, index) => (
-                        <div className='flex flex-col justify-center items-center border border-primary pb-4 rounded-lg w-[300px] max-md:w-[90vw]'>
-                            <img src={api_urls + 'uploads/' + value?.image} className='h-44 w-full rounded-t-lg' />
+                        <div className='flex flex-col justify-center items-center border border-primary pb-4 rounded-lg lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full'>
+                            <img src={api_urls + 'uploads/' + value?.image} className='h-44 w-full rounded-t-lg border-b object-contain' />
 
                             <div className="p-3 flex flex-col items-center gap-2">
                                 <div className="flex items-center justify-between text-sm text-gray-600 ">

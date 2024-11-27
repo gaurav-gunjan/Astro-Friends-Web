@@ -17,7 +17,9 @@ const PageBlock = () => {
         } else if (requestInitiatedByCustomer.timer === 0) {
             dispatch(ChatActions?.requestInitiatedByCustomer({ initiated: false, timer: 60 }));
             toaster.info({ text: 'Chat declined by astrologer!!!' })
-            dispatch(AstrologerActions?.getAstrologer({ page: 1, search: '' }))
+            setTimeout(() => {
+                dispatch(AstrologerActions?.getAstrologer({ page: 1, search: '' }));
+            }, 1000);
         }
 
         return () => clearInterval(timerInterval); // Cleanup the interval when component unmounts or timer reaches 0

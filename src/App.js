@@ -23,6 +23,7 @@ import CallInvoiceModal from './components/modal/CallInvoiceModal';
 import MyAccount from './pages/my-account';
 import MyWallet from './pages/my-wallet';
 import PageBlock from './components/features/PageBlock';
+import ScrollToTop from './components/features/ScrollToTop';
 
 //! Lazy Load Pages
 const LandingPage = lazy(() => import('./pages/landing-page'));
@@ -131,56 +132,58 @@ const App = () => {
       <LoadScript googleMapsApiKey={google_api_keys} libraries={['places']} loadingElement={<Loading />}>
         <Suspense fallback={<Loading />}>
           <Header />
-          <Routes>
-            <Route path='*' element={<NotFound />} />
-            <Route path='/' element={<LandingPage />} />
-            <Route path='/my-account' element={<MyAccount />} />
-            <Route path='/my-wallet' element={<MyWallet />} />
+          <ScrollToTop>
+            <Routes>
+              <Route path='*' element={<NotFound />} />
+              <Route path='/' element={<LandingPage />} />
+              <Route path='/my-account' element={<MyAccount />} />
+              <Route path='/my-wallet' element={<MyWallet />} />
 
-            {/* Chat */}
-            {/* {localStorage.getItem('user_type') == 'customer' && <Route path='/astrologer' element={<Astrologer />} />} */}
-            <Route path='/astrologer' element={<Astrologer />} />
-            <Route path='/astrologer/:name' element={<SingleAstrologer />} />
-            <Route path='/chat/customer-accept-reject' element={<CustomerAcceptReject />} />
-            <Route path='/chat/astrologer-accept-reject' element={<AstrologerAcceptReject />} />
-            <Route path='/chat' element={<Chat />} />
-            <Route path='/chat/intake-details/:profileId' element={<IntakeDetails />} />
+              {/* Chat */}
+              {/* {localStorage.getItem('user_type') == 'customer' && <Route path='/astrologer' element={<Astrologer />} />} */}
+              <Route path='/astrologer' element={<Astrologer />} />
+              <Route path='/astrologer/:name' element={<SingleAstrologer />} />
+              <Route path='/chat/customer-accept-reject' element={<CustomerAcceptReject />} />
+              <Route path='/chat/astrologer-accept-reject' element={<AstrologerAcceptReject />} />
+              <Route path='/chat' element={<Chat />} />
+              <Route path='/chat/intake-details/:profileId' element={<IntakeDetails />} />
 
-            {/* Free Kundli */}
-            {/* localStorage.getItem('user_type') == 'customer' &&  */}
-            <Route path='/free-kundli' element={<FreeKundli />} />
-            <Route path='/free-kundli/:kundliId' element={<KundliId />} />
+              {/* Free Kundli */}
+              {/* localStorage.getItem('user_type') == 'customer' &&  */}
+              <Route path='/free-kundli' element={<FreeKundli />} />
+              <Route path='/free-kundli/:kundliId' element={<KundliId />} />
 
-            {/* Kundli Matching */}
-            <Route path='/kundli-matching' element={<KundliMatching />} />
-            <Route path='/kundli-matching/reports/:profileId' element={<KundliMatchingReports />} />
+              {/* Kundli Matching */}
+              <Route path='/kundli-matching' element={<KundliMatching />} />
+              <Route path='/kundli-matching/reports/:profileId' element={<KundliMatchingReports />} />
 
-            {/* Horoscope */}
-            <Route path='/horoscope/daily' element={<DailyHoroscope />} />
-            <Route path='/horoscope/daily/:zodiacSign' element={<DailyHoroscopeDetails />} />
-            <Route path='/horoscope/monthly' element={<MonthlyHoroscope />} />
-            <Route path='/horoscope/monthly/:zodiacSign' element={<MonthlyHoroscopeDetails />} />
-            <Route path='/horoscope/yearly' element={<YearlyHoroscope />} />
+              {/* Horoscope */}
+              <Route path='/horoscope/daily' element={<DailyHoroscope />} />
+              <Route path='/horoscope/daily/:zodiacSign' element={<DailyHoroscopeDetails />} />
+              <Route path='/horoscope/monthly' element={<MonthlyHoroscope />} />
+              <Route path='/horoscope/monthly/:zodiacSign' element={<MonthlyHoroscopeDetails />} />
+              <Route path='/horoscope/yearly' element={<YearlyHoroscope />} />
 
-            {/* Astro Mall */}
-            <Route path='/astro-mall' element={<AstroMall />} />
-            <Route path='/astro-mall/products' element={<Products />} />
-            <Route path='/astro-mall/products/:name' element={<ProductDetails />} />
-            <Route path='/cart' element={<Cart />} />
+              {/* Astro Mall */}
+              <Route path='/astro-mall' element={<AstroMall />} />
+              <Route path='/astro-mall/products' element={<Products />} />
+              <Route path='/astro-mall/products/:name' element={<ProductDetails />} />
+              <Route path='/cart' element={<Cart />} />
 
-            {/* Price List */}
-            <Route path='/recharge' element={<Recharge />} />
-            <Route path='/recharge/payment-details' element={<PaymentDetail />} />
+              {/* Price List */}
+              <Route path='/recharge' element={<Recharge />} />
+              <Route path='/recharge/payment-details' element={<PaymentDetail />} />
 
-            {/* Blog */}
-            <Route path='/blog' element={<Blog />} />
-            <Route path='/blog/blog-details' element={<BlogDetails />} />
+              {/* Blog */}
+              <Route path='/blog' element={<Blog />} />
+              <Route path='/blog/blog-details' element={<BlogDetails />} />
 
-            {/* Pages */}
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-use" element={<TermsOfUse />} />
+              {/* Pages */}
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-use" element={<TermsOfUse />} />
 
-          </Routes>
+            </Routes>
+          </ScrollToTop>
         </Suspense>
         {location?.pathname !== '/chat' && <Footer scrollToSection={scrollToSection} />}
         {location?.pathname !== '/chat' && <SubFooter />}

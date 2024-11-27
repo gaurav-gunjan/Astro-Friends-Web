@@ -177,7 +177,7 @@ const Header = () => {
                                             <div className='text-[17px] font-[500] mb-2 uppercase border-b'>Horoscope</div>
                                             <Link to='/horoscope/daily' onClick={() => setHamburger(!hamburger)}>Daily Horoscope</Link>
                                             <Link to='/horoscope/monthly' onClick={() => setHamburger(!hamburger)}>Monthly Horoscope</Link>
-                                            <Link to='/horoscope/yearly' onClick={() => setHamburger(!hamburger)}>Yearly Horoscope</Link>
+                                            <Link to='/horoscope/monthly' onClick={() => setHamburger(!hamburger)}>Yearly Horoscope</Link>
                                         </main>
                                     </main>
 

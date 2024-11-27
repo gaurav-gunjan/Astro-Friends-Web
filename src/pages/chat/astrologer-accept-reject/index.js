@@ -83,24 +83,45 @@ const AstrologerAcceptReject = () => {
                 dispatch(ChatActions?.rejectChatByAstrologer({ rejected: false, timer: rejectChatByAstrologer.timer - 1 }));
             }, 1000);
         } else if (rejectChatByAstrologer.timer === 0) {
-            dispatch(ChatActions?.rejectChatByAstrologer({ rejected: true, timer: 60 }));
-            toaster.info({ text: 'Chat request is declined!!!' });
-            handleAcceptRejectChat({ status: "Reject", requestedData });
+            setTimeout(() => {
+                dispatch(ChatActions?.rejectChatByAstrologer({ rejected: true, timer: 60 }));
+                toaster.info({ text: 'Chat request is declined!!!' });
+                // handleAcceptRejectChat({ status: "Reject", requestedData });
+            }, 1000);
         }
 
         return () => clearInterval(timerInterval); // Cleanup the interval when component unmounts or timer reaches 0
     }, [rejectChatByAstrologer.initiated, rejectChatByAstrologer.timer, dispatch]);
+
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            // Show a confirmation dialog to the user
+            event.preventDefault();
+            event.returnValue = ''; // Required for modern browsers
+        };
+
+        // Add the event listener
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Clean up the event listener on component unmount
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
 
     return (
         <>
             <HeaderBG />
 
             <div className={`h-[500px] w-[100%] bg-no-repeat bg-center bg-cover bg-gif flex items-center justify-center`}>
-                <div className='bg-yellow-100 h-96 w-72 flex flex-col items-center justify-around rounded-md shadow-lg'>
+                <div className='bg-yellow-100 h-96 w-72 flex flex-col items-center justify-center gap-10 rounded-md shadow-lg'>
                     <div><img src={Logo} className='w-56' /></div>
-                    <div className='flex justify-center gap-5'>
-                        <div onClick={() => handleAcceptRejectChat({ status: "Accept", requestedData })} className='py-2 bg-green-600 text-white w-28 rounded-md text-center cursor-pointer'>Accept</div>
-                        <div onClick={() => handleAcceptRejectChat({ status: "Reject", requestedData })} className='py-2 bg-red-600 text-white w-28 rounded-md text-center cursor-pointer'>Reject</div>
+                    <div className='flex flex-col gap-5'>
+                        <div className='flex justify-center gap-5'>
+                            <div onClick={() => handleAcceptRejectChat({ status: "Accept", requestedData })} className='py-2 bg-green-600 text-white w-28 rounded-md text-center cursor-pointer'>Accept</div>
+                            <div onClick={() => handleAcceptRejectChat({ status: "Reject", requestedData })} className='py-2 bg-red-600 text-white w-28 rounded-md text-center cursor-pointer'>Reject</div>
+                        </div>
+                        <div className='text-gray-800 text-center'>Request decline in {rejectChatByAstrologer?.timer} !!!</div>
                     </div>
                 </div>
             </div>
