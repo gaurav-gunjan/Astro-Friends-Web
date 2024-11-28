@@ -138,13 +138,15 @@ const Header = () => {
                                 <div className='group  relative'>
                                     <div className='flex items-center gap-1 cursor-pointer'><ProfileSvg /> <div>{userCustomerDataById?.customerName}</div></div>
 
-                                    <div className='font-normal absolute overflow-hidden top-16 right-0 bg-white w-48 h-0 group-hover:h-[230px] transition-all duration-500 ease-in group-hover:border-b shadow-2xl'>
+                                    <div className='font-normal absolute overflow-hidden top-16 right-0 bg-white w-48 h-0 group-hover:h-[270px] transition-all duration-500 ease-in group-hover:border-b shadow-2xl'>
                                         <div className='flex flex-col items-center gap-3 py-5'>
                                             <ProfileSvg h='40' w='40' />
                                             <div>XXXXXX{userCustomerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
                                         </div>
                                         <div onClick={() => navigate('/my-account')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><PersonSvg /><div>My Account</div></div>
                                         <div onClick={() => navigate('/my-wallet')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>My Wallet</div></div>
+                                        <div onClick={() => navigate('/astro-mall')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>Astromall</div></div>
+                                        <div onClick={() => navigate('/book-puja')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>Book Puja</div></div>
                                         <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><LogoutSvg h='20' w='20' /><div>Logout</div></div>
                                     </div>
                                 </div>}

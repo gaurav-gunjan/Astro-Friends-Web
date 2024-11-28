@@ -128,6 +128,9 @@ export const SET_CART_DATA = 'SET_CART_DATA';
 export const UPDATE_CART_QUANTITY = 'UPDATE_CART_QUANTITY';
 export const ORDER_CART = 'ORDER_CART';
 
+export const GET_PUJA = 'GET_PUJA';
+export const SET_PUJA = 'SET_PUJA';
+
 //!Astromall
 export const GET_ASTROMALL_DATA = 'GET_ASTRO_MALL_DATA'
 export const SET_ASTROMALL_POOJA_DATA = 'SET_ASTROMALL_POOJA_DATA'

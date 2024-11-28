@@ -47,6 +47,9 @@ const MonthlyHoroscope = lazy(() => import('./pages/horoscope/montly-horoscope')
 const MonthlyHoroscopeDetails = lazy(() => import('./pages/horoscope/montly-horoscope/horoscope-details'));
 const YearlyHoroscope = lazy(() => import('./pages/horoscope/yearly-horoscope'));
 
+const BookPuja = lazy(() => import('./pages/book-puja'));
+const PujaDetails = lazy(() => import('./pages/book-puja/puja-details'));
+
 const AstroMall = lazy(() => import('./pages/astro-mall'));
 const Products = lazy(() => import('./pages/astro-mall/products'));
 const ProductDetails = lazy(() => import('./pages/astro-mall/products/product-details'));
@@ -138,6 +141,8 @@ const App = () => {
               <Route path='/' element={<LandingPage />} />
               <Route path='/my-account' element={<MyAccount />} />
               <Route path='/my-wallet' element={<MyWallet />} />
+              <Route path='/book-puja' element={<BookPuja />} />
+              <Route path='/book-puja/:name' element={<PujaDetails />} />
 
               {/* Chat */}
               {/* {localStorage.getItem('user_type') == 'customer' && <Route path='/astrologer' element={<Astrologer />} />} */}

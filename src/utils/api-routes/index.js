@@ -37,6 +37,8 @@ export const get_astrolgoers_pooja = 'ecommerce/get_astrolgoers_pooja';
 export const order_astrologer_pooja = 'ecommerce/order_astrologer_pooja';
 export const get_custoemer_booked_pooja = 'ecommerce/get_custoemer_booked_pooja';
 
+export const get_puja = 'api/ecommerce/get_puja';
+
 //! Blog
 export const get_astro_blogs = 'api/admin/get-astro-blogs-by-category';
 

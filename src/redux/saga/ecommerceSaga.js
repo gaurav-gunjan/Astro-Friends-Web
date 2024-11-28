@@ -1,7 +1,7 @@
-import { call, put, select, takeLeading } from 'redux-saga/effects'
+import { call, delay, put, select, takeLeading } from 'redux-saga/effects'
 import * as actionTypes from '../action-types'
 import { getAPI, postAPI, razorpayPayment } from '../../utils/api-function'
-import { add_to_cart, get_customer_cart, get_product_category, get_products, order_product, update_cart_item_quantity } from '../../utils/api-routes'
+import { add_to_cart, get_customer_cart, get_product_category, get_products, get_puja, order_product, update_cart_item_quantity } from '../../utils/api-routes'
 import { api_urls } from '../../utils/api-urls';
 import Swal from 'sweetalert2';
 
@@ -131,6 +131,24 @@ function* orderCart(action) {
     }
 }
 
+function* getPuja() {
+    try {
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: true })
+        yield delay(100);
+        const { data } = yield getAPI(get_puja);
+        console.log("Get Puja Saga Response ::: ", data);
+
+        if (data?.success) {
+            yield put({ type: actionTypes.SET_PUJA, payload: data?.pooja });
+        }
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+
+    } catch (error) {
+        console.log("Get Puja Saga Error ::: ", error);
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+    }
+};
+
 export default function* ecommerceSaga() {
     yield takeLeading(actionTypes.GET_PRODUCT_CATEGORY, getProductCategory);
     yield takeLeading(actionTypes.GET_PRODUCTS, getProductsData);
@@ -138,4 +156,6 @@ export default function* ecommerceSaga() {
     yield takeLeading(actionTypes.GET_CART_DATA, getCartData);
     yield takeLeading(actionTypes.UPDATE_CART_QUANTITY, updateCartQuantity);
     yield takeLeading(actionTypes.ORDER_CART, orderCart);
-}
+
+    yield takeLeading(actionTypes.GET_PUJA, getPuja);
+};
