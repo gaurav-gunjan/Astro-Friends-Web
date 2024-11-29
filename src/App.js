@@ -92,19 +92,8 @@ const App = () => {
     const current_user_id = localStorage.getItem('current_user_id');
 
     if (user_type == 'customer') {
-      dispatch(UserActions.getUserCustomerById({ customerId: current_user_id }))
-    }
+      dispatch(UserActions.getUserCustomerById({ customerId: current_user_id }));
 
-    if (user_type == 'astrologer') {
-      dispatch(UserActions.getUserAstrologerById({ astrologerId: current_user_id }))
-    }
-  }, []);
-
-  useEffect(() => {
-    const user_type = localStorage.getItem('user_type');
-    const current_user_id = localStorage.getItem('current_user_id');
-
-    if (user_type == 'astrologer') {
       const messagesRef = ref(database, `CurrentCall/${current_user_id}`);
       onValue(messagesRef, (snapshot) => {
         const data = snapshot.val();
@@ -115,7 +104,22 @@ const App = () => {
           dispatch(ChatActions.callIntakeDetailData({ visible: false, profileId: null }))
         }
       });
-    };
+    }
+
+    if (user_type == 'astrologer') {
+      dispatch(UserActions.getUserAstrologerById({ astrologerId: current_user_id }))
+    }
+
+    // const handleBeforeInstallPrompt = (e) => {
+    //   e.preventDefault();  // Prevent the install prompt from appearing
+    //   console.log("Install prompt suppressed!");
+    // };
+
+    // window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // return () => {
+    //   window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    // };
   }, []);
 
   //! Scrolling 

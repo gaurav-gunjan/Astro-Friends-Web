@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { CallSvg, ChatSvg, CrossSvg, HamburgerSvg, LogoutSvg, PersonSvg, ProfileSvg, SupportSvg, WalletOutlineSvg, WalletSvg } from '../../assets/svg';
+import { BagSvg, CallSvg, ChatSvg, CrossSvg, HamburgerSvg, LogoutSvg, PersonSvg, ProfileSvg, SupportSvg, TempleSvg, TransactionIndianSvg, WalletOutlineSvg, WalletSvg } from '../../assets/svg';
 import DownloadApp from '../cards/DownloadApp';
 import CustomerLoginModal from '../modal/CustomerLoginModal';
 import AstrologerLoginModal from '../modal/AstrologerLoginModal';
@@ -121,11 +121,11 @@ const Header = () => {
                         <Link to={'/'} ><img className='h-16 max-md:h-10' src={'https://astrofriends.in/public/storage/images/AdminLogo1712034903.png'} /></Link>
 
                         <nav className='flex items-center gap-5 max-lg:hidden'>
-                            <Link to={'/astrologer'} className='cursor-pointer bg-primary text-white flex items-center gap-1.5 px-5 py-2 shadow-lg rounded-full'>
+                            <Link to={'/astrologer'} onClick={() => setHamburger(false)} className='cursor-pointer bg-primary text-white flex items-center gap-1.5 px-5 py-2 shadow-lg rounded-full'>
                                 <CallSvg /> <div>Talk To Astrologer</div>
                             </Link>
 
-                            <Link to={'/astrologer'} className='cursor-pointer bg-primary text-white flex items-center gap-1.5 px-5 py-2 shadow-lg rounded-full'>
+                            <Link to={'/astrologer'} onClick={() => setHamburger(false)} className='cursor-pointer bg-primary text-white flex items-center gap-1.5 px-5 py-2 shadow-lg rounded-full'>
                                 <ChatSvg /> <div>Chat With Astrologer</div>
                             </Link>
 
@@ -141,7 +141,7 @@ const Header = () => {
                                             <div>XXXXXX{userAstrologerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
                                         </div>
                                         <div onClick={() => navigate('/astrologer-dashboard/my-account')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><PersonSvg /><div>My Account</div></div>
-                                        <div onClick={() => navigate('/astrologer-dashboard/transaction-history')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>Transaction History</div></div>
+                                        <div onClick={() => navigate('/astrologer-dashboard/transaction-history')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><TransactionIndianSvg h='20' w='20' /><div>Transaction History</div></div>
                                         <div onClick={() => navigate('/astrologer-dashboard/wallet-history')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>Wallet History</div></div>
                                         <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><LogoutSvg h='20' w='20' /><div>Logout</div></div>
                                     </div>
@@ -159,8 +159,8 @@ const Header = () => {
                                         </div>
                                         <div onClick={() => navigate('/my-account?active-tab=update-profile')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><PersonSvg /><div>My Account</div></div>
                                         <div onClick={() => navigate('/my-wallet')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>My Wallet</div></div>
-                                        <div onClick={() => navigate('/astro-mall')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>Astromall</div></div>
-                                        <div onClick={() => navigate('/book-puja')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>Book Puja</div></div>
+                                        <div onClick={() => navigate('/astro-mall')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><BagSvg h='20' w='20' /><div>Astromall</div></div>
+                                        <div onClick={() => navigate('/book-puja')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><TempleSvg h='18' w='18' /><div>Book Puja</div></div>
                                         <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><LogoutSvg h='20' w='20' /><div>Logout</div></div>
                                     </div>
                                 </div>

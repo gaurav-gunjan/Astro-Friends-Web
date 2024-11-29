@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { SwitchOffSvg, SwitchOnSvg, WalletSvg } from '../../../assets/svg';
@@ -7,11 +7,14 @@ import TopHeaderSection from '../../../components/common/TopHeaderSection';
 import * as UserActions from '../../../redux/actions/userAction';
 import { api_urls } from '../../../utils/api-urls';
 import moment from 'moment';
+import UserAstrologerWithdrawalRequest from '../../../components/modal/UserAstrologerWithdrawalRequest';
 
 const MyAccount = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { userAstrologerDataById } = useSelector(state => state?.userReducer);
+
+    const [withdrawalModelOpen, setWithdrawalModelOpen] = useState(false);
 
     return (
         <>
@@ -45,7 +48,7 @@ const MyAccount = () => {
                             <div className='flex items-center gap-3'><WalletSvg /> Total Earning : {IndianRupee(userAstrologerDataById?.wallet_balance)}</div>
                         </div>
 
-                        <div className='cursor-pointer bg-primary border border-primary hover:bg-orange-400 text-center text-sm rounded-md text-white font-light px-4 py-1.5 transition-all duration-500'>Withdraw</div>
+                        <div onClick={() => setWithdrawalModelOpen(true)} className='cursor-pointer bg-primary border border-primary hover:bg-orange-400 text-center text-sm rounded-md text-white font-light px-4 py-1.5 transition-all duration-500'>Withdraw</div>
                     </div>
                 </article>
             </section>
@@ -90,6 +93,10 @@ const MyAccount = () => {
                     </main>
                 </article>
             </section>
+
+
+            {/* UserAstrologerWithdrawalRequest */}
+            <UserAstrologerWithdrawalRequest isOpen={withdrawalModelOpen} handleClose={() => setWithdrawalModelOpen(false)} />
         </>
     )
 }

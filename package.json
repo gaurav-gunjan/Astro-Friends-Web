@@ -1,6 +1,7 @@
 {
   "name": "astro-friends-web",
   "version": "0.1.0",
+  "display": "browser",
   "private": true,
   "dependencies": {
     "@minchat/react-chat-ui": "^0.16.2",
