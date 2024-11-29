@@ -16,7 +16,7 @@ const PageBlock = () => {
             }, 1000);
         } else if (requestInitiatedByCustomer.timer === 0) {
             dispatch(ChatActions?.requestInitiatedByCustomer({ initiated: false, timer: 60 }));
-            toaster.info({ text: 'Chat declined by astrologer!!!' });
+            toaster.info({ text: 'Astrologer is busy, please try after sometimes!!!' });
             setTimeout(() => {
                 dispatch(AstrologerActions?.getAstrologer({ page: 1, search: '' }));
                 console.log("Get Astrologer")

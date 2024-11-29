@@ -138,7 +138,7 @@ const Header = () => {
                                 <div className='group  relative'>
                                     <div className='flex items-center gap-1 cursor-pointer'><ProfileSvg /> <div>{userCustomerDataById?.customerName}</div></div>
 
-                                    <div className='font-normal absolute overflow-hidden top-16 right-0 bg-white w-48 h-0 group-hover:h-[270px] transition-all duration-500 ease-in group-hover:border-b shadow-2xl'>
+                                    <div className='font-normal absolute overflow-hidden top-16 right-0 bg-white w-48 h-0 group-hover:h-[310px] transition-all duration-500 ease-in group-hover:border-b shadow-2xl'>
                                         <div className='flex flex-col items-center gap-3 py-5'>
                                             <ProfileSvg h='40' w='40' />
                                             <div>XXXXXX{userCustomerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>

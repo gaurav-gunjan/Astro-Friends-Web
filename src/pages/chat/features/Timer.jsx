@@ -46,7 +46,7 @@ const Timer = () => {
         <>
             <div className="flex items-center justify-around bg-primary shadow-xl px-4 py-2.5">
                 <div className="pr-10 border-r border-gray-400">
-                    {user_type == 'astrologer' ? <span onClick={() => navigate(`intake-details/${profileId}`)} className='bg-white rounded-md px-3 pt-[6px] pb-1 cursor-pointer'>Intake Form</span> : <span className="text-white font-medium">Rate: ₹ {localStorage?.getItem('Chat_price_during_chat')}/min</span>}
+                    {user_type == 'astrologer' ? <span onClick={() => window.open(`/chat/intake-details/${profileId}`)} className='bg-white rounded-md px-3 pt-[6px] pb-1 cursor-pointer'>Intake Form</span> : <span className="text-white font-medium">Rate: ₹ {localStorage?.getItem('Chat_price_during_chat')}/min</span>}
                 </div>
                 <div className="flex-1 flex items-center justify-between pl-10">
                     <span className="text-white font-medium">

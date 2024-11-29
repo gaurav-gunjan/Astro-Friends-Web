@@ -10,6 +10,7 @@ import { AttachmentBtnSvg, SendBtnSvg } from '../../assets/svg';
 import { generateRandomNumber } from '../../utils/common-function';
 import ChatImageModal from '../../components/modal/ChatImageModal';
 import SocketService from '../../utils/services/socket-service';
+import ChatBg from '../../assets/svg/chat-bg.svg';
 
 const Chat = () => {
     const location = useLocation();
@@ -168,29 +169,21 @@ const Chat = () => {
 
     const groupedMessages = groupMessagesByDate();
 
-    // // Todo : Emitting 'join-room' Event On Page Mount or Page Relaoding
     // useEffect(() => {
-    //     const local_chatId = localStorage.getItem('chatId');
-    //     console.log("Local chat id: ", local_chatId);
-    //     if (local_chatId) SocketService.emit('joinChatRoom', local_chatId);
-    //     else navigate('/');
-    // }, [socketConnectionStatus]);
+    //     const handleBeforeUnload = (event) => {
+    //         // Show a confirmation dialog to the user
+    //         event.preventDefault();
+    //         event.returnValue = ''; // Required for modern browsers
+    //     };
 
-    useEffect(() => {
-        const handleBeforeUnload = (event) => {
-            // Show a confirmation dialog to the user
-            event.preventDefault();
-            event.returnValue = ''; // Required for modern browsers
-        };
+    //     // Add the event listener
+    //     window.addEventListener('beforeunload', handleBeforeUnload);
 
-        // Add the event listener
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        // Clean up the event listener on component unmount
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, []);
+    //     // Clean up the event listener on component unmount
+    //     return () => {
+    //         window.removeEventListener('beforeunload', handleBeforeUnload);
+    //     };
+    // }, []);
 
     return (
         <>
@@ -246,9 +239,10 @@ const Chat = () => {
                 <div className="flex-1 flex flex-col max-md:h-[calc(100vh-70.5px)] h-[calc(100vh-94.5px)]">
                     <Timer requestedData={localRequestedData} />
 
-                    <div ref={chatContainerRef} className="flex-grow overflow-y-auto p-4 bg-gray-100">
+                    <div ref={chatContainerRef} className="flex-grow overflow-y-auto p-4 bg-gray-100" style={{ backgroundImage: `url(${ChatBg})` }}>
                         {Object.keys(groupedMessages).map((date, index) => (
                             <div key={index}>
+                                <div className='text-center text-green-600'>You are now connected!!!, Please start conversation.</div>
                                 <div className="text-center my-4 text-gray-500">{moment(date).format('MMMM Do, YYYY')}</div>
 
                                 {groupedMessages[date].map((message, index) => (
