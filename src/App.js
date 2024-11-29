@@ -195,7 +195,6 @@ const App = () => {
               <Route path='/astrologer-dashboard/my-account' element={<AstrologerMyAccount />} />
               <Route path='/astrologer-dashboard/transaction-history' element={<AstrologerTransactionHistory />} />
               <Route path='/astrologer-dashboard/wallet-history' element={<AstrologerWalletHistory />} />
-
             </Routes>
           </ScrollToTop>
         </Suspense>
