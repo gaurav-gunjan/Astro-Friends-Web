@@ -86,7 +86,7 @@ const AstrologerAcceptReject = () => {
         } else if (rejectChatByAstrologer.timer === 0) {
             setTimeout(() => {
                 dispatch(ChatActions?.rejectChatByAstrologer({ rejected: false, timer: 60 }));
-                toaster.info({ text: 'You have missed the chat request!!!' });
+                toaster.info({ text: 'You have missed the chat request!' });
                 handleAcceptRejectChat({ status: "Reject", requestedData });
             }, 1000);
         }

@@ -8,6 +8,7 @@ import CustomerLoginModal from '../modal/CustomerLoginModal';
 import AstrologerLoginModal from '../modal/AstrologerLoginModal';
 import * as AuthActions from '../../redux/actions/authAction';
 import { generateTokenByRequestPermission } from '../../config/firebase-config';
+import { api_urls } from '../../utils/api-urls';
 
 Modal.setAppElement('#root');
 
@@ -130,26 +131,40 @@ const Header = () => {
 
                             {!userCustomerDataById && !userAstrologerDataById && <div onClick={handleOpenLoginCustomerModal} className='flex items-center gap-1.5 cursor-pointer'><ProfileSvg /><div>Sign In</div></div>}
 
-                            {userAstrologerDataById && <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-1 cursor-pointer'>
-                                <ProfileSvg /> <div>{userAstrologerDataById?.astrologerName}</div>
-                            </div>}
+                            {userAstrologerDataById &&
+                                <div className='group relative'>
+                                    <div className='flex items-center gap-1 cursor-pointer'>{userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-9 w-9 rounded-full' /> : <ProfileSvg />} <div className='capitalize'>{userAstrologerDataById?.astrologerName}</div></div>
+
+                                    <div className='font-normal absolute overflow-hidden top-16 right-0 bg-white w-48 h-0 group-hover:h-[270px] transition-all duration-500 ease-in group-hover:border-b shadow-2xl'>
+                                        <div className='flex flex-col items-center gap-3 py-5'>
+                                            {userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-11 w-11 rounded-full' /> : <ProfileSvg h='40' w='40' />}
+                                            <div>XXXXXX{userAstrologerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
+                                        </div>
+                                        <div onClick={() => navigate('/astrologer-dashboard/my-account')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><PersonSvg /><div>My Account</div></div>
+                                        <div onClick={() => navigate('/astrologer-dashboard/transaction-history')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>Transaction History</div></div>
+                                        <div onClick={() => navigate('/astrologer-dashboard/wallet-history')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>Wallet History</div></div>
+                                        <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><LogoutSvg h='20' w='20' /><div>Logout</div></div>
+                                    </div>
+                                </div>
+                            }
 
                             {userCustomerDataById &&
                                 <div className='group  relative'>
-                                    <div className='flex items-center gap-1 cursor-pointer'><ProfileSvg /> <div>{userCustomerDataById?.customerName}</div></div>
+                                    <div className='flex items-center gap-1 cursor-pointer'>{userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-9 w-9 object-contain rounded-full' /> : <ProfileSvg />} <div className='capitalize'>{userCustomerDataById?.customerName}</div></div>
 
                                     <div className='font-normal absolute overflow-hidden top-16 right-0 bg-white w-48 h-0 group-hover:h-[310px] transition-all duration-500 ease-in group-hover:border-b shadow-2xl'>
                                         <div className='flex flex-col items-center gap-3 py-5'>
-                                            <ProfileSvg h='40' w='40' />
+                                            {userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-11 w-11 object-contain rounded-full' /> : <ProfileSvg h='40' w='40' />}
                                             <div>XXXXXX{userCustomerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
                                         </div>
-                                        <div onClick={() => navigate('/my-account')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><PersonSvg /><div>My Account</div></div>
+                                        <div onClick={() => navigate('/my-account?active-tab=update-profile')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><PersonSvg /><div>My Account</div></div>
                                         <div onClick={() => navigate('/my-wallet')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>My Wallet</div></div>
                                         <div onClick={() => navigate('/astro-mall')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>Astromall</div></div>
                                         <div onClick={() => navigate('/book-puja')} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><WalletOutlineSvg h='20' w='20' /><div>Book Puja</div></div>
                                         <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-3 cursor-pointer'><LogoutSvg h='20' w='20' /><div>Logout</div></div>
                                     </div>
-                                </div>}
+                                </div>
+                            }
 
                             {hamburger ? <div onClick={() => setHamburger(!hamburger)} className='cursor-pointer'><CrossSvg h='30' w='30' /></div> : <div onClick={() => setHamburger(!hamburger)} className='cursor-pointer'><HamburgerSvg h='30' w='30' /></div>}
 

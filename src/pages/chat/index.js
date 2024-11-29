@@ -242,7 +242,7 @@ const Chat = () => {
                     <div ref={chatContainerRef} className="flex-grow overflow-y-auto p-4 bg-gray-100" style={{ backgroundImage: `url(${ChatBg})` }}>
                         {Object.keys(groupedMessages).map((date, index) => (
                             <div key={index}>
-                                <div className='text-center text-green-600'>You are now connected!!!, Please start conversation.</div>
+                                <div className='text-center text-green-600'>You are now connected! Please start the conversation.</div>
                                 <div className="text-center my-4 text-gray-500">{moment(date).format('MMMM Do, YYYY')}</div>
 
                                 {groupedMessages[date].map((message, index) => (

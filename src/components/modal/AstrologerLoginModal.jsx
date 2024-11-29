@@ -28,7 +28,7 @@ const AstrologerLoginModal = ({ isOpen, handleCloseModal }) => {
             onComplete: () => {
                 handleCloseModal()
                 setAstroFieldDetail({ email: '', password: '' })
-                navigate('/')
+                navigate('/astrologer-dashboard/my-account')
             }
         }
         dispatch(AuthActions.astrologerLogin(payload));

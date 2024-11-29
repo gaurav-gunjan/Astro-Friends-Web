@@ -64,6 +64,12 @@ const BlogDetails = lazy(() => import('./pages/blog/blog-details'));
 const PrivacyPolicy = lazy(() => import('./pages/privacy-policy'));
 const TermsOfUse = lazy(() => import('./pages/terms-of-use'));
 
+//! Astrologer Dashboard
+const AstrologerMyAccount = lazy(() => import('./pages/astrologer-dashboard/my-account'));
+const AstrologerTransactionHistory = lazy(() => import('./pages/astrologer-dashboard/transaction-history'));
+const AstrologerWalletHistory = lazy(() => import('./pages/astrologer-dashboard/wallet-history'));
+
+
 const App = () => {
   const { requestInitiatedByCustomer } = useSelector(state => state?.chatReducer);
 
@@ -145,7 +151,6 @@ const App = () => {
               <Route path='/book-puja/:name' element={<PujaDetails />} />
 
               {/* Chat */}
-              {/* {localStorage.getItem('user_type') == 'customer' && <Route path='/astrologer' element={<Astrologer />} />} */}
               <Route path='/astrologer' element={<Astrologer />} />
               <Route path='/astrologer/:name' element={<SingleAstrologer />} />
               <Route path='/chat/customer-accept-reject' element={<CustomerAcceptReject />} />
@@ -154,7 +159,6 @@ const App = () => {
               <Route path='/chat/intake-details/:profileId' element={<IntakeDetails />} />
 
               {/* Free Kundli */}
-              {/* localStorage.getItem('user_type') == 'customer' &&  */}
               <Route path='/free-kundli' element={<FreeKundli />} />
               <Route path='/free-kundli/:kundliId' element={<KundliId />} />
 
@@ -186,6 +190,11 @@ const App = () => {
               {/* Pages */}
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-use" element={<TermsOfUse />} />
+
+              {/* Astrologer Dashboard */}
+              <Route path='/astrologer-dashboard/my-account' element={<AstrologerMyAccount />} />
+              <Route path='/astrologer-dashboard/transaction-history' element={<AstrologerTransactionHistory />} />
+              <Route path='/astrologer-dashboard/wallet-history' element={<AstrologerWalletHistory />} />
 
             </Routes>
           </ScrollToTop>
