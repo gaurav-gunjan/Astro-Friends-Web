@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
+import { useDispatch, useSelector } from 'react-redux';
+import * as UserActions from '../../../redux/actions/userAction';
+import moment from 'moment/moment';
 
 const WalletHistory = () => {
+    const dispatch = useDispatch();
+    const { userAstrologerDataById, userAstrologerTransationHistoryData } = useSelector(state => state?.userReducer);
+
+    useEffect(() => {
+        userAstrologerDataById && dispatch(UserActions?.getUserAstrologerTransationHistory());
+    }, [userAstrologerDataById]);
+
     return (
         <>
             <TopHeaderSection title={'Wallet History'} />
@@ -23,11 +33,11 @@ const WalletHistory = () => {
                                     </tr>
                                 </thead>
                                 <tbody className='text-gray-800'>
-                                    {Array(10)?.fill('')?.map((value, index) => (
+                                    {userAstrologerTransationHistoryData && userAstrologerTransationHistoryData?.map((value, index) => (
                                         <tr key={index} className={`text-sm`}>
-                                            <td className="w-[200px] bg-[#F6F6F6] text-center p-[8px_10px] box-border text-[14px] outline-none">Test</td>
-                                            <td className="w-[200px] bg-[#F6F6F6] text-center p-[8px_10px] box-border text-[14px] outline-none">Test</td>
-                                            <td className="w-[200px] bg-[#F6F6F6] text-center p-[8px_10px] box-border text-[14px] outline-none">Test</td>
+                                            <td className="w-[200px] bg-[#F6F6F6] text-center p-[8px_10px] box-border text-[14px] outline-none">{value?.amount}</td>
+                                            <td className="w-[200px] bg-[#F6F6F6] text-center p-[8px_10px] box-border text-[14px] outline-none">{moment(value?.createdAt)?.format("DD-MMM-YYYY")}</td>
+                                            <td className="w-[200px] bg-[#F6F6F6] text-center p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.status}</td>
                                         </tr>
                                     ))}
                                 </tbody>

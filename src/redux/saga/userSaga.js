@@ -1,8 +1,8 @@
 import Swal from 'sweetalert2';
 import * as actionTypes from "../action-types";
-import { put, select, takeLeading } from 'redux-saga/effects';
+import { call, put, select, takeLeading } from 'redux-saga/effects';
 import { postAPI } from '../../utils/api-function';
-import { change_user_astrologer_call_status, change_user_astrologer_chat_status, change_user_astrologer_video_call_status, get_user_astrologer_by_id, get_user_customer_by_id } from '../../utils/api-routes';
+import { change_user_astrologer_call_status, change_user_astrologer_chat_status, change_user_astrologer_video_call_status, get_user_astrologer_by_id, get_user_astrologer_transaction_history, get_user_customer_by_id, user_astrologer_withdrawal_request } from '../../utils/api-routes';
 import { Color } from '../../assets/colors';
 import { toaster } from '../../utils/services/toast-service';
 
@@ -128,6 +128,43 @@ function* changeUserAstrologerVideoCallStatus(action) {
     }
 };
 
+function* userAstrologerWithdrawalRequest(action) {
+    try {
+        const { payload } = action;
+        console.log("Payload ::: ", payload);
+
+        const { data } = yield postAPI(user_astrologer_withdrawal_request, payload?.data);
+        console.log("User Astrologer Withdrawal Request Saga Response ::: ", data);
+
+        if (data?.success) {
+            toaster?.success({ text: 'Withdrawal request has been sent' });
+        }
+        yield call(payload?.onComplete);
+
+    } catch (error) {
+        toaster?.error({ text: 'Failed to send withdrawal request!' });
+        console.log("User Astrologer Withdrawal Request Saga Error ::: ", error?.response?.data);
+    }
+};
+
+function* getUserAstrologerTransationHistory() {
+    try {
+        const userAstrologer = yield select(state => state?.userReducer?.userAstrologerDataById);
+
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
+        const { data } = yield postAPI(get_user_astrologer_transaction_history, { astrologerId: userAstrologer?._id });
+        console.log("Get User Astrologer Transaction History Saga Response ::: ", data);
+
+        if (data?.success) {
+            yield put({ type: actionTypes.SET_USER_ASTROLOGER_TRANSACTION_HISTORY, payload: data?.results?.reverse() });
+        }
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+
+    } catch (error) {
+        console.log("Get User Astrologer Transaction History Saga Error ::: ", error?.response?.data);
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+    }
+};
 
 export default function* userSaga() {
     yield takeLeading(actionTypes?.GET_USER_CUSTOMER_BY_ID, getUserCustomerById);
@@ -136,4 +173,7 @@ export default function* userSaga() {
     yield takeLeading(actionTypes?.CHANGE_USER_ASTROLOGER_CHAT_STATUS, changeUserAstrologerChatStatus);
     yield takeLeading(actionTypes?.CHANGE_USER_ASTROLOGER_CALL_STATUS, changeUserAstrologerCallStatus);
     yield takeLeading(actionTypes?.CHANGE_USER_ASTROLOGER_VIDEO_CALL_STATUS, changeUserAstrologerVideoCallStatus);
+    yield takeLeading(actionTypes?.USER_ASTROLOGER_WITHDRAWAL_REQUEST, userAstrologerWithdrawalRequest);
+    yield takeLeading(actionTypes?.GET_USER_ASTROLOGER_TRANSACTION_HISTORY, getUserAstrologerTransationHistory);
+    yield takeLeading(actionTypes?.GET_USER_ASTROLOGER_TRANSACTION_HISTORY, getUserAstrologerTransationHistory);
 }

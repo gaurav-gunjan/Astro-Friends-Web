@@ -29,3 +29,15 @@ export const changeUserAstrologerCallStatus = payload => ({
 export const changeUserAstrologerVideoCallStatus = payload => ({
     type: actionTypes.CHANGE_USER_ASTROLOGER_VIDEO_CALL_STATUS, payload
 });
+
+export const userAstrologerWithdrawalRequest = payload => ({
+    type: actionTypes.USER_ASTROLOGER_WITHDRAWAL_REQUEST, payload
+});
+
+export const getUserAstrologerTransationHistory = payload => ({
+    type: actionTypes.GET_USER_ASTROLOGER_TRANSACTION_HISTORY, payload
+});
+
+export const setUserAstrologerTransationHistory = payload => ({
+    type: actionTypes.SET_USER_ASTROLOGER_TRANSACTION_HISTORY, payload
+});

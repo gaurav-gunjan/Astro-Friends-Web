@@ -17,6 +17,8 @@ export const get_user_astrologer_by_id = 'api/astrologer/get-astrologer-details'
 export const change_user_astrologer_chat_status = 'api/astrologer/change-chat-status';
 export const change_user_astrologer_call_status = 'api/astrologer/change-call-status';
 export const change_user_astrologer_video_call_status = 'api/admin/change_videocall_status';
+export const user_astrologer_withdrawal_request = 'api/astrologer/withdraw_request';
+export const get_user_astrologer_transaction_history = 'api/admin/astrologer_transaction_histroy';
 
 //! Astrologer
 export const get_astrologer = 'api/astrologer/get_chat_astrologer';

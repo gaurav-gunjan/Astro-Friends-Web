@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import * as ChatActions from '../../redux/actions/chatAction';
 import { api_urls } from '../../utils/api-urls';
+import { CrossSvg } from '../../assets/svg';
 
 Modal.setAppElement('#root');
 
@@ -45,9 +46,9 @@ const RatingModal = () => {
     return (
         <Modal isOpen={astrologerRatingVisibility?.ratingVisible} className="modal-content-small" overlayClassName="modal-overlay-small" closeTimeoutMS={200}>
             <div className='p-5 flex flex-col gap-5'>
-                <div className='flex justify-between items-center'>
-                    <div>Ratings</div>
-                    <div onClick={handleCloseRating} className='bg-red-600 text-white px-4 py-1 rounded-md cursor-pointer'>Close</div>
+                <div className='flex justify-between items-center gap-40'>
+                    <div className='text-lg font-bold'>Ratings</div>
+                    <div onClick={handleCloseRating} className='bg-red-600 text-white w-7 h-7 flex items-center justify-center rounded-full cursor-pointer'><CrossSvg h='17' w='17' /></div>
                 </div>
 
                 <ReactStars count={5} value={star} onChange={ratingChanged} size={24} color2={'#ffd700'} />
