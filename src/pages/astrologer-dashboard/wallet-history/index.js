@@ -6,10 +6,10 @@ import moment from 'moment/moment';
 
 const WalletHistory = () => {
     const dispatch = useDispatch();
-    const { userAstrologerDataById, userAstrologerTransationHistoryData } = useSelector(state => state?.userReducer);
+    const { userAstrologerDataById, userAstrologerWalletHistoryData } = useSelector(state => state?.userReducer);
 
     useEffect(() => {
-        userAstrologerDataById && dispatch(UserActions?.getUserAstrologerTransationHistory());
+        userAstrologerDataById && dispatch(UserActions?.getUserAstrologerWalletHistory());
     }, [userAstrologerDataById]);
 
     return (
@@ -33,7 +33,7 @@ const WalletHistory = () => {
                                     </tr>
                                 </thead>
                                 <tbody className='text-gray-800'>
-                                    {userAstrologerTransationHistoryData && userAstrologerTransationHistoryData?.map((value, index) => (
+                                    {userAstrologerWalletHistoryData && userAstrologerWalletHistoryData?.map((value, index) => (
                                         <tr key={index} className={`text-sm`}>
                                             <td className="w-[200px] bg-[#F6F6F6] text-center p-[8px_10px] box-border text-[14px] outline-none">{value?.amount}</td>
                                             <td className="w-[200px] bg-[#F6F6F6] text-center p-[8px_10px] box-border text-[14px] outline-none">{moment(value?.createdAt)?.format("DD-MMM-YYYY")}</td>

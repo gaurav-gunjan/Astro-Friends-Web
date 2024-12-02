@@ -3,7 +3,8 @@ import * as actionTypes from "../action-types";
 const initialState = {
     userCustomerDataById: null,
     userAstrologerDataById: null,
-    userAstrologerTransationHistoryData: []
+    userAstrologerWalletHistoryData: [],
+    userAstrologerTransactionHistoryData: [],
 };
 
 const userReducer = (state = initialState, actions) => {
@@ -16,12 +17,14 @@ const userReducer = (state = initialState, actions) => {
         case actionTypes.SET_USER_ASTROLOGER_BY_ID:
             return { ...state, userAstrologerDataById: payload };
 
-        case actionTypes.SET_USER_ASTROLOGER_TRANSACTION_HISTORY:
-            return { ...state, userAstrologerTransationHistoryData: payload };
+        case actionTypes.SET_USER_ASTROLOGER_WALLET_HISTORY:
+            return { ...state, userAstrologerWalletHistoryData: payload };
 
-        default: {
+        case actionTypes.SET_USER_ASTROLOGER_TRANSACTION_HISTORY:
+            return { ...state, userAstrologerTransactionHistoryData: payload };
+
+        default:
             return state;
-        }
     }
 };
 

@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import * as actionTypes from "../action-types";
 import { call, put, select, takeLeading } from 'redux-saga/effects';
 import { postAPI } from '../../utils/api-function';
-import { change_user_astrologer_call_status, change_user_astrologer_chat_status, change_user_astrologer_video_call_status, get_user_astrologer_by_id, get_user_astrologer_transaction_history, get_user_customer_by_id, user_astrologer_withdrawal_request } from '../../utils/api-routes';
+import { change_user_astrologer_call_status, change_user_astrologer_chat_status, change_user_astrologer_video_call_status, get_user_astrologer_by_id, get_user_astrologer_transaction_history, get_user_astrologer_wallet_history, get_user_customer_by_id, user_astrologer_withdrawal_request } from '../../utils/api-routes';
 import { Color } from '../../assets/colors';
 import { toaster } from '../../utils/services/toast-service';
 
@@ -147,7 +147,26 @@ function* userAstrologerWithdrawalRequest(action) {
     }
 };
 
-function* getUserAstrologerTransationHistory() {
+function* getUserAstrologerWalletHistory() {
+    try {
+        const userAstrologer = yield select(state => state?.userReducer?.userAstrologerDataById);
+
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
+        const { data } = yield postAPI(get_user_astrologer_wallet_history, { astrologerId: userAstrologer?._id });
+        console.log("Get User Astrologer Wallet History Saga Response ::: ", data);
+
+        if (data?.success) {
+            yield put({ type: actionTypes.SET_USER_ASTROLOGER_WALLET_HISTORY, payload: data?.results?.reverse() });
+        }
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+
+    } catch (error) {
+        console.log("Get User Astrologer Wallet History Saga Error ::: ", error?.response?.data);
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+    }
+};
+
+function* getUserAstrologerTransactionHistory() {
     try {
         const userAstrologer = yield select(state => state?.userReducer?.userAstrologerDataById);
 
@@ -156,7 +175,7 @@ function* getUserAstrologerTransationHistory() {
         console.log("Get User Astrologer Transaction History Saga Response ::: ", data);
 
         if (data?.success) {
-            yield put({ type: actionTypes.SET_USER_ASTROLOGER_TRANSACTION_HISTORY, payload: data?.results?.reverse() });
+            yield put({ type: actionTypes.SET_USER_ASTROLOGER_TRANSACTION_HISTORY, payload: data?.data?.reverse() });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
 
@@ -174,6 +193,6 @@ export default function* userSaga() {
     yield takeLeading(actionTypes?.CHANGE_USER_ASTROLOGER_CALL_STATUS, changeUserAstrologerCallStatus);
     yield takeLeading(actionTypes?.CHANGE_USER_ASTROLOGER_VIDEO_CALL_STATUS, changeUserAstrologerVideoCallStatus);
     yield takeLeading(actionTypes?.USER_ASTROLOGER_WITHDRAWAL_REQUEST, userAstrologerWithdrawalRequest);
-    yield takeLeading(actionTypes?.GET_USER_ASTROLOGER_TRANSACTION_HISTORY, getUserAstrologerTransationHistory);
-    yield takeLeading(actionTypes?.GET_USER_ASTROLOGER_TRANSACTION_HISTORY, getUserAstrologerTransationHistory);
-}
+    yield takeLeading(actionTypes?.GET_USER_ASTROLOGER_WALLET_HISTORY, getUserAstrologerWalletHistory);
+    yield takeLeading(actionTypes?.GET_USER_ASTROLOGER_TRANSACTION_HISTORY, getUserAstrologerTransactionHistory);
+};

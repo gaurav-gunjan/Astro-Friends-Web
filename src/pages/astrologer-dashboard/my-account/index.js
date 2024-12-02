@@ -1,13 +1,13 @@
+import moment from 'moment';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { SwitchOffSvg, SwitchOnSvg, WalletSvg } from '../../../assets/svg';
-import { IndianRupee } from '../../../utils/common-function';
-import TopHeaderSection from '../../../components/common/TopHeaderSection';
-import * as UserActions from '../../../redux/actions/userAction';
 import { api_urls } from '../../../utils/api-urls';
-import moment from 'moment';
+import { IndianRupee } from '../../../utils/common-function';
+import { SwitchOffSvg, SwitchOnSvg, WalletSvg } from '../../../assets/svg';
+import TopHeaderSection from '../../../components/common/TopHeaderSection';
 import UserAstrologerWithdrawalRequest from '../../../components/modal/UserAstrologerWithdrawalRequest';
+import * as UserActions from '../../../redux/actions/userAction';
 
 const MyAccount = () => {
     const navigate = useNavigate();

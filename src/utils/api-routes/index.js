@@ -18,7 +18,8 @@ export const change_user_astrologer_chat_status = 'api/astrologer/change-chat-st
 export const change_user_astrologer_call_status = 'api/astrologer/change-call-status';
 export const change_user_astrologer_video_call_status = 'api/admin/change_videocall_status';
 export const user_astrologer_withdrawal_request = 'api/astrologer/withdraw_request';
-export const get_user_astrologer_transaction_history = 'api/admin/astrologer_transaction_histroy';
+export const get_user_astrologer_wallet_history = 'api/admin/astrologer_transaction_histroy';
+export const get_user_astrologer_transaction_history = 'api/astrologer/astrologer_service_transaction_history_by_id';
 
 //! Astrologer
 export const get_astrologer = 'api/astrologer/get_chat_astrologer';

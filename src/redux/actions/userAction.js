@@ -34,10 +34,18 @@ export const userAstrologerWithdrawalRequest = payload => ({
     type: actionTypes.USER_ASTROLOGER_WITHDRAWAL_REQUEST, payload
 });
 
-export const getUserAstrologerTransationHistory = payload => ({
+export const getUserAstrologerWalletHistory = payload => ({
+    type: actionTypes.GET_USER_ASTROLOGER_WALLET_HISTORY, payload
+});
+
+export const setUserAstrologerWalletHistory = payload => ({
+    type: actionTypes.SET_USER_ASTROLOGER_WALLET_HISTORY, payload
+});
+
+export const getUserAstrologerTransactionHistory = payload => ({
     type: actionTypes.GET_USER_ASTROLOGER_TRANSACTION_HISTORY, payload
 });
 
-export const setUserAstrologerTransationHistory = payload => ({
+export const setUserAstrologerTransactionHistory = payload => ({
     type: actionTypes.SET_USER_ASTROLOGER_TRANSACTION_HISTORY, payload
 });
